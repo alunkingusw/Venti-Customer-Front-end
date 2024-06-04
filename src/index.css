@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {}
+
+.button {
+    display: inline-block;
+    border-radius: 0.5rem;
+    background-color: #d31d1d;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+    transition: background-color 10s ease;
+}
+
+.button:hover {
+    background: radial-gradient(circle, rgba(196, 13, 42, 1) 0%, rgba(184, 41, 8, 1) 35%, rgba(255, 190, 0, 1) 100%);
+}
+
+.a{
+    
+}
