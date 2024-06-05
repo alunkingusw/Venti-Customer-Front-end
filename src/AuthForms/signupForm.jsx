@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from '@remixicon/react';
+import EndPoints from "../Api/baseUrl/endPoints";
 
 const SignupForm = () => {
   const { register, handleSubmit, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors }, watch } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -18,7 +20,17 @@ const SignupForm = () => {
   }
 
   const onSubmit = async (values) => {
-    console.log(values);
+    try {
+      setLoading(true)
+      const { data } = await EndPoints.Auth.register(values)
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setTimeout(() => {
+        setLoading(false)
+      }, 5000)
+    }
   }
 
   return (
@@ -55,13 +67,13 @@ const SignupForm = () => {
           </div>
 
           <div>
-            <label htmlFor="phone_number" className="sr-only">Phone Number</label>
+            <label htmlFor="phoneNumber" className="sr-only">Phone Number</label>
             <div className="relative">
               <input
                 type="tel"
                 className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Enter phone number"
-                {...register('phone_number',
+                {...register('phoneNumber',
                   {
                     required: true,
                     minLength: 10
@@ -103,13 +115,13 @@ const SignupForm = () => {
               </button>
             </div>
             {errors.password && errors.password.type === "required" && (
-                <span className="text-sm text-red-700">Password is required.</span>
-              )}
-              {errors.password && errors.password.type === "minLength" && (
-                <span className="text-sm text-red-700">
-                  Password should be at-least 8 characters.
-                </span>
-              )}
+              <span className="text-sm text-red-700">Password is required.</span>
+            )}
+            {errors.password && errors.password.type === "minLength" && (
+              <span className="text-sm text-red-700">
+                Password should be at-least 8 characters.
+              </span>
+            )}
           </div>
 
           <div>
@@ -138,14 +150,20 @@ const SignupForm = () => {
             </div>
             {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>}
           </div>
-
-          <button
-            type="submit"
-            className="button inline-block w-full px-5 py-3"
-          >
-            Sign up
-          </button>
-
+          {!loading ? (
+            <button
+              type="submit"
+              className="button inline-block w-full px-5 py-3"
+            >
+              Sign up
+            </button>
+          ) : (
+            <button className='button w-full'>
+              <div className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-gray-400 rounded-full" role="status" aria-label="loading">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </button>
+          )}
           <p className="text-center text-sm text-gray-500">
             Already have an account?
             <Link to='/signin' className="underline">Sign In</Link>

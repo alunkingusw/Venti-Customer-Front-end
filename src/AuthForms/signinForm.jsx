@@ -1,26 +1,32 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from '@remixicon/react';
 import EndPoints from '../Api/baseUrl/endPoints';
 
 const SigninForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false)
   const { register, handleSubmit, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors }, watch } = useForm();
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   }
 
   const onSubmit = async (values) => {
-    try{
-      const {data} = await EndPoints.Auth.login(values)
+    try {
+      setLoading(true)
+      const { data } = await EndPoints.Auth.login(values)
       console.log(data)
       // navigate('/verification')
-    }catch(error){
+    } catch (error) {
       console.log(error)
+    } finally {
+      setTimeout(() => {
+        setLoading(false)
+      }, 5000)
     }
   }
 
@@ -41,22 +47,26 @@ const SigninForm = () => {
             <label htmlFor="email" className="sr-only">Email/Phone number</label>
             <div className="relative">
               <input
-                type="email"
+                type="text"
                 className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Enter email or phone number"
-                {...register("text", {
-                  required: true,
+                {...register("emailOrPhone", {
+                  required: true
                   // pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
                 })}
               />
-              {errors.email && errors.email.type === "required" && (
+            </div>
+            {errors.emailOrPhone && errors.emailOrPhone.type === "required" && (
                 <span className="text-sm text-red-700">Email or Phone is required.</span>
               )}
-              {/* {errors.email && errors.email.type === "pattern" && (
-                <span className="text-sm text-red-700">Email is not valid.</span>
-              )} */}
-            </div>
           </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-start">
+            </div>
+            <Link to="/forgot-password-email" className="text-md font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</Link>
+          </div>
+
           <div>
             <label htmlFor="password" className="sr-only">Password</label>
             <div className="relative">
@@ -80,7 +90,8 @@ const SigninForm = () => {
                   <RiEyeFill className="text-gray-400" />
                 )}
               </button>
-              {errors.password && errors.password.type === "required" && (
+            </div>
+            {errors.password && errors.password.type === "required" && (
                 <span className="text-sm text-red-700">Password is required.</span>
               )}
               {errors.password && errors.password.type === "minLength" && (
@@ -88,16 +99,22 @@ const SigninForm = () => {
                   Password should be at-least 6 characters.
                 </span>
               )}
-            </div>
           </div>
 
-          <button
-            type="submit"
-            className="button w-full px-5 py-3"
-          >
-            Sign in
-          </button>
-
+          {!loading ? (
+            <button
+              type="submit"
+              className="button w-full px-5 py-3"
+            >
+              Sign in
+            </button>
+          ) : (
+            <button className='button w-full'>
+              <div className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-gray-400 rounded-full" role="status" aria-label="loading">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </button>
+          )}
           <p className="text-center text-sm text-gray-500">
             No account?
             <Link to='/signup' className="underline">Sign up</Link>

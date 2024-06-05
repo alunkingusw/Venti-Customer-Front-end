@@ -2,11 +2,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import EndPoints from '../Api/baseUrl/endPoints';
 
 const OtpForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   
   const onSubmit = async (values) => {
+    try{
+      const {data} = await EndPoints.Auth.verify_otp(values)
+    }catch(error){
+      console.log(error)
+    }
     console.log(values);
   }
 
@@ -22,14 +28,14 @@ const OtpForm = () => {
           <p className="text-center text-lg font-medium">OTP code has been sent to ek******.com</p>
 
           <div>
-            <label htmlFor="code" className="sr-only">Verification Code</label>
+            <label htmlFor="otp" className="sr-only">Verification Code</label>
             <div className="relative">
               <input
                 type="text"
                 maxLength={6}
                 className="w-full items-center rounded-lg border border-gray-200 p-4 pe-12 text-md shadow-sm"
                 placeholder="Enter code here"
-                {...register("code", {
+                {...register("otp", {
                   required: "Code is required.",
                   pattern: {
                     value: /^[0-9]{6}$/,
