@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from '@remixicon/react';
 import EndPoints from "../Api/baseUrl/endPoints";
+import { Success, Error } from "../components/toasts";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
-  const { register, handleSubmit, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors }, watch } = useForm();
+  const { register, handleSubmit, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors }, watch, reset } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -18,18 +21,17 @@ const SignupForm = () => {
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   }
-
   const onSubmit = async (values) => {
     try {
       setLoading(true)
       const { data } = await EndPoints.Auth.register(values)
-      console.log(data)
+      Success(data.message);
+      reset();
+      navigate('/verification');
     } catch (error) {
-      console.log(error)
+      Error(error.response.data.message)
     } finally {
-      setTimeout(() => {
-        setLoading(false)
-      }, 5000)
+      setLoading(false)
     }
   }
 
@@ -79,10 +81,10 @@ const SignupForm = () => {
                     minLength: 10
                   })}
               />
-              {errors.phone_number && errors.phone_number.type === "required" && (
+              {errors.phoneNumber && errors.phoneNumber.type === "required" && (
                 <span className="text-sm text-red-700">Phone number is required.</span>
               )}
-              {errors.phone_number && errors.phone_number.type === "minLength" && (
+              {errors.phoneNumber && errors.phoneNumber.type === "minLength" && (
                 <span className="text-sm text-red-700">
                   Phone number should be at-least 10 characters.
                 </span>

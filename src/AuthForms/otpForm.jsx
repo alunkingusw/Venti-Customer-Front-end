@@ -10,6 +10,7 @@ const OtpForm = () => {
   const onSubmit = async (values) => {
     try{
       const {data} = await EndPoints.Auth.verify_otp(values)
+      console.log(data.message)
     }catch(error){
       console.log(error)
     }
