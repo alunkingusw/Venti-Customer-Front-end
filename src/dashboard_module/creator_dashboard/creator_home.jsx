@@ -82,7 +82,7 @@ const Creator_home = () => {
                                 <img className="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" />
                             </div>
                             <div className="ml-3">
-                                <p className="font-medium">Diana Reeves</p>
+                                <p className="font-medium">Studios Kanga</p>
                                 <p className="text-sm text-gray-300">Kyiv, Ukraine</p>
                             </div>
                         </div>
