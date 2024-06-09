@@ -3,9 +3,6 @@ import secureLocalStorage from "react-secure-storage";
 export function setUserDetails(user) {
   secureLocalStorage.setItem("user", JSON.stringify(user));
 }
-export function setXpermissions(permissions) {
-  secureLocalStorage.setItem("permissions", JSON.stringify(permissions));
-}
 
 export function getXpermissions() {
   return JSON.parse(secureLocalStorage.getItem("permissions"));

@@ -1,20 +1,58 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import EndPoints from '../Api/baseUrl/endPoints';
+import { Success, Error } from '../components/toasts';
+import {useAuth} from '../providers/AuthProvider';
+import { setToken } from '../utils/helpers';
+
 
 const OtpForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  
-  const onSubmit = async (values) => {
-    try{
-      const {data} = await EndPoints.Auth.verify_otp(values)
-      console.log(data.message)
-    }catch(error){
-      console.log(error)
+  const [emailUser, setEmailUser] = useState('');
+  const [maskedEmail, setMaskedEmail] = useState('');
+  const navigate = useNavigate();
+  // const { setUser } = useAuth();
+
+  function maskEmail() {
+    const email = localStorage.getItem('email')
+    if (email === null) {
+      navigate('/signup')
+    } else {
+      let hide = email.split("@")[0].length - 2;
+      var r = new RegExp(".{" + hide + "}@", "g")
+      let data = email.replace(r, "***@");
+      setMaskedEmail(data)
+      setEmailUser(email)
     }
-    console.log(values);
+  }
+  useEffect(() => {
+    maskEmail();
+  })
+
+  const onSubmit = async (values) => {
+    const formatData = {
+      email: emailUser,
+      otp: values.otp,
+    }
+    try {
+      const { data } = await EndPoints.Auth.verify_otp(formatData)
+      if (data.status !== 200) { throw Error('An Error occurred!') }
+      Success(data.message);
+      setToken(data.access_token);
+      // setUser(data);
+      navigate('/');
+    } catch (error) {
+      Error(error.response.data.message)
+    }
+  }
+  const ResendOTP = async (email) => {
+    // const myMail = {
+    //   email:email,
+    // }
+    const { data } = await EndPoints.Auth.resend_otp({ email })
+    Success(data.message)
   }
 
   return (
@@ -26,7 +64,7 @@ const OtpForm = () => {
           inventore quaerat mollitia?
         </p>
         <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-          <p className="text-center text-lg font-medium">OTP code has been sent to ek******.com</p>
+          <p className="text-center text-lg font-medium">OTP code has been sent to <span>{maskedEmail}</span></p>
 
           <div>
             <label htmlFor="otp" className="sr-only">Verification Code</label>
@@ -40,11 +78,11 @@ const OtpForm = () => {
                   required: "Code is required.",
                   pattern: {
                     value: /^[0-9]{6}$/,
-                    message: "Code must be exactly 6 digits."
+                    message: "Code must be exactly 6 digits only."
                   }
                 })}
               />
-              {errors.code && <span className="text-sm text-red-700">{errors.code.message}</span>}
+              {errors.otp && <span className="text-sm text-red-700">{errors.otp.message}</span>}
             </div>
           </div>
           <button
@@ -55,7 +93,7 @@ const OtpForm = () => {
           </button>
           <p className="text-center text-sm text-gray-500">
             Did not get code?
-            <Link to='#' className="underline">Resend</Link>
+            <Link onClick={() => ResendOTP(emailUser)} className="underline">Resend</Link>
           </p>
         </form>
       </div>

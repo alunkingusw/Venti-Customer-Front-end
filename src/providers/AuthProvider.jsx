@@ -1,6 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable react/prop-types */
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext,useContext, useState, useEffect } from "react";
 import { getUserDetails, setUserDetails } from "../utils/helpers";
 
 const AuthContext = createContext();
@@ -15,6 +13,8 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     setUserDetails(user);
   }, [user]);
+
+  console.log('AuthProvider rendered, user:', user);
 
   return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
 }

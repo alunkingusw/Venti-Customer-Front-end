@@ -27,6 +27,7 @@ const SignupForm = () => {
       const { data } = await EndPoints.Auth.register(values)
       Success(data.message);
       reset();
+      localStorage.setItem('email', values.email);
       navigate('/verification');
     } catch (error) {
       Error(error.response.data.message)

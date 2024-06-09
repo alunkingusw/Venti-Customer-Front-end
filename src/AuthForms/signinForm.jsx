@@ -4,12 +4,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from '@remixicon/react';
 import EndPoints from '../Api/baseUrl/endPoints';
+import {Success, Error} from '../components/toasts';
+import { setToken, setUserDetails } from '../utils/helpers';
+import { useAuth } from '../providers/AuthProvider'
 
 const SigninForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors }, watch } = useForm();
   const navigate = useNavigate();
+  // const { setUser } = useAuth();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -18,15 +22,19 @@ const SigninForm = () => {
   const onSubmit = async (values) => {
     try {
       setLoading(true)
-      const { data } = await EndPoints.Auth.login(values)
-      console.log(data)
-      // navigate('/verification')
+      const { data } = await EndPoints.Auth.login(values);
+      console.log(data.status)
+      if (data.status !=200){throw Error('An Error occured!')}
+        else{
+          Success(data.message);
+          setToken(data.token);
+          setUserDetails(data);
+          navigate('/')
+        }
     } catch (error) {
-      console.log(error)
+      Error(error.response.data.message)
     } finally {
-      setTimeout(() => {
         setLoading(false)
-      }, 5000)
     }
   }
 
