@@ -6,6 +6,7 @@ import EndPoints from '../Api/baseUrl/endPoints';
 import { Success, Error } from '../components/toasts';
 import {useAuth} from '../providers/AuthProvider';
 import { setToken } from '../utils/helpers';
+import { setUserDetails } from '../utils/helpers';
 
 
 const OtpForm = () => {
@@ -38,19 +39,16 @@ const OtpForm = () => {
     }
     try {
       const { data } = await EndPoints.Auth.verify_otp(formatData)
-      if (data.status !== 200) { throw Error('An Error occurred!') }
+      if (data.status != 200) { throw Error('An Error occurred!') }
       Success(data.message);
-      setToken(data.access_token);
-      // setUser(data);
+      setToken(data.token);
+      setUserDetails(data);
       navigate('/');
     } catch (error) {
       Error(error.response.data.message)
     }
   }
   const ResendOTP = async (email) => {
-    // const myMail = {
-    //   email:email,
-    // }
     const { data } = await EndPoints.Auth.resend_otp({ email })
     Success(data.message)
   }

@@ -25,7 +25,7 @@ instance.interceptors.response.use(
     if (status === 401) {
       console.log('all')
       localStorage.clear('user');
-      window.location.href = '/login'
+      window.location.href = '/signin'
     }
     return Promise.reject(error);
   }
