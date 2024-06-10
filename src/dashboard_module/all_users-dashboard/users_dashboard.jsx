@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import ScrollToTop from "react-scroll-to-top";
-import NavBar from "./components/navBar";
-import NavigationBar from "./components/navigationBar";
+import React from 'react'
+import NavBar from '../creator_dashboard/components/navBar';
+import NavigationBar from '../creator_dashboard/components/navigationBar'
+import ScrollToTop from 'react-scroll-to-top';
 
-
-const Creator_home = () => {
-    const data = [1, 2, 4, 3, 6,1,2,3,4,5,6,7,8,9,0];
+const UsersDashboard = () => {
+    const data = [1, 2, 4, 3, 6, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     return (
         <div>
             <div className="bg-red-50 flex h-screen overflow-none">
@@ -19,7 +18,7 @@ const Creator_home = () => {
                                 <section>
                                     <div className="py-4">
                                         {data.map((datas, index) => (
-                                            <div key={index} className="bg-black rounded-lg gap-2 mb-5">
+                                            <div key={index} className="bg-white rounded-lg gap-2 mb-5">
                                                 <div className="mb-4">
                                                     <div className="flex flex-row items-center text-center gap-2">
                                                         <div className="w-11 h-11 rounded-full p-0.5 bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500">
@@ -27,7 +26,7 @@ const Creator_home = () => {
                                                                 <img className="w-full h-full object-contain" src="https://randomuser.me/api/portraits/men/1.jpg" alt="" />
                                                             </div>
                                                         </div>
-                                                        <p className="text-white text-sm font-semibold pb-2 pt-1">Jonnaes</p>
+                                                        <p className="text-black text-sm font-semibold pb-2 pt-1">Jonnaes</p>
                                                     </div>
                                                     <div></div>
                                                 </div>
@@ -56,18 +55,18 @@ const Creator_home = () => {
                                                 </div>
                                                 <div className=" pt-1 pb-2 space-y-1 text-sm">
                                                     <div>
-                                                        <p className="font-semibold text-white cursor-pointer">37.103 curtidas</p>
+                                                        <p className="font-semibold text-gray-600 cursor-pointer">37.103 curtidas</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-white cursor-pointer">Qualquer texto serviria para exemplificar esse post :)</p>
+                                                        <p className="text-gray-600 cursor-pointer">Qualquer texto serviria para exemplificar esse post</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-gray-500 cursor-pointer">Ver todos os 400 comentários</p>
+                                                        <p className="text-gray-600 cursor-pointer">Ver todos os 400 comentários</p>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-row justify-between py-3 space-x-3">
+                                                <div className="flex flex-row justify-between py-3 m-2 space-x-3">
                                                     <div className="">
-                                                        <p className="text-gray-400 text-sm">Adicione um comentário...</p>
+                                                        <p className="text-gray-600 text-sm">Adicione um comentário...</p>
                                                     </div>
                                                     <button className="text-blue-400 ml-[264px] font-semibold cursor-pointer">
                                                         Publicar
@@ -86,4 +85,5 @@ const Creator_home = () => {
         </div>
     )
 }
-export default Creator_home;
+
+export default UsersDashboard;
