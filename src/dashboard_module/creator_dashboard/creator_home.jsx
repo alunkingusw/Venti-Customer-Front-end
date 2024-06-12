@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import ScrollToTop from "react-scroll-to-top";
 import NavBar from "./components/navBar";
 import NavigationBar from "./components/navigationBar";
-
 
 const Creator_home = () => {
     const data = [1, 2, 4, 3, 6,1,2,3,4,5,6,7,8,9,0];
@@ -76,7 +74,6 @@ const Creator_home = () => {
                                             </div>
                                         ))}
                                     </div>
-                                    <ScrollToTop smooth />
                                 </section>
                             </div>
                         </main>

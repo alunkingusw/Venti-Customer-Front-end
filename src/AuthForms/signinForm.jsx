@@ -13,7 +13,7 @@ const SigninForm = () => {
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors }, watch } = useForm();
   const navigate = useNavigate();
-  // const { setUser } = useAuth();
+  const { setUser } = useAuth();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -23,12 +23,11 @@ const SigninForm = () => {
     try {
       setLoading(true)
       const { data } = await EndPoints.Auth.login(values);
-      console.log(data.status)
       if (data.status !=200){throw Error('An Error occured!')}
         else{
           Success(data.message);
           setToken(data.token);
-          setUserDetails(data);
+          setUser(data);
           navigate('/')
         }
     } catch (error) {

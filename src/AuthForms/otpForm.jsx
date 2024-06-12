@@ -63,7 +63,6 @@ const OtpForm = () => {
         </p>
         <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
           <p className="text-center text-lg font-medium">OTP code has been sent to <span>{maskedEmail}</span></p>
-
           <div>
             <label htmlFor="otp" className="sr-only">Verification Code</label>
             <div className="relative">

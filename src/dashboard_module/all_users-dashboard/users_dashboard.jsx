@@ -2,7 +2,7 @@
 import React from 'react'
 import NavBar from '../creator_dashboard/components/navBar';
 import NavigationBar from '../creator_dashboard/components/navigationBar'
-import ScrollToTop from 'react-scroll-to-top';
+
 
 const UsersDashboard = () => {
     const data = [1, 2, 4, 3, 6, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -75,7 +75,6 @@ const UsersDashboard = () => {
                                             </div>
                                         ))}
                                     </div>
-                                    <ScrollToTop smooth />
                                 </section>
                             </div>
                         </main>
