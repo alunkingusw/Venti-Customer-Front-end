@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { Children } from 'react'
 import NavBar from '../creator_dashboard/components/navBar';
 import NavigationBar from '../creator_dashboard/components/navigationBar'
 
@@ -18,7 +18,7 @@ const UsersDashboard = () => {
                                 <section>
                                     <div className="py-4">
                                         {data.map((datas, index) => (
-                                            <div key={index} className="bg-white rounded-lg gap-2 mb-5">
+                                            <div key={index} className="bg-none border p-4 min-w-100 rounded-lg gap-2 mb-5">
                                                 <div className="mb-4">
                                                     <div className="flex flex-row items-center text-center gap-2">
                                                         <div className="w-11 h-11 rounded-full p-0.5 bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500">
