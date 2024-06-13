@@ -13,19 +13,18 @@ import { useAuth } from "./providers/AuthProvider";
 
 const Routing = () => {
   const { user } = useAuth();
-  console.log(user);
-
+  // console.log(user);
   return (
     <Routes>
       <Route path="/signup" element={<SignupForm />} />
       <Route path="/signin" element={<SigninForm />} />
       <Route path="/verification" element={<OtpForm />} />
       <Route path="/forgot-password-email" element={<Forgot_password_email />} />
-      <Route path="/" element={<UsersDashboard />} />
-      <Route path="/creator-home" element={<Creator_home />} />
-      {user != null && (
-        <Route path="/creator-dashboard" element={<UsersDashboard />} />
-      )}
+      {/* {user === null ? ( */}
+        <Route path="/" element={<UsersDashboard />} />
+      {/* ) : ( */}
+        <Route path="/creator-home" element={<Creator_home />} />
+      {/* )} */}
     </Routes>
   );
 };
