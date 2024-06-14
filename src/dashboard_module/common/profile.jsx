@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
+import Edit_profile from './edit_profile';
 import { Link } from 'react-router-dom';
 import { TbTableFilled } from "react-icons/tb";
 import { FaWindowRestore, FaLocationDot } from "react-icons/fa6";
@@ -9,6 +10,7 @@ import { RiMailFill } from "react-icons/ri";
 const Profile = () => {
     const [previewImage, setPreviewImage] = useState(null);
     const [currentDiv, setCurrentDiv] = useState('posts');
+    const [divs, setDivs] = useState('profile');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -65,6 +67,7 @@ const Profile = () => {
     };
     return (
         <div>
+            {divs === 'profile' &&(
             <div className="relative flex flex-col w-full min-w-0 mb-6 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30 draggable">
                 <div className="px-9 pt-9 flex-auto min-h-[70px] pb-0 bg-transparent">
                     <div className="flex flex-wrap mb-6 xl:flex-nowrap">
@@ -122,6 +125,7 @@ const Profile = () => {
                                 </div>
                                 <div className="flex flex-wrap my-auto">
                                     <button
+                                    onClick={()=>setDivs('edit_profile')}
                                         className="inline-block px-6 py-3 mr-3 bg-neutral-100 hover:bg-neutral-200 text-base font-medium leading-normal text-center align-middle transition-colors duration-150 ease-in-out border-0 shadow-none cursor-pointer rounded-2xl text-muted bg-light border-light hover:bg-light-dark active:bg-light-dark focus:bg-light-dark ">
                                         Edit Profile
                                     </button>
@@ -265,6 +269,10 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+            )}
+            {divs === 'edit_profile' && (
+                <Edit_profile />
+            )}
         </div>
     )
 }
