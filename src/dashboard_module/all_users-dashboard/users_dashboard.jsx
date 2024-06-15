@@ -2,17 +2,30 @@
 import NavBar from '../common/navBar';
 import Home from '../common/home';
 import Profile from '../common/profile';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
 import { FaCircleUser } from "react-icons/fa6";
 import { RiCalendarEventFill, RiMessageFill } from "react-icons/ri";
 import { AiFillSetting, AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
-// import { useAuth } from '../../../providers/AuthProvider'
+import { useAuth } from '../../providers/AuthProvider';
+import { Modal } from '../../components/modal';
 
 const UsersDashboard = () => {
     const [selectedSection, setSelectedSection] = useState('home');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { user } = useAuth();
 
+    const handleSidebarClick = (section) => {
+        if (user === null) {
+            setIsModalOpen(true);
+        } else {
+            setSelectedSection(section);
+        }
+    };
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
     const renderSection = () => {
         switch (selectedSection) {
             case 'home':
@@ -39,7 +52,8 @@ const UsersDashboard = () => {
                             <ul className="mt-4 space-y-3 md:mt-5">
                                 <li className="relative">
                                     <button
-                                        onClick={() => setSelectedSection('home')}
+                                        onClick={() => handleSidebarClick('home')}
+                                        // onClick={() => setSelectedSection('home')}
                                         className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span>
                                             <AiFillHome className="h-6 w-6" />
@@ -89,7 +103,8 @@ const UsersDashboard = () => {
                                 </li>
                                 <li className="relative">
                                     <button
-                                        onClick={() => setSelectedSection('profile')}
+                                        onClick={() => handleSidebarClick('profile')}
+                                        // onClick={() => setSelectedSection('profile')}
                                         className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span>
                                             <FaCircleUser className="h-6 w-6" />
@@ -112,7 +127,8 @@ const UsersDashboard = () => {
                         <div className="sm:hidden fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-red-100 border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
                             <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
                                 <button
-                                    onClick={() => setSelectedSection('home')}
+                                    // onClick={() => setSelectedSection('home')}
+                                    onClick={() => handleSidebarClick('home')}
                                     data-tooltip-target="tooltip-home" type="button" className="inline-flex flex-col items-center justify-center px-5  hover:bg-gray-50 dark:hover:bg-gray-800 group">
                                     <AiFillHome className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" />
                                     <span className="sr-only">Home</span>
@@ -136,7 +152,8 @@ const UsersDashboard = () => {
                                 </button>
 
                                 <button data-tooltip-target="tooltip-profile" type="button"
-                                    onClick={() => setSelectedSection('profile')}
+                                    // onClick={() => setSelectedSection('profile')}
+                                    onClick={() => handleSidebarClick('profile')}
                                     className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                                     <FaCircleUser className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" />
                                     <span className="sr-only">Profile</span>
@@ -153,7 +170,7 @@ const UsersDashboard = () => {
                         <main
                             id="dashboard-main"
                             className="h-[calc(100vh-10rem)] overflow-auto px-4 py-8 flex flex-col items-center"
-                            style={{ overscrollBehavior: 'none' }} // Added inline style to prevent overscroll
+                            style={{ overscrollBehavior: 'none' }}
                         >
                             <div className="flex flex-wrap gap-x-4 gap-y-8 justify-center items-center">
                                 <section>
@@ -164,6 +181,9 @@ const UsersDashboard = () => {
                     </div>
                 </div>
             </div>
+            {isModalOpen && (
+                <Modal closeModal={closeModal} />
+            )}
         </div>
     )
 }

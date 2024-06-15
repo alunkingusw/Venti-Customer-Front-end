@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from '@remixicon/react';
 import EndPoints from '../Api/baseUrl/endPoints';
 import {Success, Error} from '../components/toasts';
-import { setToken, setUserDetails } from '../utils/helpers';
+import { setToken } from '../utils/helpers';
 import { useAuth } from '../providers/AuthProvider'
 
 const SigninForm = () => {

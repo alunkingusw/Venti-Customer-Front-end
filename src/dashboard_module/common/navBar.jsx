@@ -7,11 +7,12 @@ import { useAuth } from '../../providers/AuthProvider';
 
 const NavBar = () => {
     const {user} = useAuth();
+    console.log(user)
     return (
         <div>
             <header className="relative flex flex-col items-center bg-red-20 px-4 py-4 sm:flex-row md:h-20">
                 <div className="flex w-full flex-col justify-between overflow-hidden transition-all sm:max-h-full sm:flex-row sm:items-center">
-                    {user !== null ? (
+                    {user !== null ?(
                         <>
                             <div className="relative ml-0 flex items-center justify-between rounded-md sm:ml-auto">
                                 <HiOutlineSearch className="absolute sm:hidden left-2 block h-5 w-5 text-gray-400" />

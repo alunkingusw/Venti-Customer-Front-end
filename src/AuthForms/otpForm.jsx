@@ -6,7 +6,6 @@ import EndPoints from '../Api/baseUrl/endPoints';
 import { Success, Error } from '../components/toasts';
 import {useAuth} from '../providers/AuthProvider';
 import { setToken } from '../utils/helpers';
-import { setUserDetails } from '../utils/helpers';
 
 
 const OtpForm = () => {
@@ -14,7 +13,7 @@ const OtpForm = () => {
   const [emailUser, setEmailUser] = useState('');
   const [maskedEmail, setMaskedEmail] = useState('');
   const navigate = useNavigate();
-  // const { setUser } = useAuth();
+  const { setUser } = useAuth();
 
   function maskEmail() {
     const email = localStorage.getItem('email')
@@ -42,7 +41,7 @@ const OtpForm = () => {
       if (data.status != 200) { throw Error('An Error occurred!') }
       Success(data.message);
       setToken(data.token);
-      setUserDetails(data);
+      setUser(data);
       navigate('/');
     } catch (error) {
       Error(error.response.data.message)

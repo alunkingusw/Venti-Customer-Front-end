@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getUserDetails, setUserDetails } from "../utils/helpers";
+import { getUserDetails, setUserDetails, getToken, logout } from "../utils/helpers";
 
 const AuthContext = createContext();
 
@@ -8,11 +8,19 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(getUserDetails());
+  const [user, setUser] = useState(() => {
+    const storedUser = getUserDetails();
+    const token = getToken();
+    return storedUser && token ? storedUser : null;
+  });
 
   useEffect(() => {
     setUserDetails(user);
   }, [user]);
 
-  return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, setUser, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
