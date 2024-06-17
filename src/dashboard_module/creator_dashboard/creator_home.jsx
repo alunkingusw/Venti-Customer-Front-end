@@ -3,6 +3,7 @@ import NavBar from '../common/navBar';
 import Home from '../common/home';
 import Profile from '../common/profile';
 import Settings from './unique_components/settings';
+import Messages from '../common/messages';
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCircleUser, FaMoon, FaRegSun } from "react-icons/fa6";
@@ -67,6 +68,8 @@ const Creator_home = () => {
                 return <Home />;
             case 'profile':
                 return <Profile />;
+            case 'messages':
+                return <Messages />;
             case 'settings':
                 return <Settings />;
             default:
@@ -75,10 +78,10 @@ const Creator_home = () => {
     };
     return (
         <div>
-            <div className="bg-red-50 flex h-screen">
+            <div className="bg-red-50 overflow-hidden flex h-screen">
                 <div>
                     <div className="fixed z-50 md:relative border">
-                        <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col xs:hidden overflow-hidden bg-red-100 transition-all md:h-100dvh md:overflow-auto md:w-64 lg:w-72">
+                        <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col overflow-auto xs:hidden bg-red-100 transition-all md:h-100dvh md:w-64 lg:w-72">
                             <div className="bg-red-100 mt-0 py-4 pl-10 md:mt-10">
                                 <span className="">
                                     <span className=" inline-flex text-white h-8 w-8 items-center justify-center rounded-full bg-red-600 align-bottom text-2xl font-bold">V</span>
@@ -113,7 +116,9 @@ const Creator_home = () => {
                                     </button>
                                 </li>
                                 <li className="relative">
-                                    <button className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    <button
+                                        onClick={() => handleSidebarClick('messages')}
+                                        className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span className="text-2xl">
                                             <RiMessageFill aria-hidden="true" />
                                         </span>
@@ -130,8 +135,8 @@ const Creator_home = () => {
                                 </li>
                                 <li className="relative">
                                     <button
-                                    onClick={()=>handleSidebarClick('settings')}
-                                     className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                        onClick={() => handleSidebarClick('settings')}
+                                        className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span>
                                             <AiFillSetting className="h-6 w-6" />
                                         </span>
@@ -175,7 +180,7 @@ const Creator_home = () => {
                                         </Link>
                                         <hr className='text-black' />
                                         <Link
-                                            onClick={() => logout()}
+                                            // onClick={() => logout()}
                                             className="flex items-center space-x-2 w-full hover:bg-red-50 focus:bg-red-50 cursor-pointer select-none rounded-md px-3 py-2 text-start leading-tight transition-all">
                                             <RiLogoutCircleRLine className='flex-shrink-0' />
                                             Logout
@@ -224,10 +229,10 @@ const Creator_home = () => {
 
                 <div className="flex h-full w-full flex-col">
                     <NavBar />
-                    <div className="h-full overflow-hidden">
+                    <div className="h-full overflow-y-scroll">
                         <main
                             id="dashboard-main"
-                            className="h-[calc(100vh-10rem)] overflow-auto px-4 py-8 flex flex-col items-center"
+                            className="h-[calc(100vh-10rem)] px-4 py-8 flex flex-col items-center"
                             style={{ overscrollBehavior: 'none' }}
                         >
                             <div className="flex flex-wrap gap-x-4 gap-y-8 justify-center items-center">

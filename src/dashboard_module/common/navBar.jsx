@@ -31,7 +31,7 @@ const NavBar = () => {
                                 </li>
                                 <li className="hidden sm:block">
                                     <button className="flex items-center justify-center text-gray-600">
-                                        <span className="hidden sm:block">Kanga Studios</span>
+                                        <span className="hidden sm:block">{user.username}</span>
                                     </button>
                                 </li>
                             </ul>

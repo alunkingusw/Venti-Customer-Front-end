@@ -1,77 +1,262 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { IoPencil } from "react-icons/io5";
 
 const Edit_profile = () => {
+    const [changePassword, setChangePassword] = useState(false);
+    const [changeEmail, setChangeEmail] = useState(false);
+    const [changeName, setChangeName] = useState(false);
+    const [changePhone, setChangePhone] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const edit_password = () => {
+        setChangePassword(true);
+    }
+    const edit_email = () => {
+        setChangeEmail(true)
+    }
+    const edit_name = () => {
+        setChangeName(true)
+    }
+    const edit_phone = () => {
+        setChangePhone(true)
+    }
+    const close_edit_password = () => {
+        setChangePassword(false);
+    }
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    }
+
+    const toggleShowConfirmPassword = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    }
     return (
         <div>
             <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-4 xl:mx-auto">
                 <h1 className="border-b py-6 text-4xl font-semibold">Edit Profile</h1>
                 <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">
-                    <div className="relative my-4 w-56 sm:hidden">
-                        <input className="peer hidden" type="checkbox" name="select-1" id="select-1" />
-                        <label htmlFor="select-1" className="flex w-full cursor-pointer select-none rounded-lg border p-2 px-3 text-sm text-gray-700 ring-blue-700 peer-checked:ring">Accounts </label>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="pointer-events-none absolute right-0 top-3 ml-auto mr-5 h-4 text-slate-700 transition peer-checked:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                        </svg>
-                        <ul className="max-h-0 select-none flex-col overflow-hidden rounded-b-lg shadow-md transition-all duration-300 peer-checked:max-h-56 peer-checked:py-3">
-                            <li className="cursor-pointer px-3 py-2 text-sm text-slate-600 hover:bg-blue-700 hover:text-white">Accounts</li>
-                            <li className="cursor-pointer px-3 py-2 text-sm text-slate-600 hover:bg-blue-700 hover:text-white">Team</li>
-                            <li className="cursor-pointer px-3 py-2 text-sm text-slate-600 hover:bg-blue-700 hover:text-white">Others</li>
-                        </ul>
-                    </div>
-
-                    <div className="col-span-2 hidden sm:block">
-                        <ul>
-                            <li className="mt-5 cursor-pointer border-l-2 border-transparent px-2 py-2 font-semibold transition hover:border-l-blue-700 hover:text-blue-700">Teams</li>
-                            <li className="mt-5 cursor-pointer border-l-2 border-l-blue-700 px-2 py-2 font-semibold text-blue-700 transition hover:border-l-blue-700 hover:text-blue-700">Accounts</li>
-                            <li className="mt-5 cursor-pointer border-l-2 border-transparent px-2 py-2 font-semibold transition hover:border-l-blue-700 hover:text-blue-700">Users</li>
-                            <li className="mt-5 cursor-pointer border-l-2 border-transparent px-2 py-2 font-semibold transition hover:border-l-blue-700 hover:text-blue-700">Profile</li>
-                            <li className="mt-5 cursor-pointer border-l-2 border-transparent px-2 py-2 font-semibold transition hover:border-l-blue-700 hover:text-blue-700">Billing</li>
-                            <li className="mt-5 cursor-pointer border-l-2 border-transparent px-2 py-2 font-semibold transition hover:border-l-blue-700 hover:text-blue-700">Notifications</li>
-                            <li className="mt-5 cursor-pointer border-l-2 border-transparent px-2 py-2 font-semibold transition hover:border-l-blue-700 hover:text-blue-700">Integrations</li>
-                        </ul>
-                    </div>
-
                     <div className="col-span-8 overflow-hidden rounded-xl sm:bg-red-50 sm:px-8 sm:shadow">
                         <div className="pt-4">
-                            <h1 className="py-2 text-2xl font-semibold">Account settings</h1>
+                            <h1 className="py-2 text-2xl font-semibold">Profile settings</h1>
                         </div>
+                        <hr className="mt-4 mb-8" />
+                        <p className="py-2 text-xl font-semibold">Name</p>
+                        {!changeName ? (
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <p className="text-gray-600">Your profile name is <strong>user123535363633</strong></p>
+                                <button
+                                    onClick={edit_name}
+                                    className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
+                                    <span><IoPencil /></span>Edit</button>
+                            </div>
+                        ) : (
+                            <div className="items-center space-y-3 ">
+                                <div>
+                                    <label htmlFor="name" className="sr-only">Profile Name</label>
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        // {...register("confirm_password", {
+                                        //   required: true,
+                                        //   validate: value => value === watch('password') || "Passwords do not match"
+                                        // })}
+                                        />
+                                    </div>
+                                    {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
+                                </div>
+                                <div className="flex space-x-4 mt-4">
+                                    <button className="button rounded-lg">Save Name</button>
+                                    <button
+                                        onClick={() => setChangeName(false)}
+                                        className="button rounded-lg">Cancel</button>
+                                </div>
+                            </div>
+                        )}
+
                         <hr className="mt-4 mb-8" />
                         <p className="py-2 text-xl font-semibold">Email Address</p>
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                            <p className="text-gray-600">Your email address is <strong>john.doe@company.com</strong></p>
-                            <button className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Change</button>
+                        {!changeEmail ? (
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <p className="text-gray-600">Your email address is <strong>john.doe@company.com</strong></p>
+                                <button
+                                    onClick={edit_email}
+                                    className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
+                                    <span><IoPencil /></span>Edit</button>
+                            </div>
+                        ) : (
+                            <div className="items-center space-y-3 ">
+                                <div>
+                                    <label htmlFor="email" className="sr-only">Email Address</label>
+                                    <div className="relative">
+                                        <input
+                                            type="email"
+                                            className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        // {...register("confirm_password", {
+                                        //   required: true,
+                                        //   validate: value => value === watch('password') || "Passwords do not match"
+                                        // })}
+                                        />
+                                    </div>
+                                    {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
+                                </div>
+                                <div className="flex space-x-4 mt-4">
+                                    <button className="button rounded-lg">Save Email</button>
+                                    <button
+                                        onClick={() => setChangeEmail(false)}
+                                        className="button rounded-lg">Cancel</button>
+                                </div>
+                            </div>
+                        )}
+                        <hr className="mt-4 mb-8" />
+                        <p className="py-2 text-xl font-semibold">Phone Number</p>
+                        {!changePhone ? (
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <p className="text-gray-600">Your phone number is <strong>+254757657268</strong></p>
+                                <button
+                                onClick={edit_phone}
+                                    className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
+                                    <span><IoPencil /></span>Edit</button>
+                            </div>
+                        ) : (
+                            <div className="items-center space-y-3 ">
+                            <div>
+                                <label htmlFor="name" className="sr-only">Phone Number</label>
+                                <div className="relative">
+                                    <input
+                                        type="tel"
+                                        className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                    // {...register("confirm_password", {
+                                    //   required: true,
+                                    //   validate: value => value === watch('password') || "Passwords do not match"
+                                    // })}
+                                    />
+                                </div>
+                                {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
+                            </div>
+                            <div className="flex space-x-4 mt-4">
+                                <button className="button rounded-lg">Save Phone</button>
+                                <button
+                                    onClick={() => setChangePhone(false)}
+                                    className="button rounded-lg">Cancel</button>
+                            </div>
                         </div>
+                        )}
+
                         <hr className="mt-4 mb-8" />
                         <p className="py-2 text-xl font-semibold">Password</p>
-                        <div className="flex items-center">
-                            <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
-                                <label htmlFor="login-password">
-                                    <span className="text-sm text-gray-500">Current Password</span>
-                                    <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
-                                        <input type="password" id="login-password" className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="***********" />
+                        {!changePassword ? (
+                            <>
+                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                    <p className="text-gray-600">Password <strong> *******</strong></p>
+                                    <button
+                                        onClick={edit_password}
+                                        className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
+                                        <span className=''><IoPencil /></span>Edit</button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="items-center space-y-3 ">
+                                    <div>
+                                        <label htmlFor="confirm_password" className="sr-only">Old Password</label>
+                                        <div className="relative">
+                                            <input
+                                                type={showConfirmPassword ? "text" : "password"}
+                                                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                            // {...register("confirm_password", {
+                                            //   required: true,
+                                            //   validate: value => value === watch('password') || "Passwords do not match"
+                                            // })}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={toggleShowConfirmPassword}
+                                                className="absolute inset-y-0 end-0 grid place-content-center px-4"
+                                            >
+                                                {showConfirmPassword ? (
+                                                    <FaRegEye className="text-gray-400" />
+                                                ) : (
+                                                    <FaRegEyeSlash className="text-gray-400" />
+                                                )}
+                                            </button>
+                                        </div>
+                                        {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
                                     </div>
-                                </label>
-                                <label htmlFor="login-password">
-                                    <span className="text-sm text-gray-500">New Password</span>
-                                    <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
-                                        <input type="password" id="login-password" className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="***********" />
+                                    <div>
+                                        <label htmlFor="confirm_password" className="sr-only">New Password</label>
+                                        <div className="relative">
+                                            <input
+                                                type={toggleShowPassword ? "text" : "password"}
+                                                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                            // {...register("confirm_password", {
+                                            //   required: true,
+                                            //   validate: value => value === watch('password') || "Passwords do not match"
+                                            // })}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={toggleShowPassword}
+                                                className="absolute inset-y-0 end-0 grid place-content-center px-4"
+                                            >
+                                                {toggleShowPassword ? (
+                                                    <FaRegEye className="text-gray-400" />
+                                                ) : (
+                                                    <FaRegEyeSlash className="text-gray-400" />
+                                                )}
+                                            </button>
+                                        </div>
+                                        {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
                                     </div>
-                                </label>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="mt-5 ml-2 h-6 w-6 cursor-pointer text-sm font-semibold text-gray-600 underline decoration-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                            </svg>
-                        </div>
-                        <p className="mt-2">Can&apos;t remember your current password. <a className="text-sm font-semibold text-blue-600 underline decoration-2" href="#">Recover Account</a></p>
-                        <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white">Save Password</button>
+
+                                    <div>
+                                        <label htmlFor="confirm_password" className="sr-only">Confirm Password</label>
+                                        <div className="relative">
+                                            <input
+                                                type={showConfirmPassword ? "text" : "password"}
+                                                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                            // {...register("confirm_password", {
+                                            //   required: true,
+                                            //   validate: value => value === watch('password') || "Passwords do not match"
+                                            // })}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={toggleShowConfirmPassword}
+                                                className="absolute inset-y-0 end-0 grid place-content-center px-4"
+                                            >
+                                                {showConfirmPassword ? (
+                                                    <FaRegEye className="text-gray-400" />
+                                                ) : (
+                                                    <FaRegEyeSlash className="text-gray-400" />
+                                                )}
+                                            </button>
+                                        </div>
+                                        {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
+                                    </div>
+                                </div>
+                                <p className="mt-2">Can&apos;t remember your current password. <a className="text-sm font-semibold text-blue-600 underline decoration-2" href="#">Recover Account</a></p>
+                                <div className="flex space-x-4 mt-4">
+                                    <button className="button rounded-lg">Save Password</button>
+                                    <button
+                                        onClick={() => close_edit_password()}
+                                        className="button rounded-lg">Cancel</button>
+                                </div>
+
+                            </>
+                        )}
+
                         <hr className="mt-4 mb-8" />
 
                         <div className="mb-10">
                             <p className="py-2 text-xl font-semibold">Delete Account</p>
                             <p className="inline-flex items-center rounded-full bg-rose-100 px-4 py-1 text-rose-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" />
+                                    <path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" />
                                 </svg>
                                 Proceed with caution
                             </p>
