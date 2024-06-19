@@ -5,6 +5,7 @@ import Profile from '../common/profile';
 import Settings from './unique_components/settings';
 import Messages from '../common/messages';
 import React, { useState, useRef, useEffect } from 'react';
+import { line_fade_spin } from '../../components/loaders';
 import { Link } from 'react-router-dom';
 import { FaCircleUser, FaMoon, FaRegSun } from "react-icons/fa6";
 import { RiCalendarEventFill, RiMessageFill, RiFileWarningLine, RiLogoutCircleRLine } from "react-icons/ri";
@@ -180,7 +181,7 @@ const Creator_home = () => {
                                         </Link>
                                         <hr className='text-black' />
                                         <Link
-                                            // onClick={() => logout()}
+                                            onClick={() => logout()}
                                             className="flex items-center space-x-2 w-full hover:bg-red-50 focus:bg-red-50 cursor-pointer select-none rounded-md px-3 py-2 text-start leading-tight transition-all">
                                             <RiLogoutCircleRLine className='flex-shrink-0' />
                                             Logout
@@ -232,10 +233,10 @@ const Creator_home = () => {
                     <div className="h-full overflow-y-scroll">
                         <main
                             id="dashboard-main"
-                            className="h-[calc(100vh-10rem)] px-4 py-8 flex flex-col items-center"
+                            className="h-[calc(100vh-10rem)] flex flex-col items-center"
                             style={{ overscrollBehavior: 'none' }}
                         >
-                            <div className="flex flex-wrap gap-x-4 gap-y-8 justify-center items-center">
+                            <div className="flex flex-wrap justify-center items-center">
                                 <section>
                                     {renderSection()}
                                 </section>

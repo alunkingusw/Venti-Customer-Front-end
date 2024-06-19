@@ -7,7 +7,7 @@ import { useAuth } from '../../providers/AuthProvider';
 
 const NavBar = () => {
     const {user} = useAuth();
-    console.log(user)
+    // console.log(user)
     return (
         <div>
             <header className="relative flex flex-col items-center bg-red-20 px-4 py-4 sm:flex-row md:h-20">
