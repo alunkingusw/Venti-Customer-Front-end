@@ -4,6 +4,7 @@ import Home from '../common/home';
 import Profile from '../common/profile';
 import Settings from './unique_components/settings';
 import Messages from '../common/messages';
+import Create from '../common/create';
 import React, { useState, useRef, useEffect } from 'react';
 import { line_fade_spin } from '../../components/loaders';
 import { Link } from 'react-router-dom';
@@ -12,6 +13,7 @@ import { RiCalendarEventFill, RiMessageFill, RiFileWarningLine, RiLogoutCircleRL
 import { AiFillSetting, AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
+import { BsPlusCircle } from "react-icons/bs";
 import { useAuth } from '../../providers/AuthProvider';
 import { Modal } from '../../components/modal';
 import { logout } from '../../utils/helpers';
@@ -20,6 +22,7 @@ const Creator_home = () => {
     const [selectedSection, setSelectedSection] = useState('home');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
     const menuRef = useRef(null);
     const dropdownRef = useRef(null);
     const { user } = useAuth();
@@ -36,6 +39,14 @@ const Creator_home = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    const handleCreate = ()=>{
+        if(user === null){
+            setIsMenuOpen(true);
+        }else{
+            setIsCreateOpen(true);
+        }
+    }
 
     const handleSidebarClick = (section) => {
         if (user === null) {
@@ -58,6 +69,10 @@ const Creator_home = () => {
             }
         }
     }, [isMenuOpen]);
+
+    const closeCreate=()=>{
+        setIsCreateOpen(false);
+    }
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -127,11 +142,13 @@ const Creator_home = () => {
                                     </button>
                                 </li>
                                 <li className="relative">
-                                    <button className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    <button 
+                                    onClick={handleCreate}
+                                    className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span>
-                                            <IoIosAddCircle className="h-6 w-6" />
+                                            <BsPlusCircle className="h-6 w-6" />
                                         </span>
-                                        <span>Post</span>
+                                        <span>Create</span>
                                     </button>
                                 </li>
                                 <li className="relative">
@@ -247,6 +264,9 @@ const Creator_home = () => {
             </div>
             {isModalOpen && (
                 <Modal closeModal={closeModal} />
+            )}
+            {isCreateOpen &&(
+                <Create closeCreate={closeCreate}/>
             )}
         </div>
     )
