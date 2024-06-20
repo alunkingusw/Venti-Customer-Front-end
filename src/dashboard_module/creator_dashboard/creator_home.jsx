@@ -5,6 +5,7 @@ import Profile from '../common/profile';
 import Settings from './unique_components/settings';
 import Messages from '../common/messages';
 import Create from '../common/create';
+import Camera from '../common/camera';
 import React, { useState, useRef, useEffect } from 'react';
 import { line_fade_spin } from '../../components/loaders';
 import { Link } from 'react-router-dom';
@@ -23,6 +24,7 @@ const Creator_home = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const [isCameraOpen, setIsCameraOpen] = useState(false);
     const menuRef = useRef(null);
     const dropdownRef = useRef(null);
     const { user } = useAuth();
@@ -40,10 +42,10 @@ const Creator_home = () => {
         };
     }, []);
 
-    const handleCreate = ()=>{
-        if(user === null){
+    const handleCreate = () => {
+        if (user === null) {
             setIsMenuOpen(true);
-        }else{
+        } else {
             setIsCreateOpen(true);
         }
     }
@@ -70,13 +72,18 @@ const Creator_home = () => {
         }
     }, [isMenuOpen]);
 
-    const closeCreate=()=>{
+    const closeCreate = () => {
         setIsCreateOpen(false);
     }
-
     const closeModal = () => {
         setIsModalOpen(false);
     };
+    const OpenCamera = ()=>{
+        setIsCameraOpen(true);
+    }
+    const closeCamera =()=>{
+        setIsCameraOpen(false);
+    }
 
     const renderSection = () => {
         switch (selectedSection) {
@@ -88,6 +95,8 @@ const Creator_home = () => {
                 return <Messages />;
             case 'settings':
                 return <Settings />;
+            // case 'camera':
+            //     return <Camera />;
             default:
                 return <Home />;
         }
@@ -142,9 +151,9 @@ const Creator_home = () => {
                                     </button>
                                 </li>
                                 <li className="relative">
-                                    <button 
-                                    onClick={handleCreate}
-                                    className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    <button
+                                        onClick={handleCreate}
+                                        className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span>
                                             <BsPlusCircle className="h-6 w-6" />
                                         </span>
@@ -208,8 +217,8 @@ const Creator_home = () => {
                             </ul>
                         </nav>
 
-                        <div className="sm:hidden fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-red-100 border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
-                            <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
+                        <div className="sm:hidden fixed z-50 w-full h-16 max-w-screen -translate-x-1/2 bg-red-100 border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+                            <div className="grid h-full max-w-screen grid-cols-5 mx-auto">
                                 <button
                                     onClick={() => handleSidebarClick('home')}
                                     data-tooltip-target="tooltip-home" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
@@ -223,7 +232,9 @@ const Creator_home = () => {
                                 </button>
 
                                 <div className="flex items-center justify-center">
-                                    <button data-tooltip-target="tooltip-new" type="button" className="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                                    <button 
+                                    onClick={OpenCamera}
+                                    data-tooltip-target="tooltip-new" type="button" className="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                                         <IoIosAddCircle className="w-4 h-4 text-white" />
                                         <span className="sr-only">Post</span>
                                     </button>
@@ -265,8 +276,11 @@ const Creator_home = () => {
             {isModalOpen && (
                 <Modal closeModal={closeModal} />
             )}
-            {isCreateOpen &&(
-                <Create closeCreate={closeCreate}/>
+            {isCreateOpen && (
+                <Create closeCreate={closeCreate} />
+            )}
+            {isCameraOpen && (
+                <Camera closeCamera={closeCamera}/>
             )}
         </div>
     )
