@@ -15,6 +15,7 @@ import { AiFillSetting, AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
 import { BsPlusCircle } from "react-icons/bs";
+import ScrollToTop from 'react-scroll-to-top';
 import { useAuth } from '../../providers/AuthProvider';
 import { Modal } from '../../components/modal';
 import { logout } from '../../utils/helpers';
@@ -78,13 +79,16 @@ const Creator_home = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-    const OpenCamera = ()=>{
-        setIsCameraOpen(true);
+    const OpenCamera = () => {
+        if (user === null) {
+            setIsModalOpen(true)
+        } else {
+            setIsCameraOpen(true);
+        }
     }
-    const closeCamera =()=>{
+    const closeCamera = () => {
         setIsCameraOpen(false);
     }
-
     const renderSection = () => {
         switch (selectedSection) {
             case 'home':
@@ -103,11 +107,11 @@ const Creator_home = () => {
     };
     return (
         <div>
-            <div className="bg-red-50 overflow-hidden flex h-screen">
+            <div className="overflow-hidden flex h-screen">
                 <div>
-                    <div className="fixed z-50 md:relative border">
-                        <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col overflow-auto xs:hidden bg-red-100 transition-all md:h-100dvh md:w-64 lg:w-72">
-                            <div className="bg-red-100 mt-0 py-4 pl-10 md:mt-10">
+                    <div className="fixed z-50 md:relative border shadow">
+                        <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col overflow-auto xs:hidden transition-all md:h-100dvh md:w-64 lg:w-72">
+                            <div className=" mt-0 py-4 pl-10 md:mt-10">
                                 <span className="">
                                     <span className=" inline-flex text-white h-8 w-8 items-center justify-center rounded-full bg-red-600 align-bottom text-2xl font-bold">V</span>
                                     <span className="text-xl">entie</span>
@@ -217,38 +221,38 @@ const Creator_home = () => {
                             </ul>
                         </nav>
 
-                        <div className="sm:hidden fixed z-50 w-full h-16 max-w-screen -translate-x-1/2 bg-red-100 border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+                        <div className="sm:hidden fixed z-50 w-full h-16 max-w-screen -translate-x-1/2 border border-gray-200 bg-white bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
                             <div className="grid h-full max-w-screen grid-cols-5 mx-auto">
                                 <button
                                     onClick={() => handleSidebarClick('home')}
-                                    data-tooltip-target="tooltip-home" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                                    data-tooltip-target="tooltip-home" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group">
                                     <AiFillHome className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" />
                                     <span className="sr-only">Home</span>
                                 </button>
 
-                                <button data-tooltip-target="tooltip-wallet" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                                <button data-tooltip-target="tooltip-wallet" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group">
                                     <RiCalendarEventFill className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" />
                                     <span className="sr-only">Events</span>
                                 </button>
 
                                 <div className="flex items-center justify-center">
-                                    <button 
-                                    onClick={OpenCamera}
-                                    data-tooltip-target="tooltip-new" type="button" className="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                                        <IoIosAddCircle className="w-4 h-4 text-white" />
+                                    <button
+                                        onClick={OpenCamera}
+                                        data-tooltip-target="tooltip-new" type="button" className="inline-flex items-center justify-center w-10 h-10 font-medium border-2 border-gray-700 rounded-full hover:bg-gray-100 group focus:outline-none">
+                                        <IoIosAddCircle className="w-4 h-4 text-gray-700" />
                                         <span className="sr-only">Post</span>
                                     </button>
                                 </div>
 
-                                <button data-tooltip-target="tooltip-settings" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                                    <RiMessageFill className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" />
+                                <button data-tooltip-target="tooltip-settings" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group">
+                                    <RiMessageFill className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600" />
                                     <span className="sr-only">Messages</span>
                                 </button>
 
                                 <button data-tooltip-target="tooltip-profile" type="button"
                                     onClick={() => handleSidebarClick('profile')}
-                                    className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                                    <FaCircleUser className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" />
+                                    className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group">
+                                    <FaCircleUser className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600" />
                                     <span className="sr-only">Profile</span>
                                 </button>
                             </div>
@@ -280,7 +284,7 @@ const Creator_home = () => {
                 <Create closeCreate={closeCreate} />
             )}
             {isCameraOpen && (
-                <Camera closeCamera={closeCamera}/>
+                <Camera closeCamera={closeCamera} />
             )}
         </div>
     )

@@ -58,12 +58,12 @@ const Settings = () => {
               <li className="mt-5 cursor-pointer font-semibold transition ">
                 <button 
                 onClick={()=>setSelectedSection('analytics')}
-                className='px-2 py-2 border-l-2 border-transparent hover:border-l-red-700 focus:border-red-700 hover:text-gray-500'>Analytics</button>
+                className='px-2 py-2 border-l-2 border-transparent hover:border-l-slate-700 focus:border-slate-700 hover:text-gray-500'>Analytics</button>
               </li>
               <li className="mt-5 cursor-pointer font-semibold ">
                 <button 
                 onClick={()=>setSelectedSection('billing')}
-                className='border-l-2 border-transparent px-2 py-2 transition hover:border-l-red-700 focus:border-red-700 hover:text-gray-500'>Billing
+                className='border-l-2 border-transparent px-2 py-2 transition hover:border-l-slate-700 focus:border-slate-700 hover:text-gray-500'>Billing
                 </button>
               </li>
               {/* <li className="mt-5 cursor-pointer font-semibold ">
@@ -74,12 +74,12 @@ const Settings = () => {
               <li className="mt-5 cursor-pointer font-semibold ">
                 <button 
                 onClick={()=>setSelectedSection('notifications')}
-                className='border-l-2 border-transparent px-2 py-2 transition hover:border-l-red-700 focus:border-red-700 hover:text-gray-500'>Notifications</button>
+                className='border-l-2 border-transparent px-2 py-2 transition hover:border-l-slate-700 focus:border-slate-700 hover:text-gray-500'>Notifications</button>
               </li>
             </ul>
           </div>
 
-          <div className="col-span-8 overflow-hidden rounded-xl sm:bg-red-50 sm:px-8 sm:shadow">
+          <div className="col-span-8 overflow-hidden rounded-xl sm:px-8 sm:shadow">
             <section>
               {renderSection()}
             </section>

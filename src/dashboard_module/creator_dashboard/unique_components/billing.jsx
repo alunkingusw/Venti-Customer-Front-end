@@ -15,7 +15,7 @@ const Billing = () => {
                             <p className="font-medium mb-1">Billing Period</p>
                             <button className="ml-auto inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Change</button>
                         </div>
-                        <div className="flex items-center rounded-md border border-slate-700 bg-red-50 py-3 shadow">
+                        <div className="flex items-center rounded-md border border-slate-700 py-3 shadow">
                             <p className="ml-4 w-56">
                                 <strong className="block text-lg font-medium">MONTHLY</strong>
                                 <span className="text-xs text-gray-400"> Next Renewal: 4 Jan 2022 </span>
@@ -27,7 +27,7 @@ const Billing = () => {
                             <p className="font-medium mb-1">Payment Method</p>
                             <button className="ml-auto inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Change</button>
                         </div>
-                        <div className="flex items-center rounded-md border border-slate-700 bg-red-50 py-3 shadow">
+                        <div className="flex items-center rounded-md border border-slate-700 py-3 shadow">
                             <img className="h-10 object-contain pl-4" src="/images/kt10d0A1TgzZpAoNM_YPX.png" alt="" />
                             <p className="ml-4 w-56">
                                 <strong className="block text-lg font-medium">**** **** **** 453 </strong>
@@ -41,29 +41,29 @@ const Billing = () => {
                 <div className="grid gap-y-6 gap-x-3 sm:grid-cols-2 lg:px-8">
                     <label className="block" htmlFor="name">
                         <p className="text-sm">Name</p>
-                        <input className="w-full rounded-md border bg-teal-50 py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="Shakir Ali" />
+                        <input className="w-full rounded-md border py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="Shakir Ali" />
                     </label>
                     <label className="block" htmlFor="name">
                         <p className="text-sm">Email Address</p>
-                        <input className="w-full rounded-md border bg-teal-50 py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="shakir.ali@corpora.de" />
+                        <input className="w-full rounded-md border py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="shakir.ali@corpora.de" />
                     </label>
                     <label className="block sm:col-span-2" htmlFor="name">
                         <p className="text-sm">Billing Address</p>
-                        <input className="w-full rounded-md border bg-teal-50 py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="82844 Boyle Extension Suite 541 - Covington, HI / 28013" />
+                        <input className="w-full rounded-md border py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="82844 Boyle Extension Suite 541 - Covington, HI / 28013" />
                     </label>
                     <label className="block" htmlFor="name">
                         <p className="text-sm">VAT #</p>
-                        <input className="w-full rounded-md border bg-teal-50 py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="6346322" />
+                        <input className="w-full rounded-md border py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="6346322" />
                     </label>
                     <label className="block" htmlFor="name">
                         <p className="text-sm">Country</p>
-                        <input className="w-full rounded-md border bg-teal-50 py-2 px-2 outline-none ring-slate-600 focus:ring-1" type="text" value="Germany" />
+                        <input className="w-full rounded-md border py-2 px-2 outline-none ring-slate-700 focus:ring-1" type="text" value="Germany" />
                     </label>
                 </div>
             </div>
 
-            <div className="amx-auto mb-10 overflow-hidden rounded-lg border border-slate-700 bg-red-50">
-                <p className="mb-6 bg-red-100 py-1 text-center text-lg font-medium">Billing History</p>
+            <div className="amx-auto mb-10 overflow-hidden rounded-lg border border-slate-700">
+                <p className="mb-6 border-b border-slate-700 py-1 text-center text-lg font-medium">Billing History</p>
                 <table className="w-full">
                     <thead>
                         <td className="text-center font-semibold">Date</td>

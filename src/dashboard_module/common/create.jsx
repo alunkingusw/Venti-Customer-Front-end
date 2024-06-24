@@ -55,7 +55,6 @@ const Create = ({ closeCreate }) => {
         setShowEmojiPicker(!showEmojiPicker);
     };
     const onEmojiClick = (code, emojiObject) => {
-        console.log('emojiObject:', code.emoji);
         setTextAreaContent(prevContent => prevContent + code.emoji);
         setShowEmojiPicker(false);
     };

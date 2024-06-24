@@ -2,10 +2,14 @@
 import NavBar from '../common/navBar';
 import Home from '../common/home';
 import Profile from '../common/profile';
+import Create from '../common/create';
+import Messages from '../common/messages';
+import Camera from '../common/camera';
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCircleUser, FaMoon, FaRegSun } from "react-icons/fa6";
-import { RiCalendarEventFill, RiMessageFill,RiFileWarningLine, RiLogoutCircleRLine } from "react-icons/ri";
+import { LuSunMedium } from "react-icons/lu";
+import { RiCalendarEventFill, RiMessageFill, RiFileWarningLine, RiLogoutCircleRLine } from "react-icons/ri";
 import { AiFillSetting, AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
@@ -17,17 +21,16 @@ const UsersDashboard = () => {
     const [selectedSection, setSelectedSection] = useState('home');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isCameraOpen, setIsCameraOpen] = useState(false);
     const menuRef = useRef(null);
     const dropdownRef = useRef(null);
     const { user } = useAuth();
-
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 setIsMenuOpen(false);
             }
         };
-
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -41,11 +44,9 @@ const UsersDashboard = () => {
             setSelectedSection(section);
         }
     };
-
     const toggleDropdown = () => {
         setIsMenuOpen(!isMenuOpen);
     };
-
     useEffect(() => {
         if (dropdownRef.current) {
             if (isMenuOpen) {
@@ -64,20 +65,34 @@ const UsersDashboard = () => {
         switch (selectedSection) {
             case 'home':
                 return <Home />;
+            case 'messages':
+                return <Messages />;
+            case 'create':
+                return <Create />;
             case 'profile':
                 return <Profile />;
             default:
                 return <Home />;
         }
     };
+    const OpenCamera = ()=>{
+        if(user=== null){
+            setIsModalOpen(true)
+        }else{
+        setIsCameraOpen(true);
+        }
+    }
+    const closeCamera=()=>{
+        setIsCameraOpen(false);
+    }
 
     return (
         <div>
-            <div className="bg-red-50 flex h-screen">
+            <div className="flex h-screen">
                 <div>
                     <div className="fixed z-50 md:relative border">
-                        <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col xs:hidden overflow-hidden bg-red-100 transition-all md:h-100dvh md:overflow-auto md:w-64 lg:w-72">
-                            <div className="bg-red-100 mt-0 py-4 pl-10 md:mt-10">
+                        <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col xs:hidden overflow-hidden shadow transition-all md:h-100dvh md:overflow-auto md:w-64 lg:w-72">
+                            <div className="mt-0 py-4 pl-10 md:mt-10">
                                 <span className="">
                                     <span className=" inline-flex text-white h-8 w-8 items-center justify-center rounded-full bg-red-600 align-bottom text-2xl font-bold">V</span>
                                     <span className="text-xl">entie</span>
@@ -103,7 +118,8 @@ const UsersDashboard = () => {
                                     </button>
                                 </li>
                                 <li className="relative">
-                                    <button className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    <button 
+                                    className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span>
                                             <RiCalendarEventFill className="h-6 w-6" />
                                         </span>
@@ -111,7 +127,9 @@ const UsersDashboard = () => {
                                     </button>
                                 </li>
                                 <li className="relative">
-                                    <button className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    <button 
+                                    onClick={()=>handleSidebarClick('messages')}
+                                    className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span className="text-2xl">
                                             <RiMessageFill aria-hidden="true" />
                                         </span>
@@ -119,7 +137,9 @@ const UsersDashboard = () => {
                                     </button>
                                 </li>
                                 <li className="relative">
-                                    <button className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    <button
+                                        onClick={() => handleSidebarClick('create')}
+                                        className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
                                         <span>
                                             <IoIosAddCircle className="h-6 w-6" />
                                         </span>
@@ -160,20 +180,20 @@ const UsersDashboard = () => {
                                         <Link
                                             className="flex items-center space-x-2 w-full focus:bg-red-50 hover:bg-red-50 cursor-pointer select-none rounded-md px-3 py-2 text-start leading-tight transition-all"
                                         >
-                                            <FaRegSun className="flex-shrink-0" />
+                                            <LuSunMedium className="flex-shrink-0" />
                                             {/* <FaMoon /> */}
                                             <span>Switch Modes</span>
                                         </Link>
                                         <Link
                                             className="flex items-center space-x-2 w-full hover:bg-red-50 focus:bg-red-50 cursor-pointer select-none rounded-md px-3 py-2 text-start leading-tight transition-all">
-                                                <RiFileWarningLine className='flex-shrink-0'/>
+                                            <RiFileWarningLine className='flex-shrink-0' />
                                             Report a problem
                                         </Link>
                                         <hr className='text-black' />
                                         <Link
                                             onClick={() => logout()}
                                             className="flex items-center space-x-2 w-full hover:bg-red-50 focus:bg-red-50 cursor-pointer select-none rounded-md px-3 py-2 text-start leading-tight transition-all">
-                                                <RiLogoutCircleRLine className='flex-shrink-0' />
+                                            <RiLogoutCircleRLine className='flex-shrink-0' />
                                             Logout
                                         </Link>
                                     </ul>
@@ -181,23 +201,24 @@ const UsersDashboard = () => {
                             </ul>
                         </nav>
 
-                        <div className="sm:hidden fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-red-100 border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+                        <div className="sm:hidden fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 shadow border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
                             <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
                                 <button
                                     onClick={() => handleSidebarClick('home')}
-                                    data-tooltip-target="tooltip-home" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                                    <AiFillHome className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" />
+                                    data-tooltip-target="tooltip-home" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
+                                    <AiFillHome className="w-5 h-5 mb-1 text-gray-500" aria-hidden="true" />
                                     <span className="sr-only">Home</span>
                                 </button>
 
-                                <button data-tooltip-target="tooltip-wallet" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                                    <RiCalendarEventFill className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" />
+                                <button data-tooltip-target="tooltip-wallet" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
+                                    <RiCalendarEventFill className="w-5 h-5 mb-1 text-gray-500" aria-hidden="true" />
                                     <span className="sr-only">Events</span>
                                 </button>
-
                                 <div className="flex items-center justify-center">
-                                    <button data-tooltip-target="tooltip-new" type="button" className="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                                        <IoIosAddCircle className="w-4 h-4 text-white" />
+                                    <button data-tooltip-target="tooltip-new" type="button" 
+                                    onClick={OpenCamera}
+                                    className="inline-flex items-center justify-center border-2 border-black w-10 h-10 font-medium rounded-full group  focus:outline-none ">
+                                        <IoIosAddCircle className="w-4 h-4 text-gray-700" />
                                         <span className="sr-only">Post</span>
                                     </button>
                                 </div>
@@ -237,6 +258,9 @@ const UsersDashboard = () => {
             </div>
             {isModalOpen && (
                 <Modal closeModal={closeModal} />
+            )}
+              {isCameraOpen && (
+                <Camera closeCamera={closeCamera} />
             )}
         </div>
     );

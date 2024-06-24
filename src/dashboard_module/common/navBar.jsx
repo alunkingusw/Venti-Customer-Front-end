@@ -1,27 +1,37 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { FaRegCircleUser } from "react-icons/fa6";
+import { IoSettings } from "react-icons/io5";
 import { HiOutlineSearch } from "react-icons/hi";
 import { useAuth } from '../../providers/AuthProvider';
+import { Modal } from '../../components/modal';
 
 const NavBar = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const OpenModal =()=>{
+        setIsModalOpen(true);
+    }
     // console.log(user)
     return (
         <div>
             <header className="relative flex flex-col items-center bg-red-20 px-4 py-4 sm:flex-row md:h-20">
                 <div className="flex w-full flex-col justify-between overflow-hidden transition-all sm:max-h-full sm:flex-row sm:items-center">
-                    {user !== null ?(
+                    {user !== null ? (
                         <>
                             <div className="relative ml-0 flex items-center justify-between rounded-md sm:ml-auto">
                                 <HiOutlineSearch className="absolute sm:hidden left-2 block h-5 w-5 text-gray-400" />
-                                <input 
-                                    type="text" 
-                                    name="search" 
-                                    className="sm:hidden h-10 w-full rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-12 shadow-sm outline-none focus:border-blue-500" 
-                                    placeholder="Search for anything" 
+                                <input
+                                    type="text"
+                                    name="search"
+                                    className="sm:hidden h-10 w-full rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-12 shadow-sm outline-none focus:border-blue-500"
+                                    placeholder="Search for anything"
                                 />
+                                <button className='sm:hidden text-gray-500 hover:text-blue-500 ml-3'>
+                                    <IoSettings className='h-6 w-6' />
+                                </button>
                             </div>
                             <ul className="mx-auto mt-4 flex space-x-6 sm:mx-10 sm:mt-0 rounded-full">
                                 <li className="hidden sm:block">
@@ -37,9 +47,28 @@ const NavBar = () => {
                             </ul>
                         </>
                     ) : (
-                        <div className="relative ml-0 flex items-center justify-between rounded-md sm:ml-auto">
-                            <Link to="/signin" className="button text-gray-400 xs:absolute sm:right-2">Login</Link>
-                        </div>
+                        <>
+                            <div className="relative ml-0 flex items-center justify-between rounded-md sm:ml-auto">
+                                <HiOutlineSearch className="absolute sm:hidden left-2 block h-5 w-5 text-gray-400" />
+                                <input
+                                    type="text"
+                                    name="search"
+                                    className="sm:hidden h-10 w-full rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-12 shadow-sm outline-none focus:border-blue-500"
+                                    placeholder="Search for anything"
+                                />
+                                <button
+                                className='text-gray-500 hover:text-blue-500 hover:bg-gray-50 ml-3'>
+                                    <IoSettings className='sm:hidden h-6 w-6' />
+                                </button>
+                            </div>
+                            <div className="relative w-full">
+                                <ul className="relative right-0 flex items-center justify-end sm:mr-0 sm:mt-0 rounded-full">
+                                    <li className="hidden sm:block">
+                                        <Link to="/signin" className="button text-gray-400 right-0">Login</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </>
                     )}
                 </div>
             </header>
