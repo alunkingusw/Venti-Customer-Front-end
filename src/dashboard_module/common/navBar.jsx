@@ -35,12 +35,12 @@ const NavBar = () => {
                             </div>
                             <ul className="mx-auto mt-4 flex space-x-6 sm:mx-10 sm:mt-0 rounded-full">
                                 <li className="hidden sm:block">
-                                    <button className="h-10 w-10 flex items-center justify-center rounded-xl border text-gray-300">
+                                    <button className="h-10 w-10 flex items-center justify-center rounded-xl border text-gray-300 dark:text-gray-100">
                                         <FaRegCircleUser className="h-6 w-6" />
                                     </button>
                                 </li>
                                 <li className="hidden sm:block">
-                                    <button className="flex items-center justify-center text-gray-600">
+                                    <button className="flex items-center justify-center text-gray-600 dark:text-gray-100">
                                         <span className="hidden sm:block">{user.username}</span>
                                     </button>
                                 </li>

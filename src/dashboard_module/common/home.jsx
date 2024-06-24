@@ -7,7 +7,7 @@ const Home = () => {
     <div>
       <div className="py-4">
         {data.map((datas, index) => (
-          <div key={index} className="bg-none border p-4 min-w-100 rounded-lg gap-2 mb-5">
+          <div key={index} className="bg-none border-b p-4 min-w-100 rounded-lg gap-2 mb-5">
             <div className="mb-4">
               <div className="flex flex-row items-center text-center gap-2">
                 <div className="w-11 h-11 rounded-full p-0.5 bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500">
@@ -15,13 +15,13 @@ const Home = () => {
                     <img className="w-full h-full object-contain" src="https://randomuser.me/api/portraits/men/1.jpg" alt="" />
                   </div>
                 </div>
-                <p className="text-black text-sm font-semibold pb-2 pt-1">Jonnaes</p>
+                <p className="text-sm font-semibold pb-2 pt-1">Jonnaes</p>
               </div>
               <div></div>
             </div>
             <div>
               <div>
-                <img className="w-[100%]" src="https://picsum.photos/600/400/?random" alt="" />
+                <img className="w-[100%] dark:border" src="https://picsum.photos/600/400/?random" alt="" />
               </div>
             </div>
             <div>
@@ -44,22 +44,22 @@ const Home = () => {
             </div>
             <div className=" pt-1 pb-2 space-y-1 text-sm">
               <div>
-                <p className="font-semibold text-gray-600 cursor-pointer">37.103 curtidas</p>
+                <p className="font-semibold cursor-pointer">37.103 curtidas</p>
               </div>
               <div>
-                <p className="text-gray-600 cursor-pointer">Qualquer texto serviria para exemplificar esse post</p>
+                <p className="cursor-pointer">Qualquer texto serviria para exemplificar esse post</p>
               </div>
               <div>
-                <p className="text-gray-600 cursor-pointer">Ver todos os 400 comentários</p>
+                <p className="cursor-pointer">Ver todos os 400 comentários</p>
               </div>
             </div>
             <div className="flex flex-row justify-between py-3 m-2 space-x-3">
               <div className="">
-                <p className="text-gray-600 text-sm">Adicione um comentário...</p>
+                <p className="text-sm">Adicione um comentário...</p>
               </div>
-              <button className="text-blue-400 ml-[264px] font-semibold cursor-pointer">
+              {/* <button className="text-blue-400 ml-[264px] font-semibold cursor-pointer">
                 Publicar
-              </button>
+              </button> */}
             </div>
           </div>
         ))}

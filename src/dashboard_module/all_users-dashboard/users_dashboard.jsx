@@ -16,16 +16,20 @@ import { IoMenu } from "react-icons/io5";
 import { useAuth } from '../../providers/AuthProvider';
 import { Modal } from '../../components/modal';
 import { logout } from '../../utils/helpers';
+import { toggleDarkMode, loadTheme } from '../../utils/themeChanger';
 
 const UsersDashboard = () => {
     const [selectedSection, setSelectedSection] = useState('home');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isCameraOpen, setIsCameraOpen] = useState(false);
+    const [isCreate,setIsCreate] = useState(false);
     const menuRef = useRef(null);
     const dropdownRef = useRef(null);
     const { user } = useAuth();
     useEffect(() => {
+        loadTheme();
+
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 setIsMenuOpen(false);
@@ -57,7 +61,7 @@ const UsersDashboard = () => {
         }
     }, [isMenuOpen]);
 
-    const closeModal = () => {
+    const CloseModal = () => {
         setIsModalOpen(false);
     };
 
@@ -85,12 +89,22 @@ const UsersDashboard = () => {
     const closeCamera=()=>{
         setIsCameraOpen(false);
     }
+    const create=()=>{
+        if (user === null){
+            setIsModalOpen(true)
+        }else{
+            setIsCreate(true);
+        }
+    }
+    const closeCreate = () => {
+        setIsCreate(false);
+    }
 
     return (
         <div>
-            <div className="flex h-screen">
+            <div className="flex h-screen dark:text-white dark:bg-black">
                 <div>
-                    <div className="fixed z-50 md:relative border">
+                    <div className="fixed z-50 md:relative border-r">
                         <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col xs:hidden overflow-hidden shadow transition-all md:h-100dvh md:overflow-auto md:w-64 lg:w-72">
                             <div className="mt-0 py-4 pl-10 md:mt-10">
                                 <span className="">
@@ -102,7 +116,7 @@ const UsersDashboard = () => {
                                 <li className="relative">
                                     <button
                                         onClick={() => handleSidebarClick('home')}
-                                        className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                        className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                         <span>
                                             <AiFillHome className="h-6 w-6" />
                                         </span>
@@ -110,7 +124,7 @@ const UsersDashboard = () => {
                                     </button>
                                 </li>
                                 <li className="relative">
-                                    <button className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    <button className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                         <span>
                                             <AiOutlineSearch className="h-6 w-6" />
                                         </span>
@@ -119,7 +133,7 @@ const UsersDashboard = () => {
                                 </li>
                                 <li className="relative">
                                     <button 
-                                    className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                         <span>
                                             <RiCalendarEventFill className="h-6 w-6" />
                                         </span>
@@ -129,7 +143,7 @@ const UsersDashboard = () => {
                                 <li className="relative">
                                     <button 
                                     onClick={()=>handleSidebarClick('messages')}
-                                    className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                         <span className="text-2xl">
                                             <RiMessageFill aria-hidden="true" />
                                         </span>
@@ -138,8 +152,8 @@ const UsersDashboard = () => {
                                 </li>
                                 <li className="relative">
                                     <button
-                                        onClick={() => handleSidebarClick('create')}
-                                        className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                        onClick={() => create()}
+                                        className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                         <span>
                                             <IoIosAddCircle className="h-6 w-6" />
                                         </span>
@@ -147,7 +161,7 @@ const UsersDashboard = () => {
                                     </button>
                                 </li>
                                 <li className="relative">
-                                    <button className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                    <button className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                         <span>
                                             <AiFillSetting className="h-6 w-6" />
                                         </span>
@@ -157,7 +171,7 @@ const UsersDashboard = () => {
                                 <li className="relative">
                                     <button
                                         onClick={() => handleSidebarClick('profile')}
-                                        className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                        className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                         <span>
                                             <FaCircleUser className="h-6 w-6" />
                                         </span>
@@ -167,7 +181,7 @@ const UsersDashboard = () => {
                                 <li className="relative">
                                     <button
                                         onClick={toggleDropdown}
-                                        className="focus:bg-red-50 hover:bg-red-50 flex w-full space-x-2 rounded-md px-10 py-4 text-black focus:outline-none">
+                                        className=" flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                         <span>
                                             <IoMenu className="h-6 w-6" />
                                         </span>
@@ -177,22 +191,21 @@ const UsersDashboard = () => {
                                         ref={dropdownRef}
                                         className={`transition-max-height px-10 duration-300 ease-in-out overflow-hidden ${isMenuOpen ? 'max-h-screen' : 'max-h-0'
                                             }`}>
-                                        <Link
-                                            className="flex items-center space-x-2 w-full focus:bg-red-50 hover:bg-red-50 cursor-pointer select-none rounded-md px-3 py-2 text-start leading-tight transition-all"
-                                        >
+                                          <button
+                                            onClick={()=>toggleDarkMode()}
+                                            className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                             <LuSunMedium className="flex-shrink-0" />
-                                            {/* <FaMoon /> */}
                                             <span>Switch Modes</span>
-                                        </Link>
+                                        </button>
                                         <Link
-                                            className="flex items-center space-x-2 w-full hover:bg-red-50 focus:bg-red-50 cursor-pointer select-none rounded-md px-3 py-2 text-start leading-tight transition-all">
+                                            className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                             <RiFileWarningLine className='flex-shrink-0' />
                                             Report a problem
                                         </Link>
                                         <hr className='text-black' />
                                         <Link
                                             onClick={() => logout()}
-                                            className="flex items-center space-x-2 w-full hover:bg-red-50 focus:bg-red-50 cursor-pointer select-none rounded-md px-3 py-2 text-start leading-tight transition-all">
+                                            className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                             <RiLogoutCircleRLine className='flex-shrink-0' />
                                             Logout
                                         </Link>
@@ -201,7 +214,7 @@ const UsersDashboard = () => {
                             </ul>
                         </nav>
 
-                        <div className="sm:hidden fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 shadow border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+                        <div className="sm:hidden fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600">
                             <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
                                 <button
                                     onClick={() => handleSidebarClick('home')}
@@ -257,10 +270,13 @@ const UsersDashboard = () => {
                 </div>
             </div>
             {isModalOpen && (
-                <Modal closeModal={closeModal} />
+                <Modal closeModal={CloseModal} />
             )}
               {isCameraOpen && (
                 <Camera closeCamera={closeCamera} />
+            )}
+            {isCreate && (
+                <Create closeCreate={closeCreate}/>
             )}
         </div>
     );

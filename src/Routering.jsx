@@ -11,6 +11,7 @@ import { useAuth } from "./providers/AuthProvider";
 
 const Routing = () => {
   const { user } = useAuth();
+  
   return (
     <Routes>
       <Route path="/signup" element={<SignupForm />} />
@@ -19,12 +20,21 @@ const Routing = () => {
       <Route path="/forgot-password-email" element={<Forgot_password_email />} />
       
       <Route path="/" element={
-        user === null ? <UsersDashboard /> : <Navigate to="/creator-home" replace />
+        user === null || user.userType === 0 ? (
+          <UsersDashboard />
+        ) : (
+          <Navigate to="/creator-home" replace />
+        )
       } />
       
       <Route path="/creator-home" element={
-        user !== null ? <Creator_home /> : <Navigate to="/" replace />
+        user !== null && user.userType === 1 ? (
+          <Creator_home />
+        ) : (
+          <Navigate to="/" replace />
+        )
       } />
+      
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

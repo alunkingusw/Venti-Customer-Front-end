@@ -37,9 +37,9 @@ const Edit_profile = () => {
     return (
         <div>
             <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-4 xl:mx-auto">
-                <h1 className="border-b py-6 text-4xl font-semibold">Edit Profile</h1>
+                <h1 className="border-b py-6 px-6 text-4xl font-semibold">Edit Profile</h1>
                 <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">
-                    <div className="col-span-8 overflow-hidden rounded-xl sm:bg-red-50 sm:px-8 sm:shadow">
+                    <div className="col-span-8 overflow-hidden rounded-xl sm:px-8 ">
                         <div className="pt-4">
                             <h1 className="py-2 text-2xl font-semibold">Profile settings</h1>
                         </div>
@@ -47,7 +47,7 @@ const Edit_profile = () => {
                         <p className="py-2 text-xl font-semibold">Name</p>
                         {!changeName ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className="text-gray-600">Your profile name is <strong>user123535363633</strong></p>
+                                <p className="">Your profile name is <strong>user123535363633</strong></p>
                                 <button
                                     onClick={edit_name}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -60,7 +60,7 @@ const Edit_profile = () => {
                                     <div className="relative">
                                         <input
                                             type="text"
-                                            className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                            className="w-full rounded-lg text-black border border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                         // {...register("confirm_password", {
                                         //   required: true,
                                         //   validate: value => value === watch('password') || "Passwords do not match"
@@ -82,7 +82,7 @@ const Edit_profile = () => {
                         <p className="py-2 text-xl font-semibold">Email Address</p>
                         {!changeEmail ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className="text-gray-600">Your email address is <strong>john.doe@company.com</strong></p>
+                                <p className="">Your email address is <strong>john.doe@company.com</strong></p>
                                 <button
                                     onClick={edit_email}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -95,7 +95,7 @@ const Edit_profile = () => {
                                     <div className="relative">
                                         <input
                                             type="email"
-                                            className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                            className="w-full rounded-lg border text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                         // {...register("confirm_password", {
                                         //   required: true,
                                         //   validate: value => value === watch('password') || "Passwords do not match"
@@ -116,7 +116,7 @@ const Edit_profile = () => {
                         <p className="py-2 text-xl font-semibold">Phone Number</p>
                         {!changePhone ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className="text-gray-600">Your phone number is <strong>+254757657268</strong></p>
+                                <p className="">Your phone number is <strong>+254757657268</strong></p>
                                 <button
                                 onClick={edit_phone}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -129,7 +129,7 @@ const Edit_profile = () => {
                                 <div className="relative">
                                     <input
                                         type="tel"
-                                        className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        className="w-full rounded-lg border text-black font-medium border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                     // {...register("confirm_password", {
                                     //   required: true,
                                     //   validate: value => value === watch('password') || "Passwords do not match"
@@ -152,7 +152,7 @@ const Edit_profile = () => {
                         {!changePassword ? (
                             <>
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                    <p className="text-gray-600">Password <strong> *******</strong></p>
+                                    <p className="">Password <strong> *******</strong></p>
                                     <button
                                         onClick={edit_password}
                                         className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -163,11 +163,11 @@ const Edit_profile = () => {
                             <>
                                 <div className="items-center space-y-3 ">
                                     <div>
-                                        <label htmlFor="confirm_password" className="sr-only">Old Password</label>
+                                        <label htmlFor="Old_password" className="">Old Password</label>
                                         <div className="relative">
                                             <input
                                                 type={showConfirmPassword ? "text" : "password"}
-                                                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                                className="w-full rounded-lg border text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                             // {...register("confirm_password", {
                                             //   required: true,
                                             //   validate: value => value === watch('password') || "Passwords do not match"
@@ -179,20 +179,20 @@ const Edit_profile = () => {
                                                 className="absolute inset-y-0 end-0 grid place-content-center px-4"
                                             >
                                                 {showConfirmPassword ? (
-                                                    <FaRegEye className="text-gray-400" />
+                                                    <FaRegEye className="text-gray-600" />
                                                 ) : (
-                                                    <FaRegEyeSlash className="text-gray-400" />
+                                                    <FaRegEyeSlash className="text-gray-600" />
                                                 )}
                                             </button>
                                         </div>
                                         {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
                                     </div>
                                     <div>
-                                        <label htmlFor="confirm_password" className="sr-only">New Password</label>
+                                        <label htmlFor="new_password" className="">New Password</label>
                                         <div className="relative">
                                             <input
                                                 type={toggleShowPassword ? "text" : "password"}
-                                                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                                className="w-full rounded-lg border border-gray-700 p-2 text-black pe-12 text-sm shadow-sm"
                                             // {...register("confirm_password", {
                                             //   required: true,
                                             //   validate: value => value === watch('password') || "Passwords do not match"
@@ -204,9 +204,9 @@ const Edit_profile = () => {
                                                 className="absolute inset-y-0 end-0 grid place-content-center px-4"
                                             >
                                                 {toggleShowPassword ? (
-                                                    <FaRegEye className="text-gray-400" />
+                                                    <FaRegEye className="text-gray-600" />
                                                 ) : (
-                                                    <FaRegEyeSlash className="text-gray-400" />
+                                                    <FaRegEyeSlash className="text-gray-600" />
                                                 )}
                                             </button>
                                         </div>
@@ -214,11 +214,11 @@ const Edit_profile = () => {
                                     </div>
 
                                     <div>
-                                        <label htmlFor="confirm_password" className="sr-only">Confirm Password</label>
+                                        <label htmlFor="confirm_password" className="">Confirm Password</label>
                                         <div className="relative">
                                             <input
                                                 type={showConfirmPassword ? "text" : "password"}
-                                                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                                className="w-full rounded-lg border text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                             // {...register("confirm_password", {
                                             //   required: true,
                                             //   validate: value => value === watch('password') || "Passwords do not match"
@@ -230,9 +230,9 @@ const Edit_profile = () => {
                                                 className="absolute inset-y-0 end-0 grid place-content-center px-4"
                                             >
                                                 {showConfirmPassword ? (
-                                                    <FaRegEye className="text-gray-400" />
+                                                    <FaRegEye className="text-gray-600" />
                                                 ) : (
-                                                    <FaRegEyeSlash className="text-gray-400" />
+                                                    <FaRegEyeSlash className="text-gray-600" />
                                                 )}
                                             </button>
                                         </div>

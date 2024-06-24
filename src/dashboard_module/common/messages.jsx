@@ -28,19 +28,19 @@ const Messages = () => {
                             {/* </li> */}
                         {/* </ul> */}
                     {/* </div> */}
-                    <div className="col-span-2 relative hidden sm:block">
+                    <div className="col-span-2 relative hidden sm:block dark:border-r">
                         <div className="py-4 px-2">
                             <input
                                 type="text"
                                 placeholder="search chats"
-                                className="py-2 px-2 outline outline-1 rounded-2xl w-full"/>
+                                className="py-2 px-2 outline bg-gray-100 outline-1 rounded-2xl w-full"/>
                         </div>
                         <div
                             className="flex flex-row py-4 px-2 justify-center items-center" >
                             <div className="w-1/4">
                                 <img
                                     src="https://img.icons8.com/?size=100&id=GoWFs1kyLbrO&format=png&color=000000"
-                                    className="object-cover h-12 w-12 rounded-full"
+                                    className="object-cover h-12 w-12 border rounded-full"
                                     alt=""
                                 />
                             </div>
@@ -53,7 +53,7 @@ const Messages = () => {
                             <div className="w-1/4">
                                 <img
                                     src="https://img.icons8.com/?size=100&id=23265&format=png&color=000000"
-                                    className="object-cover h-12 w-12 rounded-full"
+                                    className="object-cover h-12 w-12 border rounded-full"
                                     alt=""
                                 />
                             </div>
@@ -62,9 +62,7 @@ const Messages = () => {
                                 <span className="text-gray-500">Hi Sam, Welcome</span>
                             </div>
                         </div>
-                        <div
-                            className="flex flex-row py-4 px-2 items-center"
-                        >
+                        <div className="flex flex-row py-4 px-2 items-center">
                             <div className="w-1/4">
                                 <img
                                     src="https://img.icons8.com/?size=100&id=114900&format=png&color=000000"
@@ -76,9 +74,7 @@ const Messages = () => {
                                 <span className="text-gray-500">Lusi : Thanks Everyone</span>
                             </div>
                         </div>
-                        <div
-                            className="flex flex-row py-4 px-2 items-center"
-                        >
+                        <div className="flex flex-row py-4 px-2 items-center">
                             <div className="w-1/4">
                                 <img
                                     src="https://img.icons8.com/?size=100&id=114900&format=png&color=000000"
@@ -113,33 +109,6 @@ const Messages = () => {
                             </div>
                             <div className="w-full">
                                 <div className="text-lg font-semibold">Javascript Indonesia</div>
-                                <span className="text-gray-500">Evan : some one can fix this</span>
-                            </div>
-                        </div>
-                        <div className="flex flex-row py-4 px-2 items-center">
-                            <div className="w-1/4">
-                                <img
-                                    src="https://img.icons8.com/?size=100&id=21838&format=png&color=000000"
-                                    className="object-cover h-12 w-12 rounded-full"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="w-full">
-                                <div className="text-lg font-semibold">Javascript Indonesia</div>
-                                <span className="text-gray-500">Evan : some one can fix this</span>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-row py-4 px-2 items-center">
-                            <div className="w-1/4">
-                                <img
-                                    src="https://img.icons8.com/?size=100&id=iksWnUJnsXXU&format=png&color=000000"
-                                    className="object-cover h-12 w-12 rounded-full"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="w-full">
-                                <div className="text-md font-semibold">Javascript Indonesia</div>
                                 <span className="text-gray-500">Evan : some one can fix this</span>
                             </div>
                         </div>
@@ -147,8 +116,8 @@ const Messages = () => {
 
                     <div className="col-span-8 overflow-hidden rounded-xl sm:px-8 sm:shadow">
                         <section>
-                            <div className="flex sticky top-0 z-50 space-x-2  border-b  border-gray-300 py-5 px-8 text-left text-sm  text-gray-800">
-                                <img src="https://img.icons8.com/?size=100&id=GoWFs1kyLbrO&format=png&color=000000" alt="" className="float-left inline-block h-6 w-6 sm:h-12 sm:w-12 rounded-full" />
+                            <div className="flex sticky top-0 z-50 space-x-2  border-b py-5 px-8 text-left text-sm ">
+                                <img src="https://img.icons8.com/?size=100&id=GoWFs1kyLbrO&format=png&color=000000" alt="" className="border float-left inline-block h-6 w-6 sm:h-12 sm:w-12 rounded-full" />
                                 <h4 className="py-1 text-left font-bold text-lg">Lara Abegnale</h4>
                             </div>
                             <div className="flex-grow px-8 pt-8 text-left text-gray-700">
@@ -235,7 +204,7 @@ const Messages = () => {
                                     </div>
                                     <div className="clear-both flex text-gray-700"></div>
                                 </div>
-                                <div className="mt-4  flex items-start border-t  border-gray-300 sm:p-8 py-4 text-left  text-gray-700">
+                                <div className="mt-4  flex items-start border-t sm:p-8 py-4 text-left  text-gray-700">
                                     <textarea cols="2" rows="2" placeholder="Your Message" 
                                     className="mr-4 overflow-hidden w-full flex-1 cursor-text resize-none outline outline-1 whitespace-pre-wrap rounded-lg text-sm py-2 px-2 sm:px-1 sm:py-0 font-normal text-gray-600 "></textarea>
                                     <button className="relative inline-flex h-10 w-auto flex-initial cursor-pointer items-center justify-center self-center  rounded-md px-6 text-center align-middle text-sm font-medium outline-none">
