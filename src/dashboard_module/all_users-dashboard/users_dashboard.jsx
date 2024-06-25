@@ -219,12 +219,12 @@ const UsersDashboard = () => {
                                 <button
                                     onClick={() => handleSidebarClick('home')}
                                     data-tooltip-target="tooltip-home" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-white group">
-                                    <AiFillHome className="w-5 h-5 mb-1 text-gray-500" aria-hidden="true" />
+                                    <AiFillHome className="w-5 h-5 text-gray-500" aria-hidden="true" />
                                     <span className="sr-only">Home</span>
                                 </button>
 
                                 <button data-tooltip-target="tooltip-wallet" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-white group">
-                                    <RiCalendarEventFill className="w-5 h-5 mb-1 text-gray-500" aria-hidden="true" />
+                                    <RiCalendarEventFill className="w-5 h-5 text-gray-500" aria-hidden="true" />
                                     <span className="sr-only">Events</span>
                                 </button>
                                 <div className="flex items-center justify-center">
@@ -237,14 +237,14 @@ const UsersDashboard = () => {
                                 </div>
 
                                 <button data-tooltip-target="tooltip-settings" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-gray-50 group">
-                                    <RiMessageFill className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-white" />
+                                    <RiMessageFill className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-white" />
                                     <span className="sr-only">Messages</span>
                                 </button>
 
                                 <button data-tooltip-target="tooltip-profile" type="button"
                                     onClick={() => handleSidebarClick('profile')}
                                     className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-white group">
-                                    <FaCircleUser className="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-white" />
+                                    <FaCircleUser className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-white" />
                                     <span className="sr-only">Profile</span>
                                 </button>
                             </div>
