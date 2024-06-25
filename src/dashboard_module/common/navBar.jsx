@@ -29,9 +29,11 @@ const NavBar = () => {
                                     className="sm:hidden h-10 w-full rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-12 shadow-sm outline-none focus:border-blue-500"
                                     placeholder="Search for anything"
                                 />
-                                <button className='sm:hidden text-gray-500 hover:text-blue-500 ml-3'>
+                                <Link
+                                to="/settings-bar"
+                                 className='sm:hidden text-gray-500 hover:text-blue-500 ml-3'>
                                     <IoSettings className='h-6 w-6' />
-                                </button>
+                                </Link>
                             </div>
                             <ul className="mx-auto mt-4 flex space-x-6 sm:mx-10 sm:mt-0 rounded-full">
                                 <li className="hidden sm:block">
@@ -56,10 +58,10 @@ const NavBar = () => {
                                     className="sm:hidden h-10 w-full rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-12 shadow-sm outline-none focus:border-blue-500"
                                     placeholder="Search for anything"
                                 />
-                                <button
-                                className='text-gray-500 hover:text-blue-500 hover:bg-gray-50 ml-3'>
+                                <Link to='/settings-bar'
+                                className='text-gray-500 dark:text-gray-50 cursor-pointer hover:bg-gray-200 dark:hover:text-white ml-3'>
                                     <IoSettings className='sm:hidden h-6 w-6' />
-                                </button>
+                                </Link>
                             </div>
                             <div className="relative w-full">
                                 <ul className="relative right-0 flex items-center justify-end sm:mr-0 sm:mt-0 rounded-full">

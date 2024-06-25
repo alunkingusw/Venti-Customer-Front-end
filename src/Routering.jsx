@@ -7,6 +7,7 @@ import OtpForm from "./AuthForms/otpForm";
 import UsersDashboard from "./dashboard_module/all_users-dashboard/users_dashboard";
 import Forgot_password_email from "./AuthForms/forgot_password/forgot_password_email";
 import Creator_home from "./dashboard_module/creator_dashboard/creator_home";
+import Settings_bar from "./dashboard_module/common/mobile_settings/settings_bar";
 import { useAuth } from "./providers/AuthProvider";
 
 const Routing = () => {
@@ -18,6 +19,7 @@ const Routing = () => {
       <Route path="/signin" element={<SigninForm />} />
       <Route path="/verification" element={<OtpForm />} />
       <Route path="/forgot-password-email" element={<Forgot_password_email />} />
+      <Route path="/settings-bar" element={<Settings_bar/>} />
       
       <Route path="/" element={
         user === null || user.userType === 0 ? (
