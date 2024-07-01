@@ -47,7 +47,7 @@ const Edit_profile = () => {
                         <p className="py-2 text-xl font-semibold">Name</p>
                         {!changeName ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className="">Your profile name is <strong>user123535363633</strong></p>
+                                <p className=""><strong>user123535363633</strong></p>
                                 <button
                                     onClick={edit_name}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -60,7 +60,7 @@ const Edit_profile = () => {
                                     <div className="relative">
                                         <input
                                             type="text"
-                                            className="w-full rounded-lg text-black border border-gray-700 p-2 pe-12 text-sm shadow-sm"
+                                            className="w-full rounded-lg dark:bg-transparent dark:text-white text-black border border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                         // {...register("confirm_password", {
                                         //   required: true,
                                         //   validate: value => value === watch('password') || "Passwords do not match"
@@ -82,7 +82,7 @@ const Edit_profile = () => {
                         <p className="py-2 text-xl font-semibold">Email Address</p>
                         {!changeEmail ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className="">Your email address is <strong>john.doe@company.com</strong></p>
+                                <p className=""><strong>john.doe@company.com</strong></p>
                                 <button
                                     onClick={edit_email}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -95,7 +95,7 @@ const Edit_profile = () => {
                                     <div className="relative">
                                         <input
                                             type="email"
-                                            className="w-full rounded-lg border text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
+                                            className="w-full rounded-lg border dark:bg-transparent dark:text-white text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                         // {...register("confirm_password", {
                                         //   required: true,
                                         //   validate: value => value === watch('password') || "Passwords do not match"
@@ -116,7 +116,7 @@ const Edit_profile = () => {
                         <p className="py-2 text-xl font-semibold">Phone Number</p>
                         {!changePhone ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className="">Your phone number is <strong>+254757657268</strong></p>
+                                <p className=""><strong>+254757657268</strong></p>
                                 <button
                                 onClick={edit_phone}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -129,7 +129,7 @@ const Edit_profile = () => {
                                 <div className="relative">
                                     <input
                                         type="tel"
-                                        className="w-full rounded-lg border text-black font-medium border-gray-700 p-2 pe-12 text-sm shadow-sm"
+                                        className="w-full rounded-lg border dark:bg-transparent dark:text-white text-black font-medium border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                     // {...register("confirm_password", {
                                     //   required: true,
                                     //   validate: value => value === watch('password') || "Passwords do not match"
@@ -152,7 +152,7 @@ const Edit_profile = () => {
                         {!changePassword ? (
                             <>
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                    <p className="">Password <strong> *******</strong></p>
+                                    <p className="">Last Updated <strong> 19/2/1965</strong></p>
                                     <button
                                         onClick={edit_password}
                                         className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -167,7 +167,7 @@ const Edit_profile = () => {
                                         <div className="relative">
                                             <input
                                                 type={showConfirmPassword ? "text" : "password"}
-                                                className="w-full rounded-lg border text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
+                                                className="w-full rounded-lg border dark:bg-transparent dark:text-white text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                             // {...register("confirm_password", {
                                             //   required: true,
                                             //   validate: value => value === watch('password') || "Passwords do not match"
@@ -192,7 +192,7 @@ const Edit_profile = () => {
                                         <div className="relative">
                                             <input
                                                 type={toggleShowPassword ? "text" : "password"}
-                                                className="w-full rounded-lg border border-gray-700 p-2 text-black pe-12 text-sm shadow-sm"
+                                                className="w-full rounded-lg border dark:bg-transparent dark:text-white border-gray-700 p-2 text-black pe-12 text-sm shadow-sm"
                                             // {...register("confirm_password", {
                                             //   required: true,
                                             //   validate: value => value === watch('password') || "Passwords do not match"
@@ -218,7 +218,7 @@ const Edit_profile = () => {
                                         <div className="relative">
                                             <input
                                                 type={showConfirmPassword ? "text" : "password"}
-                                                className="w-full rounded-lg border text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
+                                                className="w-full rounded-lg border dark:bg-transparent dark:text-white text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
                                             // {...register("confirm_password", {
                                             //   required: true,
                                             //   validate: value => value === watch('password') || "Passwords do not match"

@@ -14,7 +14,6 @@ const NavBar = () => {
     const OpenModal =()=>{
         setIsModalOpen(true);
     }
-    // console.log(user)
     return (
         <div>
             <header className="relative flex flex-col items-center bg-red-20 px-4 py-4 sm:flex-row md:h-20">

@@ -37,143 +37,143 @@ const SignupForm = () => {
   }
 
   return (
-    <div className="mx-auto max-w-screen-xl justify-center px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-lg">
-        <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Get started today</h1>
-        <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt dolores deleniti
-          inventore quaerat mollitia?
-        </p>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="mx-auto max-w-screen-xl justify-center px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-lg">
+          <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Get started today</h1>
+          <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
+            Join Ventie today to stay connected with your friends, share your moments, and discover new interests.
+          </p>
+          <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+            <p className="text-center text-lg font-medium">Create your account</p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-          <p className="text-center text-lg font-medium">Create your account</p>
-
-          <div>
-            <label htmlFor="email" className="sr-only">Email</label>
-            <div className="relative">
-              <input
-                type="email"
-                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter email"
-                {...register("email", {
-                  required: true,
-                  pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
-                })}
-              />
-              {errors.email && errors.email.type === "required" && (
-                <span className="text-sm text-red-700">Email is required.</span>
-              )}
-              {errors.email && errors.email.type === "pattern" && (
-                <span className="text-sm text-red-700">Email is not valid.</span>
-              )}
+            <div>
+              <label htmlFor="email" className="sr-only">Email</label>
+              <div className="relative">
+                <input
+                  type="email"
+                  className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter email"
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
+                  })}
+                />
+                {errors.email && errors.email.type === "required" && (
+                  <span className="text-sm text-red-700">Email is required.</span>
+                )}
+                {errors.email && errors.email.type === "pattern" && (
+                  <span className="text-sm text-red-700">Email is not valid.</span>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div>
-            <label htmlFor="phoneNumber" className="sr-only">Phone Number</label>
-            <div className="relative">
-              <input
-                type="tel"
-                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter phone number"
-                {...register('phoneNumber',
-                  {
+            <div>
+              <label htmlFor="phoneNumber" className="sr-only">Phone Number</label>
+              <div className="relative">
+                <input
+                  type="tel"
+                  className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter phone number"
+                  {...register('phoneNumber', {
                     required: true,
                     minLength: 10
                   })}
-              />
-              {errors.phoneNumber && errors.phoneNumber.type === "required" && (
-                <span className="text-sm text-red-700">Phone number is required.</span>
+                />
+                {errors.phoneNumber && errors.phoneNumber.type === "required" && (
+                  <span className="text-sm text-red-700">Phone number is required.</span>
+                )}
+                {errors.phoneNumber && errors.phoneNumber.type === "minLength" && (
+                  <span className="text-sm text-red-700">
+                    Phone number should be at-least 10 characters.
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="password" className="sr-only">Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter password"
+                  {...register("password", {
+                    required: true,
+                    minLength: 8
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={toggleShowPassword}
+                  className="absolute inset-y-0 end-0 grid place-content-center px-4"
+                >
+                  {showPassword ? (
+                    <RiEyeOffFill className="text-gray-400" />
+                  ) : (
+                    <RiEyeFill className="text-gray-400" />
+                  )}
+                </button>
+              </div>
+              {errors.password && errors.password.type === "required" && (
+                <span className="text-sm text-red-700">Password is required.</span>
               )}
-              {errors.phoneNumber && errors.phoneNumber.type === "minLength" && (
+              {errors.password && errors.password.type === "minLength" && (
                 <span className="text-sm text-red-700">
-                  Phone number should be at-least 10 characters.
+                  Password should be at-least 8 characters.
                 </span>
               )}
             </div>
-          </div>
 
-          <div>
-            <label htmlFor="password" className="sr-only">Password</label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter password"
-                {...register("password", {
-                  required: true,
-                  minLength: 8
-                })}
-              />
-              <button
-                type="button"
-                onClick={toggleShowPassword}
-                className="absolute inset-y-0 end-0 grid place-content-center px-4"
-              >
-                {showPassword ? (
-                  <RiEyeOffFill className="text-gray-400" />
-                ) : (
-                  <RiEyeFill className="text-gray-400" />
-                )}
-              </button>
-            </div>
-            {errors.password && errors.password.type === "required" && (
-              <span className="text-sm text-red-700">Password is required.</span>
-            )}
-            {errors.password && errors.password.type === "minLength" && (
-              <span className="text-sm text-red-700">
-                Password should be at-least 8 characters.
-              </span>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="confirm_password" className="sr-only">Confirm Password</label>
-            <div className="relative">
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Confirm your password"
-                {...register("confirm_password", {
-                  required: true,
-                  validate: value => value === watch('password') || "Passwords do not match"
-                })}
-              />
-              <button
-                type="button"
-                onClick={toggleShowConfirmPassword}
-                className="absolute inset-y-0 end-0 grid place-content-center px-4"
-              >
-                {showConfirmPassword ? (
-                  <RiEyeOffFill className="text-gray-400" />
-                ) : (
-                  <RiEyeFill className="text-gray-400" />
-                )}
-              </button>
-            </div>
-            {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>}
-          </div>
-          {!loading ? (
-            <button
-              type="submit"
-              className="button inline-block w-full px-5 py-3"
-            >
-              Sign up
-            </button>
-          ) : (
-            <button className='button w-full'>
-              <div className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-gray-400 rounded-full" role="status" aria-label="loading">
-                <span className="sr-only">Loading...</span>
+            <div>
+              <label htmlFor="confirm_password" className="sr-only">Confirm Password</label>
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Confirm your password"
+                  {...register("confirm_password", {
+                    required: true,
+                    validate: value => value === watch('password') || "Passwords do not match"
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={toggleShowConfirmPassword}
+                  className="absolute inset-y-0 end-0 grid place-content-center px-4"
+                >
+                  {showConfirmPassword ? (
+                    <RiEyeOffFill className="text-gray-400" />
+                  ) : (
+                    <RiEyeFill className="text-gray-400" />
+                  )}
+                </button>
               </div>
-            </button>
-          )}
-          <p className="text-center text-sm text-gray-500">
-            Already have an account?
-            <Link to='/signin' className="underline">Sign In</Link>
-          </p>
-        </form>
+              {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>}
+            </div>
+            {!loading ? (
+              <button
+                type="submit"
+                className="button inline-block w-full px-5 py-3"
+              >
+                Sign up
+              </button>
+            ) : (
+              <button className='button w-full'>
+                <div className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-gray-400 rounded-full" role="status" aria-label="loading">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </button>
+            )}
+            <p className="text-center text-sm text-gray-500">
+              Already have an account?
+              <Link to='/signin' className="underline">Sign In</Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
+
   )
 }
 

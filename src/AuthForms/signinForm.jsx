@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from '@remixicon/react';
 import EndPoints from '../Api/baseUrl/endPoints';
-import {Success, Error} from '../components/toasts';
+import { Success, Error } from '../components/toasts';
 import { setToken } from '../utils/helpers';
 import { useAuth } from '../providers/AuthProvider'
 
@@ -23,33 +23,33 @@ const SigninForm = () => {
     try {
       setLoading(true)
       const { data } = await EndPoints.Auth.login(values);
-      if (data.status !=200){throw Error('An Error occured!')}
-        else{
-          Success(data.message);
-          setToken(data.token);
-          setUser(data);
-          navigate('/')
-        }
+      if (data.status != 200) { throw Error('An Error occured!') }
+      else {
+        Success(data.message);
+        setToken(data.token);
+        setUser(data);
+        navigate('/')
+      }
     } catch (error) {
       Error(error.response.data.message)
     } finally {
-        setLoading(false)
+      setLoading(false)
     }
   }
 
   return (
+    <div className="flex items-center justify-center min-h-screen">
     <div className="mx-auto max-w-screen-xl justify-center px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Welcome Back</h1>
-
+  
         <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt dolores deleniti
-          inventore quaerat mollitia?
+          Welcome to Ventie! Please log in to access your account and stay connected.
         </p>
-
+  
         <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
           <p className="text-center text-lg font-medium">Enter your credentials </p>
-
+  
           <div>
             <label htmlFor="email" className="sr-only">Email/Phone number</label>
             <div className="relative">
@@ -59,21 +59,19 @@ const SigninForm = () => {
                 placeholder="Enter email or phone number"
                 {...register("emailOrPhone", {
                   required: true
-                  // pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
                 })}
               />
             </div>
             {errors.emailOrPhone && errors.emailOrPhone.type === "required" && (
-                <span className="text-sm text-red-700">Email or Phone is required.</span>
-              )}
+              <span className="text-sm text-red-700">Email or Phone is required.</span>
+            )}
           </div>
-
+  
           <div className="flex items-center justify-between">
-            <div className="flex items-start">
-            </div>
+            <div className="flex items-start"></div>
             <Link to="/forgot-password-email" className="text-md font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</Link>
           </div>
-
+  
           <div>
             <label htmlFor="password" className="sr-only">Password</label>
             <div className="relative">
@@ -99,15 +97,15 @@ const SigninForm = () => {
               </button>
             </div>
             {errors.password && errors.password.type === "required" && (
-                <span className="text-sm text-red-700">Password is required.</span>
-              )}
-              {errors.password && errors.password.type === "minLength" && (
-                <span className="text-sm text-red-700">
-                  Password should be at-least 6 characters.
-                </span>
-              )}
+              <span className="text-sm text-red-700">Password is required.</span>
+            )}
+            {errors.password && errors.password.type === "minLength" && (
+              <span className="text-sm text-red-700">
+                Password should be at least 6 characters.
+              </span>
+            )}
           </div>
-
+  
           {!loading ? (
             <button
               type="submit"
@@ -129,6 +127,8 @@ const SigninForm = () => {
         </form>
       </div>
     </div>
+  </div>
+  
   )
 }
 

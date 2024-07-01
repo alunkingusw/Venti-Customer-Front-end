@@ -15,7 +15,6 @@ export function getXpermissions() {
 export function getUserDetails() {
   const userString = secureLocalStorage.getItem("user");
   if (!userString) return null;
-  
   try {
     const user = JSON.parse(userString);
     return user;
@@ -36,4 +35,5 @@ export function logout() {
   secureLocalStorage.removeItem("user");
   secureLocalStorage.removeItem("token");
   secureLocalStorage.removeItem("permissions");
+  window.location.href = '/'
 }
