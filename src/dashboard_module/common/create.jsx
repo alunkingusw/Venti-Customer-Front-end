@@ -102,7 +102,7 @@ const Create = ({ closeCreate }) => {
                                     )}
                                     <div className="group mb-8">
                                         <label htmlFor="fileInputDragDrop" className="button cursor-pointer">
-                                            <input id="fileInputDragDrop" type="file" className="sr-only" aria-describedby="validFileFormats" onChange={handleImageChange} />
+                                            <input id="fileInputDragDrop" type="file" className="sr-only" aria-describedby="validFileFormats" accept="image/*, video/*" onChange={handleImageChange} />
                                             {selectedImage ? 'Change Image' : 'Select from device'}
                                         </label>
                                     </div>

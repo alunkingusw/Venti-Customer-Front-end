@@ -9,10 +9,11 @@ import Forgot_password_email from "./AuthForms/forgot_password/forgot_password_e
 import Creator_home from "./dashboard_module/creator_dashboard/creator_home";
 import Settings_bar from "./dashboard_module/common/mobile_settings/settings_bar";
 import { useAuth } from "./providers/AuthProvider";
-// import Sidebar from "./dashboard_module/common/sidebar";
 import Home from "./dashboard_module/common/home";
 import Profile from "./dashboard_module/common/profile";
 import Messages from "./dashboard_module/common/messages";
+import Report_problem from "./dashboard_module/common/report_problem";
+import SettingsPage from "./dashboard_module/all_users-dashboard/unique_to_users/settings/settingsLayout";
 
 const Routing = () => {
   const { user } = useAuth();
@@ -24,6 +25,7 @@ const Routing = () => {
       <Route path="/verification" element={<OtpForm />} />
       <Route path="/forgot-password-email" element={<Forgot_password_email />} />
       <Route path="/settings-bar" element={<Settings_bar />} />
+      <Route path="/report-a-problem" element={<Report_problem/>} />
 
       <Route path="/" element={user === null || user.userType === 0 ? (
         <>
@@ -37,6 +39,7 @@ const Routing = () => {
         <Route path="/" element={<Home />} />
         <Route path='/profile' element={<Profile/>} />
         <Route path="/messages" element={<Messages/>} />
+        <Route path="/settings-page" element={<SettingsPage/>} />
       </Route>
 
       <Route path="/creator-home" element={

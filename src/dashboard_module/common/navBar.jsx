@@ -29,7 +29,7 @@ const NavBar = () => {
                                     placeholder="Search for anything"
                                 />
                                 <Link
-                                to=""
+                                to="/settings-page"
                                  className='sm:hidden text-gray-500 hover:text-blue-500 ml-3'>
                                     <IoSettings className='h-6 w-6' />
                                 </Link>
