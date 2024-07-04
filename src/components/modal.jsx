@@ -27,9 +27,11 @@ export function Modal({ closeModal }) {
             <div className="relative w-full max-w-lg p-4" style={modalStyles}>
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <Link to="/report-a-problem" >
                         <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
                             <LuHelpCircle/>
                         </h3>
+                        </Link>
                         <button onClick={closeModal} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                             <IoMdClose className="w-6 h-6" aria-hidden="true" />
                             <span className="sr-only">Close modal</span>

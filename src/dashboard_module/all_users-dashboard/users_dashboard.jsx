@@ -7,11 +7,11 @@ const UsersDashboard = () => {
    
     return (
         <div className="flex h-screen dark:text-white dark:bg-black">
-            <Sidebar />
+            <Sidebar/>
             <div className="flex h-full w-full flex-col">
                 <NavBar />
-                <div className="h-screen overflow-hidden">
-                    <div className="flex flex-wrap gap-x-4 gap-y-8 justify-center items-center overflow-y-auto">
+                <div className="h-screen overflow-auto">
+                    <div className="flex flex-wrap gap-x-4 gap-y-8 justify-center items-center ">
                         <Outlet />
                     </div>
                 </div>

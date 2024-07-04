@@ -13,6 +13,7 @@ import { useAuth } from '../../providers/AuthProvider';
 import Camera from './camera';
 import { Modal } from '../../components/modal';
 import Create from './create';
+import { LiaAnkhSolid } from 'react-icons/lia';
 
 const Sidebar = () => {
     const menuRef = useRef(null);
@@ -103,13 +104,13 @@ const Sidebar = () => {
                         </button>
                     </li>
                     <li className="relative">
-                        <button
+                        <Link to='/Events'
                             className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <RiCalendarEventFill className="h-6 w-6" />
                             </span>
                             <span>Events</span>
-                        </button>
+                        </Link>
                     </li>
                     <li className="relative">
                         <Link to='/messages'
@@ -194,10 +195,11 @@ const Sidebar = () => {
                         <span className="sr-only">Home</span>
                     </Link>
 
-                    <button data-tooltip-target="tooltip-wallet" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-white group">
+                    <Link to="/events"
+                     data-tooltip-target="tooltip-wallet" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-white group">
                         <RiCalendarEventFill className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-gray-700" aria-hidden="true" />
                         <span className="sr-only">Events</span>
-                    </button>
+                    </Link>
                     <div className="flex items-center justify-center">
                         <button data-tooltip-target="tooltip-new" type="button"
                             onClick={OpenCamera}

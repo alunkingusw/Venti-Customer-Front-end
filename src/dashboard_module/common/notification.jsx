@@ -3,17 +3,18 @@ import React from 'react'
 
 const Notification = () => {
   return (
-    <div>
-      <div className="border-b pt-4 pb-8">
-        <h1 className="py-2 text-2xl font-semibold">Notification settings</h1>
-        <p className="font- ">Manage your notification and account settings here.</p>
-      </div>
+    <div className="block p-4 border border-gray-200 rounded-lg overflow-y-scroll mb-2">
+      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Notification Settings
+      </h5>
+      <p className="font-normal text-gray-700 dark:text-white border-b ">
+        Stay updated with the latest discussions and feedback from the community.
+      </p>
       <div className="grid border-b py-6 sm:grid-cols-2">
         <div className="">
           <h2 className="text-lg font-semibold leading-4 ">Comments</h2>
           <p className="">Stay updated with the latest discussions and feedback from the community.</p>
         </div>
-
         <div className="mt-4 flex items-center sm:justify-end">
           <div className="flex flex-col gap-3">
             <label htmlFor="email" className="relative inline-flex cursor-pointer items-center">

@@ -14,6 +14,7 @@ import Profile from "./dashboard_module/common/profile";
 import Messages from "./dashboard_module/common/messages";
 import Report_problem from "./dashboard_module/common/report_problem";
 import SettingsPage from "./dashboard_module/all_users-dashboard/unique_to_users/settings/settingsLayout";
+import Events from "./dashboard_module/all_users-dashboard/event/events";
 
 const Routing = () => {
   const { user } = useAuth();
@@ -37,9 +38,10 @@ const Routing = () => {
       )
       } >
         <Route path="/" element={<Home />} />
-        <Route path='/profile' element={<Profile/>} />
-        <Route path="/messages" element={<Messages/>} />
-        <Route path="/settings-page" element={<SettingsPage/>} />
+        <Route path='profile' element={<Profile/>} />
+        <Route path="messages" element={<Messages/>} />
+        <Route path="settings-page" element={<SettingsPage/>} />
+        <Route path="Events" element={<Events/>} />
       </Route>
 
       <Route path="/creator-home" element={

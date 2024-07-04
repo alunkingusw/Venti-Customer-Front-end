@@ -27,7 +27,7 @@ const Messages = () => {
     return (
         <div className="flex h-screen w-full ">
             {/* Conversation List */}
-            <div className={`${showConversations ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-1/3 lg:w-1/4 border-r`}>
+            <div className={`${showConversations ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-1/3 lg:w-1/4 border-r border-gray-50`}>
                 <div className="p-4 border-b">
                     <div className="flex items-center justify-between">
                         <h1 className="text-xl font-semibold">Messages</h1>

@@ -57,7 +57,7 @@ const NavBar = () => {
                                     className="sm:hidden h-10 w-full rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-12 shadow-sm outline-none focus:border-blue-500"
                                     placeholder="Search for anything"
                                 />
-                                <Link to="#"
+                                <Link to="/settings-page"
                                 className='text-gray-500 dark:text-gray-50 cursor-pointer hover:bg-gray-200 dark:hover:text-white ml-3'>
                                     <IoSettings className='sm:hidden h-6 w-6' />
                                 </Link>
