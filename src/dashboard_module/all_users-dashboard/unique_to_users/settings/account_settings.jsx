@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { IoIosArrowForward } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 const AccountSettings = () => {
     return (
@@ -13,19 +14,20 @@ const AccountSettings = () => {
                     Stay updated with the latest discussions and feedback from the community.
                 </p>
                 <div className="py-10  grid w-full grid-cols-1 gap-2">
-                    <button className="relative w-full hover:bg-red-50 focus:bg-red-100">
+                    <button className="relative w-full hover:bg-gray-50 focus:bg-gray-100 dark:hover:text-black dark:focus:text-black">
                         <label className="flex cursor-pointer flex-row justify-between items-center rounded-lg border border-gray-300 p-4 peer-checked:border-4 ">
                             <span className="mt-2 text-xl">Change account to Business</span>
                             <IoIosArrowForward className='font-bold text-2xl'/>
                         </label>
                     </button>
-                    <button className="relative w-full hover:bg-red-50 focus:bg-red-100">
+                    <Link to="/creator-uploads"
+                   className="relative w-full hover:bg-gray-50 focus:bg-gray-100 dark:hover:text-black dark:focus:text-black">
                         <label className="flex cursor-pointer flex-row justify-between items-center rounded-lg border border-gray-300 p-4 peer-checked:border-4 ">
                             <span className="mt-2 text-xl">Change account to Creator</span>
                             <IoIosArrowForward className='font-bold text-2xl'/>
                         </label>
-                    </button>
-                    <button className="relative w-full hover:bg-red-50 focus:bg-red-100">
+                    </Link>
+                    <button className="relative w-full hover:bg-gray-50 focus:bg-gray-100 dark:hover:text-black dark:focus:text-black">
                         <label className="flex cursor-pointer flex-row justify-between items-center rounded-lg border border-gray-300 p-4 peer-checked:border-4 ">
                             <span className="mt-2 text-xl">Change account to Professional</span>
                             <IoIosArrowForward className='font-bold text-2xl'/>

@@ -3,7 +3,7 @@ import React from 'react'
 
 const Notification = () => {
   return (
-    <div className="block p-4 border border-gray-200 rounded-lg overflow-y-scroll mb-2">
+    <div className="block p-4 border border-gray-200 rounded-lg mb-2">
       <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         Notification Settings
       </h5>

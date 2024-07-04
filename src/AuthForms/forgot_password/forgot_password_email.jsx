@@ -3,15 +3,28 @@ import React, { useState } from 'react'
 import EndPoints from '../../Api/baseUrl/endPoints';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Success, Error } from '../../components/toasts';
 
 const Forgot_password_email = () => {
     const { register, handleSubmit, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors }, watch } = useForm();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
 
-    const onSubmit=async(values)=>{
-        // setLoading(true)
-        console.log(values)
+    const onSubmit = async (values) => {
+        setLoading(true)
+        try {
+            const { data } = await EndPoints.Auth.forgot_password(values);
+            if (data.message === null) { throw Error('An Error occured') }
+            else {
+                Success(data.message);
+                navigate('/directive');
+            }
+        } catch (error) {
+            Error(error.response.data.message)
+            console.log(errors)
+        } finally {
+            setLoading(false)
+        }
     }
     return (
         <div className="mx-auto max-w-screen-xl justify-center px-4 py-16 sm:px-6 lg:px-8">
@@ -40,7 +53,7 @@ const Forgot_password_email = () => {
                         {errors.emailOrPhone && errors.emailOrPhone.type === "required" && (
                             <span className="text-sm text-red-700">Email or Phone is required.</span>
                         )}
-                         {errors.email && errors.email.type === "pattern" && (
+                        {errors.email && errors.email.type === "pattern" && (
                             <span className="text-sm text-red-700">Enter correct email format.</span>
                         )}
                     </div>

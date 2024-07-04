@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getToken } from '../utils/helpers';
 
 export const baseURL =
   import.meta.env.MODE === 'development'
@@ -8,14 +9,12 @@ export const baseURL =
 const instance = axios.create({ baseURL })
 
 instance.interceptors.request.use((config) => {
-  const token = JSON.parse(localStorage.getItem('user'));
-  if (token) {
-    // config.headers.Authorization = `Bearer ${token.access_token}`;
-    config.headers.Authorization = `Bearer ${token.access_token}`;
-    // config.headers.["X-permissions"]
-  }
+  const token = getToken();
+  config.headers.Authorization = `Bearer ${token}`;
+  // config.headers.["X-permissions"]
   return config;
 });
+
 instance.interceptors.response.use(
   response => {
     return response;
@@ -23,11 +22,9 @@ instance.interceptors.response.use(
   error => {
     const status = error.response.status ? error.response.status : null;
     if (status === 401) {
-      console.log('all')
-      localStorage.clear('user');
+      // localStorage.clear('user');
       window.location.href = '/signin'
     }
     return Promise.reject(error);
-  }
-);
+  });
 export default instance

@@ -130,7 +130,7 @@ const Profile = () => {
                                         <div className="flex flex-wrap my-auto">
                                             <button
                                                 onClick={() => setDivs('edit_profile')}
-                                                className="inline-block px-6 py-3 mr-3 bg-gray-300 dark:bg-gray-700 text-base font-medium leading-normal text-center align-middle transition-colors duration-150 ease-in-out border-0 shadow-none cursor-pointer rounded-2xl text-muted bg-light border-light hover:bg-light-dark active:bg-light-dark focus:bg-light-dark ">
+                                                className="inline-block px-6 py-3 mr-3 bg-gray-300 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-base font-medium leading-normal text-center align-middle transition-colors duration-150 ease-in-out border-0 shadow-none cursor-pointer rounded-2xl text-muted bg-light border-light hover:bg-light-dark active:bg-light-dark focus:bg-light-dark ">
                                                 Edit Profile
                                             </button>
                                         </div>
@@ -279,8 +279,8 @@ const Profile = () => {
                         <button
                             onClick={() => setDivs('profile')}
                             className='flex items-center ml-0'>
-                            <IoIosArrowBack className='h-8 w-8' />
-                            <p className='font-bold '>Back</p>
+                            <IoIosArrowBack className='h-6 w-6' />
+                            <p className='font-bold hover:underline '>Back</p>
                         </button>
                         <Edit_profile />
                     </div>

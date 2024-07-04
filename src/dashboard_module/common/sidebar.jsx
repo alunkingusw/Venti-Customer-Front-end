@@ -88,7 +88,7 @@ const Sidebar = () => {
                     <li className="relative">
                         <Link to='/'
                             // onClick={() => handleSidebarClick('home')}
-                            className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                            className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <AiFillHome className="h-6 w-6" />
                             </span>
@@ -96,7 +96,7 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li className="relative">
-                        <button className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:hover:text-gray-700 dark:focus:text-black flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                        <button className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-gray-700 dark:focus:text-black flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <AiOutlineSearch className="h-6 w-6" />
                             </span>
@@ -105,7 +105,7 @@ const Sidebar = () => {
                     </li>
                     <li className="relative">
                         <Link to='/Events'
-                            className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                            className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <RiCalendarEventFill className="h-6 w-6" />
                             </span>
@@ -115,7 +115,7 @@ const Sidebar = () => {
                     <li className="relative">
                         <Link to='/messages'
                             // onClick={() => handleSidebarClick('messages')}
-                            className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                            className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span className="text-2xl">
                                 <RiMessageFill aria-hidden="true" />
                             </span>
@@ -125,7 +125,7 @@ const Sidebar = () => {
                     <li className="relative">
                         <button
                             onClick={() => create()}
-                            className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                            className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <IoIosAddCircle className="h-6 w-6" />
                             </span>
@@ -134,7 +134,7 @@ const Sidebar = () => {
                     </li>
                     <li className="relative">
                         <Link to="/settings-page"
-                        className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                        className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <AiFillSetting className="h-6 w-6" />
                             </span>
@@ -143,7 +143,7 @@ const Sidebar = () => {
                     </li>
                     <li className="relative">
                         <Link to='/profile'
-                            className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                            className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <FaCircleUser className="h-6 w-6" />
                             </span>
@@ -165,19 +165,19 @@ const Sidebar = () => {
                                 }`}>
                             <button
                                 onClick={() => toggleDarkMode()}
-                                className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:focus:text-black dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                                className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:focus:text-black dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                 <LuSunMedium className="flex-shrink-0" />
                                 <span>Switch Modes</span>
                             </button>
                             <Link to="/report-a-problem"
-                                className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:focus:text-black dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                                className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:focus:text-black dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                 <RiFileWarningLine className='flex-shrink-0' />
                                 Report a problem
                             </Link>
                             <hr className='text-black' />
                             <Link
                                 onClick={() => logout()}
-                                className="focus:bg-red-50 dark:focus:bg-gray-200 hover:bg-red-50 dark:focus:text-black dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
+                                className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:focus:text-black dark:hover:bg-gray-200 dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                                 <RiLogoutCircleRLine className='flex-shrink-0' />
                                 Logout
                             </Link>
