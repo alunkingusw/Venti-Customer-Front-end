@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import imageData from "../assets/imageData";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from '@remixicon/react';
@@ -37,14 +38,15 @@ const SignupForm = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="mx-auto max-w-screen-xl justify-center px-4 py-16 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen"
+    style={{ backgroundImage: `url(${imageData('login')})` }}>
+       <div className="mx-auto max-w-screen-xl justify-center z-10 bg-gray-300 bg-opacity-75 rounded-lg px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-lg">
-          <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Get started today</h1>
-          <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
+          <h1 className="text-center text-2xl font-bold sm:text-3xl">Get started today</h1>
+          <p className="mx-auto mt-4 max-w-md text-center">
             Join Ventie today to stay connected with your friends, share your moments, and discover new interests.
           </p>
-          <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+          <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 sm:p-6 lg:p-8">
             <p className="text-center text-lg font-medium">Create your account</p>
 
             <div>
@@ -165,7 +167,7 @@ const SignupForm = () => {
                 </div>
               </button>
             )}
-            <p className="text-center text-sm text-gray-500">
+            <p className="text-center text-sm">
               Already have an account?
               <Link to='/signin' className="underline">Sign In</Link>
             </p>

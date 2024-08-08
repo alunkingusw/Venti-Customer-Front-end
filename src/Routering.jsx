@@ -23,6 +23,7 @@ import Creator_uploads from "./dashboard_module/all_users-dashboard/unique_to_us
 
 const Routing = () => {
   const { user } = useAuth();
+  console.log(user)
 
   return (
     <Routes>
@@ -35,15 +36,9 @@ const Routing = () => {
       <Route path="/settings-bar" element={<Settings_bar />} />
       <Route path="/report-a-problem" element={<Report_problem/>} />
 
-      <Route path="/" element={user === null || user.userType === 0 ? (
-        <>
-          <UsersDashboard />
-        </>
+      <Route path="/" element={<UsersDashboard />}>
 
-      ) : (
-        <Navigate to="/creator-home" replace />
-      )
-      } >
+        {/* <Navigate to="/creator-home" replace /> */}
         <Route path="/" element={<Home />} />
         <Route path='profile' element={<Profile/>} />
         <Route path="messages" element={<Messages/>} />
@@ -53,13 +48,7 @@ const Routing = () => {
         <Route path="creator-uploads" element={<Creator_uploads/>} />
       </Route>
 
-      <Route path="/creator-home" element={
-        user !== null && user.userType === 1 ? (
-          <Creator_home />
-        ) : (
-          <Navigate to="/" replace />
-        )
-      } />
+      <Route path="/creator-home" element={<Creator_home />} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

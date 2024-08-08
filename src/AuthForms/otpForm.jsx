@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import imageData from '../assets/imageData';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import EndPoints from '../Api/baseUrl/endPoints';
@@ -53,14 +54,15 @@ const OtpForm = () => {
   }
 
   return (
-    <div className="mx-auto max-w-screen-xl justify-center px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-lg">
+    <div className="flex items-center justify-center min-h-screen"
+    style={{ backgroundImage: `url(${imageData('login')})` }}>
+      <div className="mx-auto max-w-screen-xl justify-center z-10 bg-gray-100 bg-opacity-75 rounded-lg px-4 py-16 sm:px-6 lg:px-8">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Verify Your Account</h1>
         <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt dolores deleniti
           inventore quaerat mollitia?
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 sm:p-6 lg:p-8">
           <p className="text-center text-lg font-medium">OTP code has been sent to <span>{maskedEmail}</span></p>
           <div>
             <label htmlFor="otp" className="sr-only">Verification Code</label>
