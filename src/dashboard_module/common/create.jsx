@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { BsX } from 'react-icons/bs';
 import { IoImagesOutline, IoSend } from 'react-icons/io5';
 import { CiFaceSmile } from "react-icons/ci";
-import { useForm } from 'react-hook-form';
+import { GoIssueClosed } from "react-icons/go";
+import { Success, Error } from '../../components/toasts';
 import { MdErrorOutline } from "react-icons/md";
 import Cropper from 'react-easy-crop';
 import EmojiPicker from 'emoji-picker-react';
 import getCroppedImg from './cropImage';
 import EndPoints from '../../Api/baseUrl/endPoints';
+import Swal from 'sweetalert2'
 
 const Create = ({ closeCreate }) => {
     const [currentDiv, setCurrentDiv] = useState('select');
@@ -50,7 +52,7 @@ const Create = ({ closeCreate }) => {
             setCroppedImage(croppedImage)
             setCurrentDiv('final');
         } catch (error) {
-            console.error('Error cropping image:', error);
+            Error('Error cropping image:', error);
         }
     };
     const pickEmoji = () => {
@@ -61,18 +63,24 @@ const Create = ({ closeCreate }) => {
         setShowEmojiPicker(false);
     };
 
-    const onSubmit = async (values) => {
-        const formData = {
-            caption:textAreaContent,
-            image:croppedImage,
-        }
-        console.log(formData)
+    const onSubmit = async () => {
         try {
-            const { data } = await EndPoints.posts.create_post({formData})
+            const response = await fetch(croppedImage);
+            const blob = await response.blob();
+
+            const formData = new FormData();
+            formData.append('caption', textAreaContent);
+            formData.append('image', blob, 'image.jpg');
+
+            const { data } = await EndPoints.posts.create_post(formData);
+            if (data.status != 200) { throw new Error('An Error Occurred!') }
+            // Success(data.message)
+            setCurrentDiv('success');
+
         } catch (error) {
-            console.log(error)
+            Error(error?.response?.data?.error || error?.response?.data?.message);
         }
-    }
+    };
 
     return (
         <>
@@ -199,9 +207,9 @@ const Create = ({ closeCreate }) => {
                                         onChange={(e) => setTextAreaContent(e.target.value)}
                                         className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Your message..."></textarea>
-                                    <button type="submit" 
-                                    onClick={onSubmit}
-                                    className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                                    <button type="submit"
+                                        onClick={onSubmit}
+                                        className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
                                         <IoSend className="w-6 h-6 " />
                                         <span className="sr-only">Send message</span>
                                     </button>
@@ -211,6 +219,19 @@ const Create = ({ closeCreate }) => {
                                         <EmojiPicker onEmojiClick={onEmojiClick} />
                                     </div>
                                 )}
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {currentDiv === 'success' && (
+                    <div id="default-modal" className="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full h-full">
+                        <div className="relative p-10 w-full max-w-xl max-h-full">
+                            <div className="relative p-6 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-8">
+                                <div className="w-full flex items-center justify-center mx-auto mb-6">
+                                    <GoIssueClosed className="w-24 h-24 text-green-500 dark:text-green-400" />
+                                    <span className="sr-only">Success</span>
+                                </div>
+                                <p className="text-2xl font-semibold text-gray-900 dark:text-white">Post Created Successfully!</p>
                             </div>
                         </div>
                     </div>

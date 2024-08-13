@@ -23,7 +23,7 @@ const EndPoints = {
         update_profile:(data) =>Put("auth/update-user-profile", data),
     },
     posts:{
-        create_post:(data) => Post("/post/"),
+        create_post:(data) => Post("/post/", data),
     },
 }
 export default EndPoints;
