@@ -46,11 +46,11 @@ const Security_settings = () => {
                             </label>
                             <select
                                 id="question1"
-                                className="w-full p-2 border-b border-dashed outline-none border-gray-300 bg-transparent focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600"
+                                className="w-full p-2 border-b border-dashed outline-none border-gray-300 bg-transparent focus:border-blue-500 dark:bg-transparent dark:border-gray-600"
                             >
-                                <option>What was the name of your first pet?</option>
-                                <option>In what city were you born?</option>
-                                <option>What is your mother&apos;s maiden name?</option>
+                                <option className='dark:text-black'>What was the name of your first pet?</option>
+                                <option className='dark:text-black'>In what city were you born?</option>
+                                <option className='dark:text-black'>What is your mother&apos;s maiden name?</option>
                             </select>
                         </div>
                         <div>
@@ -71,11 +71,11 @@ const Security_settings = () => {
                             </label>
                             <select
                                 id="question2"
-                                className="w-full p-2 border-b border-dashed outline-none border-gray-300 bg-transparent focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600"
+                                className="w-full p-2 border-b border-dashed outline-none border-gray-300 bg-transparent focus:border-blue-500 dark:bg-transparent dark:border-gray-600"
                             >
-                                <option>What was your childhood nickname?</option>
-                                <option>What is the name of your favorite childhood friend?</option>
-                                <option>What street did you live on in third grade?</option>
+                                <option className='dark:text-black'>What was your childhood nickname?</option>
+                                <option className='dark:text-black'>What is the name of your favorite childhood friend?</option>
+                                <option className='dark:text-black'>What street did you live on in third grade?</option>
                             </select>
                         </div>
 

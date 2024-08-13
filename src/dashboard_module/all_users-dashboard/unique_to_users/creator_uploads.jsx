@@ -6,7 +6,7 @@ import { Success, Error } from '../../../components/toasts';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../providers/AuthProvider';
-import Breadcrumb from '../../../components/breadcrums';
+import { GoArrowLeft } from "react-icons/go";
 
 const Creator_uploads = () => {
     const { user } = useAuth();
@@ -41,36 +41,34 @@ const Creator_uploads = () => {
         }
     };
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = async (data) => {
+    const onSubmit = async (values) => {
         try {
             const formData = new FormData();
             formData.append('userId', user.userId)
-            formData.append('fullName', data.fullName);
-            formData.append('idNumber', data.idNumber);
-            formData.append('address', data.address);
+            formData.append('fullName', values.fullName);
+            formData.append('idNumber', values.idNumber);
+            formData.append('address', values.address);
             formData.append('idFrontImage', idFrontImage);
             formData.append('idBackImage', idBackImage);
             formData.append('profileImage', profileImage);
 
-            const response = await EndPoints.Settings.creator_uploads(formData);
-            // Success(response.data.message);
-            console.log(response)
+            const {data} = await EndPoints.Settings.creator_uploads(formData);
+            if(data.status !=200){throw new Error(data.message || 'An Error Occurred!')}
+            Success(data.message)
         } catch (error) {
-            console.log(error)
-            // Error(error.response.data.message);
+            Error(error?.response?.data?.error || error?.response?.data?.message);
         }
     };
 
-    const breadcrumbLinks = [
-        { path: '/settings-page', label: 'Settings' },
-        { path: '/creator-uploads', label: 'Creator Uploads' }
-    ];
-
     return (
         <div className="container justify-center p-4 flex flex-col min-h-full">
-            <Breadcrumb links={breadcrumbLinks} />
+            <button onClick={()=>window.history.back()} className='flex mb-5 items-center font-bold'>
+            <GoArrowLeft className='h-6 w-6' /> 
+            Back
+            </button>
+            
             <h1 className="text-2xl font-bold mb-6">Settings</h1>
-            <div className="block pl-4 pr-4 pt-4 border border-gray-200 rounded-lg">
+            <div className="block pl-4 pr-4 pt-4 border border-gray-200 rounded-lg items-center justify-center">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight ">
                     Verify your account
                 </h5>

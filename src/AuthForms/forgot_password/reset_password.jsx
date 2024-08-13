@@ -29,7 +29,7 @@ const Reset_password = () => {
         try {
             setLoading(true)
             const { data } = await EndPoints.Auth.reset_password(values)
-            if (data.status != 'success') { throw Error('An Error occured') }
+            if (data.status != 200) { throw Error('An Error occured') }
             else {
                 Success(data.message);
                 setToken(data.token);
@@ -85,7 +85,7 @@ const Reset_password = () => {
                                     placeholder="Enter OTP"
                                     {...register('otp', {
                                         required: true,
-                                        minLength: 4
+                                        minLength: 6
                                     })}
                                 />
                                 {errors.otp && errors.otp.type === "required" && (
@@ -93,7 +93,7 @@ const Reset_password = () => {
                                 )}
                                 {errors.otp && errors.otp.type === "minLength" && (
                                     <span className="text-sm text-red-700">
-                                        One time password should be at-least 4 characters.
+                                        One time password should be at-least 6 characters.
                                     </span>
                                 )}
                             </div>
@@ -174,8 +174,8 @@ const Reset_password = () => {
                             </button>
                         )}
                         <p className="text-center text-sm text-gray-900">
-                            Don&apos;t want to reset password?
-                            <Link to='/signin' className="underline">Sign In</Link>
+                            Didn&apos;t receive an otp?
+                            <Link to='/forgot-password-email' className="underline">Resend</Link>
                         </p>
                     </form>
                 </div>

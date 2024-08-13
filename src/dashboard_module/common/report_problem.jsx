@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { MdArrowBackIosNew } from "react-icons/md";
+import { GoArrowLeft } from "react-icons/go";
 
 const Report_problem = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -10,11 +11,11 @@ const Report_problem = () => {
         setIsFormOpen(true);
     }
     return (
-        <div className='dark:bg-black h-full dark:text-white'>
+        <div className='dark:bg-black min-h-screen dark:text-white'>
             <div className="relative mx-auto w-full px-5 py-16 sm:px-20 md:max-w-screen-lg lg:py-24">
                 <Link onClick={()=>window.history.back()}
-                className='flex m-5 items-center text-xl'>
-                    <MdArrowBackIosNew />
+                className='flex m-5 items-center text-xl '>
+                    <GoArrowLeft className='h-6 w-6 '/>
                     <span><strong>Back</strong></span>
                 </Link>
                 <h2 className="mb-5 text-4xl text-center font-serif  sm:text-5xl">Have Questions? Checkout these FAQs</h2>

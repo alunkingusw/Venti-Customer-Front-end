@@ -21,6 +21,8 @@ import Events from "./dashboard_module/all_users-dashboard/event/events";
 import Event_readmore from "./dashboard_module/all_users-dashboard/event/event_readmore";
 import Creator_uploads from "./dashboard_module/all_users-dashboard/unique_to_users/creator_uploads";
 
+import Edit_profile from "./dashboard_module/common/edit_profile";
+
 const Routing = () => {
   const { user } = useAuth();
   console.log(user)
@@ -46,6 +48,7 @@ const Routing = () => {
         <Route path="Events" element={<Events/>} />
         <Route path="event/:id" element={<Event_readmore/>} />
         <Route path="creator-uploads" element={<Creator_uploads/>} />
+        <Route path="edit-profile" element ={<Edit_profile/>} />
       </Route>
 
       <Route path="/creator-home" element={<Creator_home />} />

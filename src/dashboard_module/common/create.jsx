@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { BsX } from 'react-icons/bs';
 import { IoImagesOutline, IoSend } from 'react-icons/io5';
 import { CiFaceSmile } from "react-icons/ci";
-import { FaRegImage } from "react-icons/fa6";
+import { useForm } from 'react-hook-form';
 import { MdErrorOutline } from "react-icons/md";
 import Cropper from 'react-easy-crop';
 import EmojiPicker from 'emoji-picker-react';
 import getCroppedImg from './cropImage';
+import EndPoints from '../../Api/baseUrl/endPoints';
 
 const Create = ({ closeCreate }) => {
     const [currentDiv, setCurrentDiv] = useState('select');
@@ -60,6 +61,19 @@ const Create = ({ closeCreate }) => {
         setShowEmojiPicker(false);
     };
 
+    const onSubmit = async (values) => {
+        const formData = {
+            caption:textAreaContent,
+            image:croppedImage,
+        }
+        console.log(formData)
+        try {
+            const { data } = await EndPoints.posts.create_post({formData})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
             <div className="flex items-center justify-center fixed inset-0 z-50 bg-gray-900 bg-opacity-75">
@@ -72,7 +86,7 @@ const Create = ({ closeCreate }) => {
                     <span className="sr-only">Close modal</span>
                 </button>
                 {currentDiv === 'select' && (
-                    <div id="default-modal" aria-hidden="true" className="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full h-full">
+                    <div id="default-modal" className="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full h-full">
                         <div className="relative p-10 w-full max-w-xl max-h-full">
                             <div className="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
                                 <div className="flex items-center justify-between p-4 border-b border-gray-200 rounded-t dark:border-gray-600">
@@ -91,7 +105,7 @@ const Create = ({ closeCreate }) => {
                                     </div>
                                 </div>
                                 <div className="p-10 m-10 flex flex-col justify-center items-center">
-                                {selectedImage ? (
+                                    {selectedImage ? (
                                         <img src={selectedImage} alt="Selected" className="w-full h-auto max-h-96 object-contain mb-4" />
                                     ) : (
                                         !error ? (
@@ -112,7 +126,7 @@ const Create = ({ closeCreate }) => {
                     </div>
                 )}
                 {currentDiv === 'preview' && (
-                    <div id="default-modal" aria-hidden="true" className="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full h-full">
+                    <div id="default-modal" className="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full h-full">
                         <div className="relative p-10 w-full max-w-xl max-h-full">
                             <div className="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
                                 <div className="flex items-center justify-between p-4 border-b border-gray-200 rounded-t dark:border-gray-600">
@@ -153,7 +167,7 @@ const Create = ({ closeCreate }) => {
                     </div>
                 )}
                 {currentDiv === 'final' && (
-                    <div id="default-modal" aria-hidden="true" className="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full h-full">
+                    <div id="default-modal" className="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full h-full">
                         <div className="relative p-10 w-full max-w-xl max-h-full">
                             <div className="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
                                 <div className="flex items-center justify-between p-4 border-b border-gray-200 rounded-t dark:border-gray-600">
@@ -185,8 +199,10 @@ const Create = ({ closeCreate }) => {
                                         onChange={(e) => setTextAreaContent(e.target.value)}
                                         className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Your message..."></textarea>
-                                    <button type="submit" className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
-                                        <IoSend className="w-6 h-6 " aria-hidden="true"/>
+                                    <button type="submit" 
+                                    onClick={onSubmit}
+                                    className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                                        <IoSend className="w-6 h-6 " />
                                         <span className="sr-only">Send message</span>
                                     </button>
                                 </div>

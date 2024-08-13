@@ -25,7 +25,7 @@ export function Modal({ closeModal }) {
                 onClick={closeModal}
                 style={{ opacity: isVisible ? 1 : 0 }}></div>
             <div className="relative w-full max-w-lg p-4" style={modalStyles}>
-                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <Link to="/report-a-problem" >
                         <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">

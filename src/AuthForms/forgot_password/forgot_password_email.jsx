@@ -30,13 +30,12 @@ const Forgot_password_email = () => {
     return (
         <div className="flex items-center justify-center min-h-screen"
             style={{ backgroundImage: `url(${imageData('login')})` }}>
-                 <div className="mx-auto max-w-screen-xl justify-center z-10 bg-gray-300 bg-opacity-75 rounded-lg px-4 py-16 sm:px-6 lg:px-8">
+                 <div className="mx-auto max-w-lg justify-center z-10 bg-gray-300 bg-opacity-75 rounded-lg px-4 py-16 sm:px-6 lg:px-8">
             {/* <div className="mx-auto max-w-lg z-10 bg-gray-200 bg-opacity-75 "> */}
                 <h1 className="text-center text-2xl font-bold sm:text-3xl">Forgot Password</h1>
 
                 <p className="mx-auto mt-4 max-w-md text-center">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt dolores deleniti
-                    inventore quaerat mollitia?
+                    Enter your email and press submit. You&apos;ll receive an OTP verification code which you&apos;ll enter OTP input field in the next page.
                 </p>
                 <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 rounded-lg p-4 sm:p-6 lg:p-8">
                     <p className="text-center text-lg font-medium">Enter your Email Address </p>
@@ -46,15 +45,15 @@ const Forgot_password_email = () => {
                             <input
                                 type="email"
                                 className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                                placeholder="Enter email or phone number"
+                                placeholder="Enter email address"
                                 {...register("email", {
                                     required: true,
                                     pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
                                 })}
                             />
                         </div>
-                        {errors.emailOrPhone && errors.emailOrPhone.type === "required" && (
-                            <span className="text-sm text-red-700">Email or Phone is required.</span>
+                        {errors.email && errors.email.type === "required" && (
+                            <span className="text-sm text-red-700">Email Address is required.</span>
                         )}
                         {errors.email && errors.email.type === "pattern" && (
                             <span className="text-sm text-red-700">Enter correct email format.</span>

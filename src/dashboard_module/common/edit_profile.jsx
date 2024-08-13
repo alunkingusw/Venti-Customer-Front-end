@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import React, { useState, useEffect } from 'react'
+import { IoIosArrowBack } from "react-icons/io";
+import { FaRegEye, FaRegEyeSlash, FaArrowLeftLong } from "react-icons/fa6";
 import { IoPencil } from "react-icons/io5";
 import { ImCancelCircle } from "react-icons/im";
 import { Success, Error } from '../../components/toasts';
@@ -8,15 +9,35 @@ import EndPoints from '../../Api/baseUrl/endPoints';
 import { useForm } from 'react-hook-form';
 
 const Edit_profile = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors } } = useForm();
     const [changePassword, setChangePassword] = useState(false);
     const [changeEmail, setChangeEmail] = useState(false);
     const [changeName, setChangeName] = useState(false);
     const [changePhone, setChangePhone] = useState(false);
+    const [changeBio, setChangeBio] = useState(false)
 
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
+
+    const [user, setUser] = useState([]);
+    const [error, setError] = useState('');
+
+    const fetch_user_data = async () => {
+        try {
+            const { data } = await EndPoints.profile.fetch_user_profile()
+            if (data.status != 200) {
+                throw new Error('An Error Occurred! Login to Again')
+            }
+            setUser(data)
+        } catch (error) {
+            setError(error.response.data.error)
+        }
+    }
+
+    useEffect(() => {
+        fetch_user_data();
+    }, [])
 
     const edit_password = () => {
         setChangePassword(true);
@@ -43,6 +64,73 @@ const Edit_profile = () => {
     const toggleShowConfirmPassword = () => {
         setShowConfirmPassword(!showConfirmPassword);
     }
+    const update_name = async (values) => {
+
+        try {
+            const { data } = await EndPoints.profile.update_profile({
+                username: values.name,
+            })
+
+            if (data.status != 200) { throw Error('An Error occured! Logout and login again') }
+            else {
+                Success(data.message)
+                fetch_user_data()
+                setChangeName(false);
+            }
+        } catch (error) {
+            Error(error.response.data.message)
+        }
+    }
+
+    const update_bio = async (values) => {
+        try {
+            const { data } = await EndPoints.profile.update_profile({
+                Bio: values.bio,
+            })
+
+            if (data.status != 200) { throw Error('An Error occured! Logout and login again') }
+            else {
+                Success(data.message)
+                fetch_user_data()
+                setChangeBio(false);
+            }
+        } catch (error) {
+            Error(error.response.data.message)
+        }
+    }
+    const update_email = async (values) => {
+        try {
+            const { data } = await EndPoints.profile.update_profile({
+                email: values.new_email,
+            })
+            if (data.status != 200) { throw Error('An Error occured! Logout and login again') }
+            else {
+                Success(data.message)
+                fetch_user_data()
+                setChangeEmail(false);
+            }
+        } catch (error) {
+            Error(error.response.data.message)
+        }
+    }
+
+    const update_phone = async (values) => {
+        try {
+            const { data } = await EndPoints.profile.update_profile({
+                phoneNumber: values.phone,
+            })
+            if (data.status != 200) { throw Error('An Error occured! Logout and login again') }
+            else {
+                Success(data.message)
+                fetch_user_data()
+                setChangePhone(false);
+            }
+        } catch (error) {
+            Error(error.response.data.message)
+        }
+    }
+
+
     const updatePassword = async (values) => {
         try {
             const { data } = await EndPoints.Settings.update_password({
@@ -52,6 +140,7 @@ const Edit_profile = () => {
             if (data.status != 200) { throw Error('An Error occured! Logout and login again') }
             else {
                 Success(data.message)
+                fetch_user_data()
                 close_edit_password();
             }
         } catch (error) {
@@ -60,6 +149,12 @@ const Edit_profile = () => {
     }
     return (
         <div>
+            <button
+                onClick={() => window.history.back()}
+                className='flex items-center ml-3'>
+                <FaArrowLeftLong className='h-6 w-6' />
+                <p className='font-bold hover:underline '>Back</p>
+            </button>
             <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-4 xl:mx-auto">
                 <h1 className="border-b py-6 px-6 text-4xl font-semibold">Edit Profile</h1>
                 <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">
@@ -71,51 +166,100 @@ const Edit_profile = () => {
                         <p className="py-2 text-xl font-semibold">Name</p>
                         {!changeName ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className=""><strong>user123535363633</strong></p>
+                                <p className=""><strong>{user.username}</strong></p>
                                 <button
                                     onClick={edit_name}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
                                     <span><IoPencil /></span>Edit</button>
                             </div>
                         ) : (
-                            <div className="items-center space-y-3 ">
-                                <div>
-                                    <label htmlFor="name" className="sr-only">Profile Name</label>
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            className="w-full rounded-lg dark:bg-transparent dark:text-white text-black border border-gray-700 p-2 pe-12 text-sm shadow-sm"
-                                        // {...register("confirm_password", {
-                                        //   required: true,
-                                        //   validate: value => value === watch('password') || "Passwords do not match"
-                                        // })}
-                                        />
+                            <form onSubmit={handleSubmit(update_name)}>
+                                <div className="items-center space-y-3 ">
+                                    <div>
+                                        <label htmlFor="name" className="sr-only">Profile Name</label>
+                                        <div className="relative">
+                                            <input
+                                                id="name"
+                                                type="text"
+                                                className="w-full rounded-lg dark:bg-transparent dark:text-white text-black border border-gray-700 p-2 pe-12 text-sm shadow-sm"
+                                                defaultValue={user.username}
+                                                {...register("name", {
+                                                    required: "Profile name is required",
+                                                })}
+                                            />
+                                        </div>
+                                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                                     </div>
-                                    {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
+                                    <div className="flex space-x-4 mt-4">
+                                        <button
+                                            type='submit'
+                                            className="button rounded-lg">Save Name</button>
+                                        <button
+                                            onClick={() => setChangeName(false)}
+                                            className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
+                                            <ImCancelCircle className='mr-2' />
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="flex space-x-4 mt-4">
-                                    <button className="button rounded-lg">Save Name</button>
-                                    <button
-                                        onClick={() => setChangeName(false)}
-                                        className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
-                                        <ImCancelCircle className='mr-2' />
-                                        Cancel
-                                    </button>
-                                </div>
+                            </form>
+                        )}
+
+                        <hr className="mt-4 mb-8" />
+                        <p className="py-2 text-xl font-semibold">Bio</p>
+                        {!changeBio ? (
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                <p className=""><strong>{user.bio || ''}</strong></p>
+                                <button
+                                    onClick={()=>setChangeBio(true)}
+                                    className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
+                                    <span><IoPencil /></span>Edit</button>
                             </div>
+                        ) : (
+                            <form onSubmit={handleSubmit(update_bio)}>
+                                <div className="items-center space-y-3 ">
+                                    <div>
+                                        <label htmlFor="bio" className="sr-only">Bio</label>
+                                        <div className="relative">
+                                            <textarea
+                                                id="bio"
+                                                type="text"
+                                                className="w-full rounded-lg dark:bg-transparent dark:text-white text-black border border-gray-700 p-2 pe-12 text-sm shadow-sm"
+                                                defaultValue={user.bio || ''}
+                                                {...register("bio", {
+                                                    required: "Profile Bio is required",
+                                                })}
+                                            />
+                                        </div>
+                                        {errors.bio && <p className="text-red-500 text-sm mt-1">{errors.bio.message}</p>}
+                                    </div>
+                                    <div className="flex space-x-4 mt-4">
+                                        <button
+                                            type='submit'
+                                            className="button rounded-lg">Save Name</button>
+                                        <button
+                                            onClick={() => setChangeBio(false)}
+                                            className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
+                                            <ImCancelCircle className='mr-2' />
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         )}
 
                         <hr className="mt-4 mb-8" />
                         <p className="py-2 text-xl font-semibold">Email Address</p>
                         {!changeEmail ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className=""><strong>john.doe@company.com</strong></p>
+                                <p className=""><strong>{user.email}</strong></p>
                                 <button
                                     onClick={edit_email}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
                                     <span><IoPencil /></span>Edit</button>
                             </div>
                         ) : (
+                            // <form onSubmit={handleSubmit(update_email)}>
                             <div className="items-center space-y-3 ">
                                 <div>
                                     <label htmlFor="email" className="sr-only">Email Address</label>
@@ -123,16 +267,18 @@ const Edit_profile = () => {
                                         <input
                                             type="email"
                                             className="w-full rounded-lg border dark:bg-transparent dark:text-white text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
-                                        // {...register("confirm_password", {
-                                        //   required: true,
-                                        //   validate: value => value === watch('password') || "Passwords do not match"
-                                        // })}
+                                            defaultValue={user.email}
+                                            {...register("new_email", {
+                                                required: "Profile Email is required",
+                                            })}
                                         />
                                     </div>
-                                    {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
+                                    {errors.new_email && <p className="text-red-500 text-sm mt-1">{errors.new_email.message}</p>}
                                 </div>
                                 <div className="flex space-x-4 mt-4">
-                                    <button className="button rounded-lg">Save Email</button>
+                                    <button
+                                        onClick={handleSubmit(update_email)}
+                                        className="button rounded-lg">Save Email</button>
                                     <button
                                         onClick={() => setChangeEmail(false)}
                                         className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
@@ -141,12 +287,13 @@ const Edit_profile = () => {
                                     </button>
                                 </div>
                             </div>
+                            // </form>
                         )}
                         <hr className="mt-4 mb-8" />
                         <p className="py-2 text-xl font-semibold">Phone Number</p>
                         {!changePhone ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className=""><strong>+254757657268</strong></p>
+                                <p className=""><strong>{user.phoneNumber}</strong></p>
                                 <button
                                     onClick={edit_phone}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -155,21 +302,22 @@ const Edit_profile = () => {
                         ) : (
                             <div className="items-center space-y-3 ">
                                 <div>
-                                    <label htmlFor="name" className="sr-only">Phone Number</label>
+                                    <label htmlFor="phone" className="sr-only">Phone Number</label>
                                     <div className="relative">
                                         <input
                                             type="tel"
                                             className="w-full rounded-lg border dark:bg-transparent dark:text-white text-black font-medium border-gray-700 p-2 pe-12 text-sm shadow-sm"
-                                        // {...register("confirm_password", {
-                                        //   required: true,
-                                        //   validate: value => value === watch('password') || "Passwords do not match"
-                                        // })}
+                                            defaultValue={user.phoneNumber}
+                                            {...register("phone", {
+                                                required: "Profile phone number is required",
+                                            })}
                                         />
                                     </div>
-                                    {/* {errors.confirm_password && <p className="text-red-500 text-sm mt-1">{errors.confirm_password.message}</p>} */}
+                                    {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
                                 </div>
                                 <div className="flex space-x-4 mt-4">
-                                    <button className="button rounded-lg">Save Phone</button>
+                                    <button onClick={handleSubmit(update_phone)}
+                                        className="button rounded-lg">Save Phone</button>
                                     <button
                                         onClick={() => setChangePhone(false)}
                                         className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">

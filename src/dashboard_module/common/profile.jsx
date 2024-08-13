@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import Edit_profile from './edit_profile';
-import Breadcrumb from '../../components/breadcrums';
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { TbTableFilled } from "react-icons/tb";
-import { FaWindowRestore, FaLocationDot } from "react-icons/fa6";
+import { FaWindowRestore, FaCircleUser, FaPhone } from "react-icons/fa6";
 import { IoPencil } from "react-icons/io5";
-import { IoIosArrowBack } from "react-icons/io";
 import { RiMailFill } from "react-icons/ri";
+import EndPoints from '../../Api/baseUrl/endPoints';
+import { Success, Error } from '../../components/toasts';
 
 const Profile = () => {
     const [previewImage, setPreviewImage] = useState(null);
@@ -15,6 +14,23 @@ const Profile = () => {
     const [divs, setDivs] = useState('profile');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState([]);
+
+    const fetch_user = async () => {
+        try {
+            const { data } = await EndPoints.profile.fetch_user_profile()
+            if (data.status != 200) {
+                throw new Error('An Error occurred!')
+            }
+            setUser(data)
+        } catch (error) {
+            Error(error.response.data.error || 'Profile doesnot exist!')
+        }
+    }
+
+    useEffect(() => {
+        fetch_user()
+    }, [])
 
     const handleFileInputChange = async (event) => {
         const file = event.target.files[0];
@@ -44,20 +60,15 @@ const Profile = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('https://your-backend-endpoint.com/upload', {
-                method: 'POST',
-                body: formData,
+            const { data } = await EndPoints.profile.update_profile({
+                profilePicture: formData,
             });
 
-            if (!response.ok) {
+            if (data.status != 200) {
                 throw new Error('Image upload failed');
             }
-
-            const data = await response.json();
-            console.log('Upload successful:', data);
-            // Handle success response
+            Success(data.message)
         } catch (error) {
-            console.error('Error uploading image:', error);
             setError('Error uploading image');
         } finally {
             setLoading(false);
@@ -68,13 +79,12 @@ const Profile = () => {
         document.getElementById('fileInput').click();
     };
     return (
-        // <div>
         <>
             <main className="h-[calc(100vh-5rem)] px-4 flex flex-col items-center">
                 {divs === 'profile' && (
                     <div className="relative flex flex-col w-full min-w-0 mb-6 break-words bg-clip-border rounded-2xl bg-light/30 draggable ">
                         <div className="px-9 pt-9 flex-auto min-h-[70px] pb-0 bg-transparent">
-                            <div className="flex flex-wrap mb-6 xl:flex-nowrap">
+                            <div className="flex flex-wrap mb-6 xl:flex-nowrap items-center">
                                 <div className="mb-5 mr-5">
                                     <div className="relative inline-block shrink-0 rounded-2xl">
                                         {previewImage ? (
@@ -84,10 +94,8 @@ const Profile = () => {
                                                 alt="Preview"
                                             />
                                         ) : (
-                                            <img
-                                                className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
-                                                src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar1.jpg"
-                                                alt="Default"
+                                            <FaCircleUser
+                                                className="inline-block shrink-0 rounded-full w-20 h-20 lg:w-40 lg:h-40"
                                             />
                                         )}
                                         <input
@@ -114,35 +122,43 @@ const Profile = () => {
                                     <div className="flex flex-wrap items-start justify-between mb-2">
                                         <div className="flex flex-col">
                                             <div className="flex items-center mb-2">
-                                                <a className="text-secondary-inverse hover:text-primary transition-colors duration-200 ease-in-out font-semibold text-[1.5rem] mr-1" href=""> Alec Jhonson </a>
+                                                <p className="text-secondary-inverse hover:text-primary transition-colors duration-200 ease-in-out font-semibold text-[1.5rem] mr-1">
+                                                    {user.username}
+                                                </p>
                                             </div>
                                             <div className="flex flex-wrap pr-2 mb-4 font-medium">
-                                                <a className="flex items-center mb-2 mr-5 hover:text-primary" href="">
+                                                <p className="flex items-center mb-2 mr-5 hover:text-primary">
                                                     <span className="mr-1">
-                                                        <FaLocationDot className="w-5 h-5" />
-                                                    </span> New York, NY </a>
-                                                <a className="flex items-center mb-2 mr-5 text-secondary-dark hover:text-primary" href="">
+                                                        <FaPhone className="w-5 h-5" />
+                                                    </span> {user.phoneNumber}
+                                                </p>
+                                                <p className="flex items-center mb-2 mr-5 text-secondary-dark hover:text-primary">
                                                     <span className="mr-1">
                                                         <RiMailFill className="w-5 h-5" />
-                                                    </span> contact@example.com </a>
+                                                    </span>{user.email}
+                                                </p>
                                             </div>
+
                                         </div>
                                         <div className="flex flex-wrap my-auto">
-                                            <button
-                                                onClick={() => setDivs('edit_profile')}
+                                            <Link
+                                                to='/edit-profile'
                                                 className="inline-block px-6 py-3 mr-3 bg-gray-300 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-base font-medium leading-normal text-center align-middle transition-colors duration-150 ease-in-out border-0 shadow-none cursor-pointer rounded-2xl text-muted bg-light border-light hover:bg-light-dark active:bg-light-dark focus:bg-light-dark ">
                                                 Edit Profile
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-wrap justify-between">
-                                        <div className="flex flex-wrap items-center">
-                                            <a href="" className="mr-3 mb-2 inline-flex items-center justify-center text-secondary-inverse rounded-full  transition-all duration-200 ease-in-out px-3 py-1 text-sm font-medium leading-normal"> 320 Following </a>
-                                            <a href="" className="mr-3 mb-2 inline-flex items-center justify-center text-secondary-inverse rounded-full  transition-all duration-200 ease-in-out px-3 py-1 text-sm font-medium leading-normal"> 2.5k Followers </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div className="pt-6 mx-6 mt-6 text-center border-t border-gray-200 dark:border-gray-700/50">
+                                    <div>
+                                        <div className="w-full px-6">
+                                            <p className="mb-4 font-light leading-relaxed text-gray-600 dark:text-gray-400">
+                                                {user.bio || ''}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
 
                             <hr className="w-full h-px border-neutral-200" />
                             <div className="hidden sm:flex group flex-wrap items-center justify-center text-[1.15rem] font-semibold list-none border-b-2 border-transparent border-solid">
@@ -274,7 +290,7 @@ const Profile = () => {
                         </div>
                     </div>
                 )}
-                {divs === 'edit_profile' && (
+                {/* {divs === 'edit_profile' && (
                     <div>
                         <button
                             onClick={() => setDivs('profile')}
@@ -284,7 +300,7 @@ const Profile = () => {
                         </button>
                         <Edit_profile />
                     </div>
-                )}
+                )} */}
             </main>
         </>
     )
