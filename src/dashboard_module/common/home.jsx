@@ -1,19 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import EndPoints from '../../Api/baseUrl/endPoints';
 import { FaHeart, FaRegHeart, FaRegComment, FaRegPaperPlane, FaRegBookmark } from 'react-icons/fa';
 import { Error } from '../../components/toasts';
-import { useForm } from 'react-hook-form';
-import EmojiPicker from 'emoji-picker-react';
-import { CiFaceSmile } from "react-icons/ci";
+import InputEmoji from 'react-input-emoji';
 
 const Home = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [allPosts, setAllPosts] = useState([]);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [textAreaContent, setTextAreaContent] = useState('');
 
-  const fetch_posts = async () => {
+  const fetchPosts = useCallback(async () => {
     try {
       const { data } = await EndPoints.posts.fetch_all_posts();
       // Add a 'liked' property to each post
@@ -22,11 +18,11 @@ const Home = () => {
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetch_posts();
-  }, []);
+    fetchPosts();
+  }, [fetchPosts]);
 
   const handleLike = async (postId) => {
     try {
@@ -43,7 +39,6 @@ const Home = () => {
             : post
         )
       );
-      fetch_posts();
     } catch (error) {
       Error('Error liking post:', error?.response?.data?.error);
     }
@@ -54,21 +49,12 @@ const Home = () => {
     return post.likes.includes(currentUserId);
   };
 
-  const pickEmoji = () => {
-    setShowEmojiPicker(prev => !prev);
-  };
-
-  const onEmojiClick = (emojiData) => {
-    setTextAreaContent(prevContent => prevContent + emojiData.emoji);
-    setShowEmojiPicker(false);
-  };
-
-  const handle_comments = async (id, values) => {
+  const handleComments = async (id) => {
     try {
-      const { data } = await EndPoints.posts.comment_post(id, values);
+      const { data } = await EndPoints.posts.comment_post(id, {text:textAreaContent});
       if (data.status === 200) {
-        reset();
-        fetch_posts();
+        setTextAreaContent(''); // Clear textarea after successful comment
+        fetchPosts(); // Fetch posts to update the UI with new comment
       }
     } catch (error) {
       Error(error.response.data.error);
@@ -115,29 +101,13 @@ const Home = () => {
             </div>
             <div className="border-t border-gray-200 p-4 relative">
               <div className="flex items-center">
-                <button
-                  onClick={pickEmoji}
-                  type="button"
-                  className="text-gray-700 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 transition duration-300"
-                >
-                  <CiFaceSmile className="w-5 h-5" />
-                  <span className="sr-only">Add emoji</span>
-                </button>
-                <input
-                  type="text"
-                  placeholder="Add a comment..."
-                  className="flex-grow text-sm p-2 ml-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-                  {...register("comment", { required: true })}
+                <InputEmoji
                   value={textAreaContent}
-                  onChange={(e) => setTextAreaContent(e.target.value)}
+                  onChange={setTextAreaContent}
+                  placeholder="Type a message"
                 />
-                <button type="submit" onClick={() => handleSubmit(handle_comments(post._id))} className="text-blue-500 font-semibold text-sm ml-2">Post</button>
+                <button type="button" onClick={() => handleComments(post._id)} className="text-blue-500 font-semibold text-sm ml-2">Post</button>
               </div>
-              {showEmojiPicker && (
-                <div className="absolute bottom-12 left-0 z-10 bg-white border border-gray-300 rounded-lg shadow-lg p-2 transition-transform transform scale-95">
-                  <EmojiPicker onEmojiClick={onEmojiClick} />
-                </div>
-              )}
             </div>
           </div>
         ))}
