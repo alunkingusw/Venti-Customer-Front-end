@@ -68,13 +68,13 @@ const Create = ({ closeCreate }) => {
             const response = await fetch(croppedImage);
             const blob = await response.blob();
 
+            const uniqueFilename = `${Date.now()}-${Math.random().toString(36).substring(7)}.jpg`;
             const formData = new FormData();
             formData.append('caption', textAreaContent);
-            formData.append('image', blob, 'image.jpg');
+            formData.append('image', blob, uniqueFilename); 
 
             const { data } = await EndPoints.posts.create_post(formData);
             if (data.status != 200) { throw new Error('An Error Occurred!') }
-            // Success(data.message)
             setCurrentDiv('success');
 
         } catch (error) {

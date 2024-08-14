@@ -24,6 +24,9 @@ const EndPoints = {
     },
     posts:{
         create_post:(data) => Post("/post/", data),
+        fetch_all_posts:()=>get('/post/'),
+        like_post:(id)=>Post(`/post/${id}/like`),
+        comment_post: (id, data) => Post(`/post/${id}/comment`, data),
     },
 }
 export default EndPoints;

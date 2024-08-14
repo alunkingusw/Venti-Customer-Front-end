@@ -1,75 +1,154 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import EndPoints from '../../Api/baseUrl/endPoints';
+import { FaHeart, FaRegHeart, FaRegComment, FaRegPaperPlane, FaRegBookmark } from 'react-icons/fa';
+import { Error } from '../../components/toasts';
+import { useForm } from 'react-hook-form';
+import EmojiPicker from 'emoji-picker-react';
+import { CiFaceSmile } from "react-icons/ci";
 
 const Home = () => {
-  const data = [1, 2, 4, 3, 6, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [allPosts, setAllPosts] = useState([]);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [textAreaContent, setTextAreaContent] = useState('');
+
+  const fetch_posts = async () => {
+    try {
+      const { data } = await EndPoints.posts.fetch_all_posts();
+      // Add a 'liked' property to each post
+      const postsWithLikedStatus = data.map(post => ({ ...post, liked: false }));
+      setAllPosts(postsWithLikedStatus);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetch_posts();
+  }, []);
+
+  const handleLike = async (postId) => {
+    try {
+      const { data } = await EndPoints.posts.like_post(postId);
+      setAllPosts(prevPosts =>
+        prevPosts.map(post =>
+          post._id === postId
+            ? {
+              ...post,
+              likes: post.likes.includes(data._id)
+                ? post.likes.filter(id => id !== data._id)
+                : [...post.likes, data.userId]
+            }
+            : post
+        )
+      );
+      fetch_posts();
+    } catch (error) {
+      Error('Error liking post:', error?.response?.data?.error);
+    }
+  };
+
+  const isLiked = (post) => {
+    const currentUserId = 'current-user-id';
+    return post.likes.includes(currentUserId);
+  };
+
+  const pickEmoji = () => {
+    setShowEmojiPicker(prev => !prev);
+  };
+
+  const onEmojiClick = (emojiData) => {
+    setTextAreaContent(prevContent => prevContent + emojiData.emoji);
+    setShowEmojiPicker(false);
+  };
+
+  const handle_comments = async (id, values) => {
+    try {
+      const { data } = await EndPoints.posts.comment_post(id, values);
+      if (data.status === 200) {
+        reset();
+        fetch_posts();
+      }
+    } catch (error) {
+      Error(error.response.data.error);
+    }
+  };
+
   return (
-    <>
-      <main
-        id="dashboard-main"
-        className="h-[calc(100vh-5rem)] px-4 flex flex-col items-center" style={{ overscrollBehavior: 'none' }}>
-        <div className="py-4">
-          {data.map((datas, index) => (
-            <div key={index} className="bg-none border-b p-4 min-w-100 rounded-lg gap-2 mb-5">
-              <div className="mb-4">
-                <div className="flex flex-row items-center text-center gap-2">
-                  <div className="w-11 h-11 rounded-full p-0.5 bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500">
-                    <div className="h-10 w-10 rounded-full bg-white wrapper overflow-hidden border-2 border-black">
-                      <img className="w-full h-full object-contain" src="https://randomuser.me/api/portraits/men/1.jpg" alt="" />
-                    </div>
-                  </div>
-                  <p className="text-sm font-semibold pb-2 pt-1">Jonnaes</p>
-                </div>
-                <div></div>
+    <div className="min-h-screen">
+      <div className="max-w-3xl mx-auto pt-6 pb-8">
+        {allPosts.map((post, index) => (
+          <div key={index} className="border border-gray-200 rounded-lg mb-8">
+            <div className="flex items-center p-4">
+              <div className="w-8 h-8 rounded-full overflow-hidden mr-3">
+                <img
+                  className="w-full h-full object-cover"
+                  src={post.user?.profilePicture || "https://via.placeholder.com/150"}
+                  alt={post.user?.username || "User"}
+                />
               </div>
-              <div>
-                <div>
-                  <img className="w-[100%] dark:border" src="https://picsum.photos/600/400/?random" alt="" />
-                </div>
-              </div>
-              <div>
-                <div className="pt-3 pb-2">
-                  <ul className="text-white text-2xl flex space-x-8">
-                    <li>
-                      <i className="fa-regular fa-heart cursor-pointer hover:text-gray-300"></i>
-                    </li>
-                    <li>
-                      <i className="fa-regular fa-comments cursor-pointer hover:text-gray-300"></i>
-                    </li>
-                    <li>
-                      <i className="fa-regular fa-paper-plane cursor-pointer hover:text-gray-300"></i>
-                    </li>
-                    <li>
-                      <i className="fa-regular fa-bookmark  cursor-pointer hover:text-gray-300"></i>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className=" pt-1 pb-2 space-y-1 text-sm">
-                <div>
-                  <p className="font-semibold cursor-pointer">37.103 curtidas</p>
-                </div>
-                <div>
-                  <p className="cursor-pointer">Qualquer texto serviria para exemplificar esse post</p>
-                </div>
-                <div>
-                  <p className="cursor-pointer">Ver todos os 400 comentários</p>
-                </div>
-              </div>
-              <div className="flex flex-row justify-between py-3 m-2 space-x-3">
-                <div className="">
-                  <p className="text-sm">Adicione um comentário...</p>
-                </div>
-                {/* <button className="text-blue-400 ml-[264px] font-semibold cursor-pointer">
-                Publicar
-              </button> */}
-              </div>
+              <span className="font-semibold text-sm">{post.user?.username || "Username"}</span>
             </div>
-          ))}
-        </div>
-      </main>
-    </>
-  )
-}
+            <img className="w-full" src={post.imageUrl} alt="Post" />
+            <div className="p-4">
+              <div className="flex justify-between mb-4">
+                <div className="flex space-x-4">
+                  <button onClick={() => handleLike(post._id)}>
+                    {isLiked(post)
+                      ? <FaHeart className="text-2xl cursor-pointer text-red-500" />
+                      : <FaRegHeart className="text-2xl cursor-pointer hover:text-red-500" />
+                    }
+                  </button>
+                  <FaRegComment className="text-2xl cursor-pointer hover:text-blue-500" />
+                  <FaRegPaperPlane className="text-2xl cursor-pointer hover:text-blue-500" />
+                </div>
+                <FaRegBookmark className="text-2xl cursor-pointer hover:text-yellow-500" />
+              </div>
+              <p className="font-semibold text-sm mb-2">{post.likes.length || 0} likes</p>
+              <p className="text-sm mb-2">
+                <span className="font-semibold mr-2">{post.user?.username || "Username"}</span>
+                {post.caption}
+              </p>
+              <p className="text-gray-500 text-xs mb-2">View all {post.comments?.length || 0} comments</p>
+              <p className="text-gray-400 text-xs uppercase">{formatDate(post.createdAt)}</p>
+            </div>
+            <div className="border-t border-gray-200 p-4 relative">
+              <div className="flex items-center">
+                <button
+                  onClick={pickEmoji}
+                  type="button"
+                  className="text-gray-700 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 transition duration-300"
+                >
+                  <CiFaceSmile className="w-5 h-5" />
+                  <span className="sr-only">Add emoji</span>
+                </button>
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  className="flex-grow text-sm p-2 ml-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                  {...register("comment", { required: true })}
+                  value={textAreaContent}
+                  onChange={(e) => setTextAreaContent(e.target.value)}
+                />
+                <button type="submit" onClick={() => handleSubmit(handle_comments(post._id))} className="text-blue-500 font-semibold text-sm ml-2">Post</button>
+              </div>
+              {showEmojiPicker && (
+                <div className="absolute bottom-12 left-0 z-10 bg-white border border-gray-300 rounded-lg shadow-lg p-2 transition-transform transform scale-95">
+                  <EmojiPicker onEmojiClick={onEmojiClick} />
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
 
 export default Home;

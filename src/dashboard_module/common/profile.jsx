@@ -80,7 +80,7 @@ const Profile = () => {
     };
     return (
         <>
-            <main className="h-[calc(100vh-5rem)] px-4 flex flex-col items-center">
+            <main className="h-[calc(100vh-10rem)] px-4 flex flex-col items-center">
                 {divs === 'profile' && (
                     <div className="relative flex flex-col w-full min-w-0 mb-6 break-words bg-clip-border rounded-2xl bg-light/30 draggable ">
                         <div className="px-9 pt-9 flex-auto min-h-[70px] pb-0 bg-transparent">

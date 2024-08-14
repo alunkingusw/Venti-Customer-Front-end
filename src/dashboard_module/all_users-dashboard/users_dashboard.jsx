@@ -11,7 +11,7 @@ const UsersDashboard = () => {
             <div className="flex h-full w-full flex-col">
                 <NavBar />
                 <div className="h-screen overflow-auto">
-                    <div className="flex flex-wrap gap-x-4 gap-y-8 justify-center items-center ">
+                    <div className="flex flex-wrap gap-x-4 gap-y-8 justify-center items-center mb-10">
                         <Outlet />
                     </div>
                 </div>
