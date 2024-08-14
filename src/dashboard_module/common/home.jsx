@@ -51,10 +51,10 @@ const Home = () => {
 
   const handleComments = async (id) => {
     try {
-      const { data } = await EndPoints.posts.comment_post(id, {text:textAreaContent});
-      if (data.status === 200) {
-        setTextAreaContent(''); // Clear textarea after successful comment
-        fetchPosts(); // Fetch posts to update the UI with new comment
+      const { data } = await EndPoints.posts.comment_post(id, { text: textAreaContent });
+      if (data.status == 200) {
+        setTextAreaContent('');
+        fetchPosts();
       }
     } catch (error) {
       Error(error.response.data.error);
@@ -102,6 +102,7 @@ const Home = () => {
             <div className="border-t border-gray-200 p-4 relative">
               <div className="flex items-center">
                 <InputEmoji
+                  className="input-emoji"
                   value={textAreaContent}
                   onChange={setTextAreaContent}
                   placeholder="Type a message"

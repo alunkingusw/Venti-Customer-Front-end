@@ -39,3 +39,21 @@
 #dashboard-main {
   overscroll-behavior: none;
 }
+
+/* Add these styles to your CSS file or within a <style> block */
+.input-emoji-container {
+  position: relative;
+}
+
+.input-emoji {
+  background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent background for dark mode */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Light border to stand out on dark mode */
+  border-radius: 4px;
+  padding: 8px;
+  color: #fff; /* White text color for dark mode */
+  width: 100%;
+}
+
+.input-emoji::placeholder {
+  color: rgba(255, 255, 255, 0.6); /* Light placeholder text color */
+}
