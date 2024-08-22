@@ -211,7 +211,7 @@ const Edit_profile = () => {
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                                 <p className=""><strong>{user.bio || ''}</strong></p>
                                 <button
-                                    onClick={()=>setChangeBio(true)}
+                                    onClick={() => setChangeBio(true)}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
                                     <span><IoPencil /></span>Edit</button>
                             </div>

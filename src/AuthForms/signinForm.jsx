@@ -29,7 +29,11 @@ const SigninForm = () => {
         Success(data.message);
         setToken(data.token);
         setUser(data);
-        navigate('/')
+        if (data.userType === 1) {
+          navigate("/creator")
+        } else {
+          navigate('/')
+        }
       }
     } catch (error) {
       Error(error.response.data.message)
@@ -45,7 +49,7 @@ const SigninForm = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen"
-    style={{ backgroundImage: `url(${imageData('login')})` }}>
+      style={{ backgroundImage: `url(${imageData('login')})` }}>
       <div className="mx-auto max-w-screen-xl justify-center z-10 bg-gray-300 bg-opacity-75 rounded-lg px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-lg">
           <h1 className="text-center text-2xl font-bold sm:text-3xl">Welcome Back</h1>
