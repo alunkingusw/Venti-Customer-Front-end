@@ -1,95 +1,85 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import EndPoints from '../../../Api/baseUrl/endPoints';
+import { Error } from '../../../components/toasts'
+import { Calendar, MapPin, Clock } from 'lucide-react';
 
 const Events = () => {
+    const [events, setEvents] = useState([])
+    const [loading, setLoading] = useState(true);
+
+    const fetch_events = async () => {
+        setLoading(true);
+        try {
+            const { data } = await EndPoints.events.fetch_all_events()
+            if (data.status == 200) {
+                setEvents(data.events)
+            } else {
+                throw new Error(data.error || "No Available Events")
+            }
+        } catch (error) {
+            Error(error.response.data.error || 'Something went wrong')
+        }
+        finally{
+            setLoading(false)
+        }
+    }
+    useEffect(() => {
+        fetch_events()
+    }, [])
+
+    if (loading) {
+        return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    }
+    if (!events) {
+        return <div className="flex justify-center items-center h-screen">Event not found!</div>;
+    }
+
     return (
-        <div className="py-6 sm:py-8 lg:py-12">
-            <div className="mx-auto max-w-screen-xl px-4 md:px-8">
-                <div className="mb-10 md:mb-16">
-                    <h2 className="mb-4 text-center text-2xl font-bold md:mb-6 lg:text-3xl">Latest Events</h2>
-                    <p className="mx-auto max-w-screen-md text-center md:text-lg">Explore the most recent and exciting events happening around you. Stay informed and engaged with our curated list of activities.</p>
-                </div>
+        <div className="mx-auto grid max-w-screen-lg grid-cols-1 gap-5 p-5 sm:grid-cols-2 md:grid-cols-3 lg:gap-10">
+            {events.map((event, index) => (
+                <article key={index} className="group h-full dark:shadow-gray-500 p-2 overflow-hidden rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800">
+                    <div className='relative'>
+                        <img
+                            src={event.poster}
+                            loading="lazy"
+                            alt={event.eventName}
+                            className=" w-full transform object-cover object-center transition duration-500 ease-in-out group-hover:scale-105 md:h-36 lg:h-48"
+                        />
+                        {event.price_Early_bird > 0 ? (
+                            <span className="absolute top-0 left-0 m-2 rounded-full bg-black dark:bg-gray-50 dark:text-gray-800 px-2 text-center text-sm font-medium text-white">ksh: {event.price_Early_bird} Early Bird</span>
+                        ) : (
+                            <span></span>
+                        )}
+                    </div>
 
-                <div className="grid gap-8 sm:grid-cols-2 sm:gap-12 lg:grid-cols-2 xl:grid-cols-2 xl:gap-16">
-                    <article className="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
-                        <a href="#" className="group relative block h-56 w-full shrink-0 self-start overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-24 md:w-24 lg:h-40 lg:w-40">
-                            <img src="https://images.unsplash.com/photo-1476362555312-ab9e108a0b7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" loading="lazy" alt="" className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-                        </a>
+                    <div className="flex flex-col gap-2 p-4">
+                        <h2 className="text-xl font-bold ">
+                            <Link to={`/event/${event._id}`} className="transition duration-100 hover:text-rose-500 active:text-rose-600">{event.eventName}</Link>
+                        </h2>
 
-                        <div className="flex flex-col gap-2">
-                            <span className="text-sm ">April 2, 2022</span>
-
-                            <h2 className="text-xl font-bold ">
-                                <Link to={`/event/1`} className="transition duration-100 hover:text-rose-500 active:text-rose-600">The Pines and the Mountains</Link>
-                            </h2>
-
-                            <p className="text-gray-500 dark:text-gray-200">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint necessitatibus molestias explicabo.</p>
-
-                            <div>
-                                <Link className="font-semibold text-rose-500 transition duration-100 hover:text-rose-600 active:text-rose-700">Book Event</Link>
-                            </div>
+                        <p className="text-gray-500 dark:text-gray-200">{event.description}</p>
+                        <div className="flex items-center mb-2">
+                            <Calendar className="h-4 w-4 mr-2 text-gray-500" />
+                            <span className="text-sm text-gray-600 dark:text-white">{new Date(event.date).toLocaleDateString()}</span>
                         </div>
-                    </article>
-                    <article className="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
-                        <Link to="#" className="group relative block h-56 w-full shrink-0 self-start overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-24 md:w-24 lg:h-40 lg:w-40">
-                            <img src="https://images.unsplash.com/photo-1511376777868-611b54f68947?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" loading="lazy" alt="" className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-                        </Link>
-
-                        <div className="flex flex-col gap-2">
-                            <span className="text-sm ">April 2, 2022</span>
-
-                            <h2 className="text-xl font-bold ">
-                                <Link to="/event/2" className="transition duration-100 hover:text-rose-500 active:text-rose-600">The Coding Mania</Link>
-                            </h2>
-
-                            <p className="text-gray-500 dark:text-gray-200">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint necessitatibus molestias explicabo.</p>
-
-                            <div>
-                                <Link className="font-semibold text-rose-500 transition duration-100 hover:text-rose-600 active:text-rose-700">Book Event</Link>
-                            </div>
+                        <div className="flex items-center mb-2">
+                            <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                            <span className="text-sm text-gray-600 dark:text-white">{event.time}</span>
                         </div>
-                    </article>
-                    <article className="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
-                        <a href="#" className="group relative block h-56 w-full shrink-0 self-start overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-24 md:w-24 lg:h-40 lg:w-40">
-                            <img src="https://images.unsplash.com/photo-1496395031280-4201b0e022ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" loading="lazy" alt="" className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-                        </a>
-
-                        <div className="flex flex-col gap-2">
-                            <span className="text-sm ">April 2, 2022</span>
-
-                            <h2 className="text-xl font-bold ">
-                                <Link to="/event/3" className="transition duration-100 hover:text-rose-500 active:text-rose-600">Architectural Warfare</Link>
-                            </h2>
-
-                            <p className="text-gray-500 dark:text-gray-200">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint necessitatibus molestias explicabo.</p>
-
-                            <div>
-                                <a href="#" className="font-semibold text-rose-500 transition duration-100 hover:text-rose-600 active:text-rose-700">Book Event</a>
-                            </div>
+                        <div className="flex items-center">
+                            <MapPin className="h-4 w-4 mr-2 text-gray-500" />
+                            <span className="text-sm text-gray-600 dark:text-white">{event.venue}</span>
                         </div>
-                    </article>
-                    <article className="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
-                        <a href="#" className="group relative block h-56 w-full shrink-0 self-start overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-24 md:w-24 lg:h-40 lg:w-40">
-                            <img src="https://images.unsplash.com/photo-1510081887155-56fe96846e71?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80" loading="lazy" alt="" className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-                        </a>
 
-                        <div className="flex flex-col gap-2">
-                            <span className="text-sm ">April 2, 2024</span>
-
-                            <h2 className="text-xl font-bold ">
-                                <Link to="/event/4" className="transition duration-100 hover:text-rose-500 active:text-rose-600">Blues in Architechture</Link>
-                            </h2>
-
-                            <p className="text-gray-500 dark:text-gray-200">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint necessitatibus molestias explicabo.</p>
-
-                            <div>
-                                <Link className="font-semibold text-rose-500 transition duration-100 hover:text-rose-600 active:text-rose-700">Book Event</Link>
-                            </div>
+                        <div>
+                            <Link to={`/event/${event._id}`} className="font-semibold text-rose-500 transition duration-100 hover:text-rose-600 active:text-rose-700">Book Event</Link>
                         </div>
-                    </article>
-                </div>
-            </div>
+                    </div>
+                </article>
+            ))}
+
         </div>
 
     )

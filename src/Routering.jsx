@@ -14,6 +14,7 @@ import Creator_layout from "./dashboard_module/creator_dashboard/creator_layout"
 import Creator_home from "./dashboard_module/creator_dashboard/creator_components/creator_home";
 import Creator_profile from "./dashboard_module/creator_dashboard/creator_components/creator_profile";
 import Edit_creator_profile from "./dashboard_module/creator_dashboard/creator_components/edit_creator_profile";
+import Creator_events from "./dashboard_module/creator_dashboard/creator_components/creator_events";
 
 import Settings_bar from "./dashboard_module/common/mobile_settings/settings_bar";
 import { useAuth } from "./providers/AuthProvider";
@@ -24,6 +25,8 @@ import Report_problem from "./dashboard_module/common/report_problem";
 import SettingsPage from "./dashboard_module/all_users-dashboard/unique_to_users/settings/settingsLayout";
 import Events from "./dashboard_module/all_users-dashboard/event/events";
 import Event_readmore from "./dashboard_module/all_users-dashboard/event/event_readmore";
+import Events_layout from "./dashboard_module/all_users-dashboard/event/events_layout";
+import My_events from "./dashboard_module/all_users-dashboard/event/my_events";
 import Creator_uploads from "./dashboard_module/all_users-dashboard/unique_to_users/creator_uploads";
 
 import Edit_profile from "./dashboard_module/common/edit_profile";
@@ -44,28 +47,31 @@ const Routing = () => {
       <Route path="/settings-bar" element={<Settings_bar />} />
       <Route path="/report-a-problem" element={<Report_problem />} />
 
-      {/* Public Routes */}
       <Route path="/" element={<UsersDashboard />}>
         <Route index element={<Home />} />
         <Route path="profile" element={<Profile />} />
         <Route path="messages" element={<Messages />} />
         <Route path="settings-page" element={<SettingsPage />} />
-        <Route path="events" element={<Events />} />
+
+        <Route path="events" element={<Events_layout />}>
+          <Route index element={<Events />} />
+          <Route path="my-events" element={<My_events />} />
+        </Route>
+
         <Route path="event/:id" element={<Event_readmore />} />
         <Route path="creator-uploads" element={<Creator_uploads />} />
         <Route path="edit-profile" element={<Edit_profile />} />
       </Route>
 
-      {/* Protected Route */}
       {user && user.userType === USER_TYPE_CREATOR && (
         <Route path="/creator" element={<Creator_layout />}>
           <Route index element={<Creator_home />} />
           <Route path="creator-profile" element={<Creator_profile />} />
-          <Route path="edit-creator-profile" element={<Edit_creator_profile/>} />
+          <Route path="edit-creator-profile" element={<Edit_creator_profile />} />
+          <Route path="creator-events" element={<Creator_events />} />
         </Route>
       )}
 
-      {/* Redirect to root for any undefined routes */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

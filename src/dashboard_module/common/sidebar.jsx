@@ -104,7 +104,7 @@ const Sidebar = () => {
                         </button>
                     </li>
                     <li className="relative">
-                        <Link to='/Events'
+                        <Link to='/events'
                             className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <RiCalendarEventFill className="h-6 w-6" />
@@ -112,16 +112,16 @@ const Sidebar = () => {
                             <span>Events</span>
                         </Link>
                     </li>
-                    <li className="relative">
+                    {/* <li className="relative">
                         <Link to='/messages'
-                            // onClick={() => handleSidebarClick('messages')}
+                            onClick={() => handleSidebarClick('messages')}
                             className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span className="text-2xl">
                                 <RiMessageFill aria-hidden="true" />
                             </span>
                             <span>Messages</span>
                         </Link>
-                    </li>
+                    </li> */}
                     <li className="relative">
                         <button
                             onClick={() => create()}

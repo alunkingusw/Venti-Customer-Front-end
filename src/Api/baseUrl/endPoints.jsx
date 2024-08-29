@@ -28,5 +28,10 @@ const EndPoints = {
         like_post:(id)=>Post(`/post/${id}/like`),
         comment_post: (id, data) => Post(`/post/${id}/comment`, data),
     },
+    events:{
+        fetch_all_events:()=>get('/event/all-events'),
+        create_event:(data)=>Post('event', data),
+        fetch_by_id:(id)=>get(`/event/eventById/${id}`),
+    },
 }
 export default EndPoints;

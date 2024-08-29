@@ -24,7 +24,7 @@ const SigninForm = () => {
     try {
       setLoading(true)
       const { data } = await EndPoints.Auth.login(values);
-      if (data.status != 200) { throw Error('An Error occured!') }
+      if (data.status != 200) { throw Error(data.message || 'An Error occured!') }
       else {
         Success(data.message);
         setToken(data.token);
@@ -36,7 +36,7 @@ const SigninForm = () => {
         }
       }
     } catch (error) {
-      Error(error.response.data.message)
+      Error(error?.response?.data?.error || "Something went wrong")
     } finally {
       setLoading(false)
     }
