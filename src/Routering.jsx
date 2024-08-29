@@ -15,6 +15,7 @@ import Creator_home from "./dashboard_module/creator_dashboard/creator_component
 import Creator_profile from "./dashboard_module/creator_dashboard/creator_components/creator_profile";
 import Edit_creator_profile from "./dashboard_module/creator_dashboard/creator_components/edit_creator_profile";
 import Creator_events from "./dashboard_module/creator_dashboard/creator_components/creator_events";
+import Creator_settings from "./dashboard_module/creator_dashboard/creator_components/creator_settings";
 
 import Settings_bar from "./dashboard_module/common/mobile_settings/settings_bar";
 import { useAuth } from "./providers/AuthProvider";
@@ -69,6 +70,7 @@ const Routing = () => {
           <Route path="creator-profile" element={<Creator_profile />} />
           <Route path="edit-creator-profile" element={<Edit_creator_profile />} />
           <Route path="creator-events" element={<Creator_events />} />
+          <Route path="creator-settings" element={<Creator_settings />} />
         </Route>
       )}
 

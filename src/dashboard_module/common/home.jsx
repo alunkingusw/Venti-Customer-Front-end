@@ -12,7 +12,7 @@ const Home = () => {
   const fetchPosts = useCallback(async () => {
     try {
       const { data } = await EndPoints.posts.fetch_all_posts();
-      const postsWithLikedStatus = data.map(posts => ({ ...posts, liked: false }));
+      const postsWithLikedStatus = data.posts.map(posts => ({ ...posts, liked: false }));
       setAllPosts(postsWithLikedStatus);
     } catch (error) {
       Error('Error fetching posts:', error.response.error.error);

@@ -24,7 +24,7 @@ const Creator_profile = () => {
             }
             setUser(data)
         } catch (error) {
-            Error(error.response.data.error || 'Profile doesnot exist!')
+            Error(error.response.data.error || 'Profile does not exist!')
         }
     }
 
@@ -46,8 +46,6 @@ const Creator_profile = () => {
                 setPreviewImage(reader.result);
             };
             reader.readAsDataURL(file);
-
-            // Automatically submit the image to the backend
             await uploadImage(file);
         } else {
             setPreviewImage(null);
@@ -55,21 +53,20 @@ const Creator_profile = () => {
     };
 
     const uploadImage = async (file) => {
-        const formData = new FormData();
-        formData.append('image', file);
         setLoading(true);
-
         try {
-            const { data } = await EndPoints.profile.update_profile({
-                profilePicture: formData,
-            });
+            const formData = new FormData();
+            formData.append('profilePicture', file);
+
+            const { data } = await EndPoints.profile.update_profile(formData);
 
             if (data.status != 200) {
                 throw new Error('Image upload failed');
             }
+            setUser(data.user)
             Success(data.message)
         } catch (error) {
-            setError('Error uploading image');
+            setError('Error uploading image: ' + (error.message || 'Unknown error'));
         } finally {
             setLoading(false);
         }
@@ -87,17 +84,27 @@ const Creator_profile = () => {
                             <div className="flex flex-wrap mb-6 xl:flex-nowrap items-center">
                                 <div className="mb-5 mr-5">
                                     <div className="relative inline-block shrink-0 rounded-2xl">
-                                        {previewImage ? (
-                                            <img
-                                                className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
-                                                src={previewImage}
-                                                alt="Preview"
-                                            />
-                                        ) : (
+                                        {user.profilePicture != null ? (
+                                        <img
+                                            className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
+                                            src={user.profilePicture}
+                                            alt="Preview"
+                                        />
+                                         ) : (
                                             <FaCircleUser
-                                                className="inline-block shrink-0 rounded-full w-20 h-20 lg:w-40 lg:h-40"
-                                            />
-                                        )}
+                                                className="inline-block shrink-0 rounded-full w-20 h-20 lg:w-40 lg:h-40" />
+                                        )} 
+
+                                        {/* <img
+                                            className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
+                                            src={previewImage}
+                                            alt="Preview"
+                                        />
+
+                                        <FaCircleUser
+                                            className="inline-block shrink-0 rounded-full w-20 h-20 lg:w-40 lg:h-40"
+                                        /> */}
+
                                         <input
                                             type="file"
                                             accept="image/jpeg,image/png,image/jpg"

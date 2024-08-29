@@ -132,7 +132,7 @@ const Creator_sidebar = () => {
                         </button>
                     </li>
                     <li className="relative">
-                        <Link to="/settings-page"
+                        <Link to="/creator/creator-settings"
                             className="focus:bg-gray-100 dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 flex w-full space-x-2 rounded-md px-10 py-4 focus:outline-none">
                             <span>
                                 <AiFillSetting className="h-6 w-6" />
@@ -187,14 +187,13 @@ const Creator_sidebar = () => {
 
             <div className="sm:hidden fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white dark:bg-black border-t border-slate-600 bottom-0 left-1/2 ">
                 <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
-                    <Link to='/'
-                        // onClick={() => handleSidebarClick('home')}
+                    <Link to='/creator'
                         data-tooltip-target="tooltip-home" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-white group">
                         <AiFillHome className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-gray-700" aria-hidden="true" />
                         <span className="sr-only">Home</span>
                     </Link>
 
-                    <Link to="/events"
+                    <Link to="/creator/creator-events"
                         data-tooltip-target="tooltip-wallet" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-white group">
                         <RiCalendarEventFill className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-gray-700" aria-hidden="true" />
                         <span className="sr-only">Events</span>
@@ -208,14 +207,14 @@ const Creator_sidebar = () => {
                         </button>
                     </div>
 
-                    <Link to='/messages'
+                    <Link to="#"
                         data-tooltip-target="tooltip-settings" type="button" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-gray-50 group">
                         <RiMessageFill className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-gray-700" />
                         <span className="sr-only">Messages</span>
                     </Link>
 
                     <Link data-tooltip-target="tooltip-profile" type="button"
-                        to='/profile'
+                        to='/creator/creator-profile'
                         className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:text-white group">
                         <FaCircleUser className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:text-gray-700" />
                         <span className="sr-only">Profile</span>
