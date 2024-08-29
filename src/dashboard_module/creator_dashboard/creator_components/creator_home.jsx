@@ -15,7 +15,7 @@ const Creator_home = () => {
       const postsWithLikedStatus = data.posts.map(posts => ({ ...posts, liked: false }));
       setAllPosts(postsWithLikedStatus);
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      Error('Error fetching posts:', error?.response?.data?.error);
     }
   }, []);
 
@@ -56,7 +56,7 @@ const Creator_home = () => {
         fetchPosts();
       }
     } catch (error) {
-      Error(error.response.data.error);
+      Error(error?.response?.data?.error);
     }
   };
 
