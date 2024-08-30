@@ -46,7 +46,7 @@
 }
 
 .input-emoji {
-  background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent background for dark mode */
+  background: rgba(0,0,0,0.5);
   border: 1px solid rgba(255, 255, 255, 0.3); /* Light border to stand out on dark mode */
   border-radius: 4px;
   padding: 8px;
@@ -54,9 +54,6 @@
   width: 100%;
 }
 
-.input-emoji::placeholder {
-  color: rgba(255, 255, 255, 0.6); /* Light placeholder text color */
-}
 
 .event-button {
   position: absolute;

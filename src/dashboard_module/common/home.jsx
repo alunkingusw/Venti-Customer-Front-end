@@ -101,7 +101,12 @@ const Home = () => {
             <div className="border-t border-gray-200 p-4 relative">
               <div className="flex items-center">
                 <InputEmoji
-                  className="input-emoji"
+                  background='transparent'
+                  color={
+                    '#fff'
+                  }
+                  theme="auto"
+                  className="input-emoji dark:bg-transparent"
                   value={textAreaContent}
                   onChange={setTextAreaContent}
                   placeholder="Type a message"

@@ -53,13 +53,15 @@ const Creator_navBar = () => {
                     ) : (
                         <>
                             <div className="relative ml-0 flex items-center justify-between rounded-md sm:ml-auto">
-                                <HiOutlineSearch className="absolute sm:hidden left-2 block h-5 w-5 text-gray-400" />
-                                <input
-                                    type="text"
-                                    name="search"
-                                    className="sm:hidden h-10 w-full rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-12 shadow-sm outline-none focus:border-blue-500"
-                                    placeholder="Search for anything"
-                                />
+                                <span className="sm:hidden h-10 w-full rounded-md dark:bg-transparent pr-4 outline-none focus:border-blue-500">
+                                    <span className=" inline-flex text-white h-8 w-8 items-center justify-center rounded-full bg-red-600 align-bottom text-2xl font-bold">V</span>
+                                    <span className="text-xl">entie</span>
+                                </span>
+                                <label htmlFor="dark" className="sm:hidden relative inline-flex ml-2 cursor-pointer items-center">
+                                    <input type="checkbox" onChange={handleChange} value="" id="dark" className="peer sr-only" />
+                                    <div className="peer h-6 w-11 rounded-full bg-white border after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
+                                    <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Display </span>
+                                </label>
                                 <Link to="/settings-page"
                                     className='text-gray-500 dark:text-gray-50 cursor-pointer hover:bg-gray-200 dark:hover:text-white ml-3'>
                                     <IoSettings className='sm:hidden h-6 w-6' />
