@@ -11,7 +11,7 @@ const Events_sidebar = () => {
                     <Link to="/creator/creator-events" className="hover:text-rose-500 whitespace-nowrap">Events</Link>
                     <Link to="/creator/creator-events/coming-events" className="hover:text-rose-500 whitespace-nowrap">Coming Events</Link>
                     <Link to="#" className="hover:text-rose-500 whitespace-nowrap">Booked Events</Link>
-                    <Link to="#" className="hover:text-rose-500 whitespace-nowrap" aria-current="page">Summary</Link>
+                    <Link to="/creator/creator-events/summary" className="hover:text-rose-500 whitespace-nowrap" aria-current="page">Summary</Link>
                 </nav>
             </div>
 
@@ -31,7 +31,9 @@ const Events_sidebar = () => {
                         <CalendarSearch />
                         Booked Events
                     </Link>
-                    <Link className="focus:bg-gray-100 flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 rounded-md py-4 focus:outline-none">
+                    <Link
+                        to="/creator/creator-events/summary"
+                        className="focus:bg-gray-100 flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 rounded-md py-4 focus:outline-none">
                         <CalendarSearch />
                         Summary
                     </Link>

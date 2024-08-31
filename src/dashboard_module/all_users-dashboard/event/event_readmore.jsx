@@ -90,9 +90,9 @@ const Event_readmore = () => {
 
     return (
         <div className='h-full'>
-            <div className="my-10 flex flex-col rounded-3xl p-4 sm:px-16 sm:py-16 lg:max-w-screen-lg lg:flex-row">
+            <div className="flex flex-col px-4 rounded-3xl lg:max-w-screen lg:flex-row">
                 <div className="lg:w-1/2 lg:pr-8 justify-center items-center">
-                <Link onClick={()=>window.history.back()} className='flex items-center font-bold'>
+                <Link onClick={()=>window.history.back()} className='flex items-center font-bold '>
                     <ArrowLeft className='w-8'/>
                     <span className='text-xl'>Back</span>
                 </Link>
@@ -118,7 +118,7 @@ const Event_readmore = () => {
                         <p className="mt-6 text-2xl">{event.description}</p>
                     </div>
                 </div>
-                <div className="-order-1 mb-8 lg:order-1 lg:mb-0 lg:w-1/3">
+                <div className=" mb-8 lg:order-1 lg:mb-0 lg:w-1/3">
                     <img
                         loading='lazy'
                         className="border-blue-600/10 border shadow-md w-full h-auto"

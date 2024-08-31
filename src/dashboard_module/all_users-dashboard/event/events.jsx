@@ -37,7 +37,7 @@ const Events = () => {
     }
 
     return (
-        <div className="mx-auto grid max-w-screen-lg grid-cols-1 gap-5 p-5 sm:grid-cols-2 md:grid-cols-3 lg:gap-10">
+        <div className="grid grid-cols-1 gap-5 p-5 sm:grid-cols-2 md:grid-cols-3 lg:gap-10">
             {events.map((event, index) => (
                 <article key={index} className="group h-full dark:shadow-gray-500 p-2 overflow-hidden rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800">
                     <div className='relative'>
