@@ -46,8 +46,6 @@ const Profile = () => {
                 setPreviewImage(reader.result);
             };
             reader.readAsDataURL(file);
-
-            // Automatically submit the image to the backend
             await uploadImage(file);
         } else {
             setPreviewImage(null);
@@ -55,21 +53,20 @@ const Profile = () => {
     };
 
     const uploadImage = async (file) => {
-        const formData = new FormData();
-        formData.append('image', file);
         setLoading(true);
-
         try {
-            const { data } = await EndPoints.profile.update_profile({
-                profilePicture: formData,
-            });
+            const formData = new FormData();
+            formData.append('profilePicture', file);
+
+            const { data } = await EndPoints.profile.update_profile(formData);
 
             if (data.status != 200) {
                 throw new Error('Image upload failed');
             }
+            setUser(data.user)
             Success(data.message)
         } catch (error) {
-            setError('Error uploading image');
+            setError('Error uploading image: ' + (error.message || 'Unknown error'));
         } finally {
             setLoading(false);
         }
@@ -87,10 +84,10 @@ const Profile = () => {
                             <div className="flex flex-wrap mb-6 xl:flex-nowrap items-center">
                                 <div className="mb-5 mr-5">
                                     <div className="relative inline-block shrink-0 rounded-2xl">
-                                        {previewImage ? (
+                                        {user.profilePicture !=null ? (
                                             <img
                                                 className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
-                                                src={previewImage}
+                                                src={user.profilePicture}
                                                 alt="Preview"
                                             />
                                         ) : (
@@ -290,17 +287,6 @@ const Profile = () => {
                         </div>
                     </div>
                 )}
-                {/* {divs === 'edit_profile' && (
-                    <div>
-                        <button
-                            onClick={() => setDivs('profile')}
-                            className='flex items-center ml-0'>
-                            <IoIosArrowBack className='h-6 w-6' />
-                            <p className='font-bold hover:underline '>Back</p>
-                        </button>
-                        <Edit_profile />
-                    </div>
-                )} */}
             </main>
         </>
     )

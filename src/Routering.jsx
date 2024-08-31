@@ -14,7 +14,9 @@ import Creator_layout from "./dashboard_module/creator_dashboard/creator_layout"
 import Creator_home from "./dashboard_module/creator_dashboard/creator_components/creator_home";
 import Creator_profile from "./dashboard_module/creator_dashboard/creator_components/creator_profile";
 import Edit_creator_profile from "./dashboard_module/creator_dashboard/creator_components/edit_creator_profile";
-import Creator_events from "./dashboard_module/creator_dashboard/creator_components/creator_events";
+import Creator_events_layout from "./dashboard_module/creator_dashboard/creator_components/creator_events_layout";
+import All_creator_events from "./dashboard_module/creator_dashboard/creator_components/all_creator_events";
+import Coming_events from "./dashboard_module/creator_dashboard/creator_components/coming_events";
 import Creator_settings from "./dashboard_module/creator_dashboard/creator_components/creator_settings";
 
 import Settings_bar from "./dashboard_module/common/mobile_settings/settings_bar";
@@ -69,7 +71,11 @@ const Routing = () => {
           <Route index element={<Creator_home />} />
           <Route path="creator-profile" element={<Creator_profile />} />
           <Route path="edit-creator-profile" element={<Edit_creator_profile />} />
-          <Route path="creator-events" element={<Creator_events />} />
+          <Route path="creator-events" element={<Creator_events_layout />}>
+            <Route index element={<All_creator_events />} />
+            <Route path="coming-events" element={<Coming_events/>} />
+          </Route>
+
           <Route path="creator-settings" element={<Creator_settings />} />
         </Route>
       )}

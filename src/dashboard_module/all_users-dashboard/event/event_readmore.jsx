@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import EndPoints from '../../../Api/baseUrl/endPoints';
 import { Success, Error } from '../../../components/toasts';
-import { Calendar, MapPin, Clock, Users, Pin, ArrowRight, CircleX } from 'lucide-react';
+import { Calendar, MapPin, Clock, Users, Pin, ArrowRight, ArrowLeft, CircleX } from 'lucide-react';
 
 const Event_readmore = () => {
     const { id } = useParams()
@@ -92,6 +92,10 @@ const Event_readmore = () => {
         <div className='h-full'>
             <div className="my-10 flex flex-col rounded-3xl p-4 sm:px-16 sm:py-16 lg:max-w-screen-lg lg:flex-row">
                 <div className="lg:w-1/2 lg:pr-8 justify-center items-center">
+                <Link onClick={()=>window.history.back()} className='flex items-center font-bold'>
+                    <ArrowLeft className='w-8'/>
+                    <span className='text-xl'>Back</span>
+                </Link>
                     <div className="mt-4 justify-center items-center">
                         <h2 className="text-6xl font-bold">{event.eventName}</h2>
                         <hr className='text-gray-400 mb-4' />

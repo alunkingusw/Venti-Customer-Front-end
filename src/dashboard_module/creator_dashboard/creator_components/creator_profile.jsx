@@ -85,15 +85,15 @@ const Creator_profile = () => {
                                 <div className="mb-5 mr-5">
                                     <div className="relative inline-block shrink-0 rounded-2xl">
                                         {user.profilePicture != null ? (
-                                        <img
-                                            className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
-                                            src={user.profilePicture}
-                                            alt="Preview"
-                                        />
-                                         ) : (
+                                            <img
+                                                className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
+                                                src={user.profilePicture}
+                                                alt="Preview"
+                                            />
+                                        ) : (
                                             <FaCircleUser
                                                 className="inline-block shrink-0 rounded-full w-20 h-20 lg:w-40 lg:h-40" />
-                                        )} 
+                                        )}
 
                                         {/* <img
                                             className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"

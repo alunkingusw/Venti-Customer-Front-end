@@ -10,17 +10,15 @@ import { Modal } from '../../components/modal';
 
 const NavBar = () => {
     const { user } = useAuth();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const OpenModal = () => {
-        setIsModalOpen(true);
-    }
+    const [isDarkTheme, setIsDarkTheme] = useState(false);
+    useEffect(() => {
+        loadTheme()
+        setIsDarkTheme(document.documentElement.classList.contains('dark'));
+    }, [])
     const handleChange = () => {
         toggleDarkMode()
     }
-    useEffect(() => {
-        loadTheme()
-    })
+
     return (
         <div>
             <header className="relative flex flex-col items-center bg-red-20 px-4 py-4 sm:flex-row md:h-20">
@@ -33,13 +31,13 @@ const NavBar = () => {
                                     <span className="text-xl">entie</span>
                                 </span>
                                 <label htmlFor="dark" className="sm:hidden relative inline-flex ml-2 cursor-pointer items-center">
-                                    <input type="checkbox" onChange={handleChange} value="" id="dark" className="peer sr-only" />
-                                    <div className="peer h-6 w-11 rounded-full bg-white border after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
+                                    <input type="checkbox" onChange={handleChange} value="" id="dark" className="peer sr-only" checked={isDarkTheme} />
+                                    <div className="peer h-6 w-11 rounded-full bg-gray-100 border after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-rose-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
                                     <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Display </span>
                                 </label>
                                 <Link
                                     to="/settings-page"
-                                    className='sm:hidden text-gray-500 hover:text-blue-500 ml-3'>
+                                    className='sm:hidden text-gray-500 dark:text-gray-100 hover:text-blue-500 ml-3'>
                                     <IoSettings className='h-6 w-6' />
                                 </Link>
                             </div>
@@ -64,8 +62,8 @@ const NavBar = () => {
                                     <span className="text-xl">entie</span>
                                 </span>
                                 <label htmlFor="dark" className="sm:hidden relative inline-flex ml-2 cursor-pointer items-center">
-                                    <input type="checkbox" onChange={handleChange} value="" id="dark" className="peer sr-only" />
-                                    <div className="peer h-6 w-11 rounded-full bg-white border after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
+                                    <input type="checkbox" onChange={handleChange} value="" id="dark" className="peer sr-only" checked={isDarkTheme} />
+                                    <div className="peer h-6 w-11 rounded-full bg-white border after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-rose-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
                                     <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Display </span>
                                 </label>
                                 <Link to="/settings-page"

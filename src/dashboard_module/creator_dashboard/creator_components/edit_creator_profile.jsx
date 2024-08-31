@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { IoIosArrowBack } from "react-icons/io";
-import { FaRegEye, FaRegEyeSlash, FaArrowLeftLong } from "react-icons/fa6";
+import { FaRegEye, FaRegEyeSlash, FaArrowLeft } from "react-icons/fa6";
+// import { FaArrowLeft } from "react-icons/fa6";
 import { IoPencil } from "react-icons/io5";
 import { ImCancelCircle } from "react-icons/im";
 import { Success, Error } from '../../../components/toasts';
@@ -152,7 +153,7 @@ const Edit_creator_profile = () => {
             <button
                 onClick={() => window.history.back()}
                 className='flex items-center ml-3'>
-                <FaArrowLeftLong className='h-6 w-6' />
+                <FaArrowLeft className='h-6 w-6' />
                 <p className='font-bold hover:underline '>Back</p>
             </button>
             <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-4 xl:mx-auto">

@@ -7,17 +7,16 @@ import { Outlet } from 'react-router-dom'
 
 const Creator_layout = () => {
   return (
-    <div className="flex h-screen dark:text-white dark:bg-black">
+    <div className="flex dark:text-white dark:bg-black">
       <Creator_sidebar />
-      <div className="flex h-full w-full flex-col">
+      <div className="flex h-screen w-full flex-col">
         <Creator_navBar />
-        <div className="h-screen overflow-auto">
-          <div className="flex flex-wrap gap-x-4 gap-y-8 justify-center items-center mb-10">
+        <div className="max-h-screen overflow-y-auto">
+          <div className="flex gap-y-8 justify-center mb-10">
             <Outlet />
           </div>
         </div>
       </div>
-
     </div >
   )
 }

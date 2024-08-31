@@ -77,7 +77,7 @@ const Creator_sidebar = () => {
     }
     return (
         <div className="fixed z-50 md:relative border-r">
-            <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col xs:hidden overflow-hidden shadow transition-all md:h-100dvh md:overflow-auto md:w-64 lg:w-72">
+            <nav ref={menuRef} className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col xs:hidden overflow-hidden shadow transition-all md:h-100dvh md:overflow-auto md:w-40 lg:w-72">
                 <div className="mt-0 py-4 pl-10 md:mt-10">
                     <span className="">
                         <span className=" inline-flex text-white h-8 w-8 items-center justify-center rounded-full bg-red-600 align-bottom text-2xl font-bold">V</span>

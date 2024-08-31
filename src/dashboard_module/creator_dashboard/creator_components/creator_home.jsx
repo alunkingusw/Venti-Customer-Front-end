@@ -61,8 +61,8 @@ const Creator_home = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-3xl mx-auto pt-6 pb-8">
+    <div className="min-h-screen ">
+      <div className="max-w-2xl mx-auto pt-6 pb-8">
         {allPosts.map((post, index) => (
           <div key={index} className="border border-gray-200 rounded-lg mb-8">
             <div className="flex items-center p-4">
@@ -101,7 +101,9 @@ const Creator_home = () => {
             <div className="border-t border-gray-200 p-4 relative">
               <div className="flex items-center">
                 <InputEmoji
-                  className="input-emoji"
+                  background='transparent'
+                  background-inline='text'
+                  color='white'
                   value={textAreaContent}
                   onChange={setTextAreaContent}
                   placeholder="Type a message"
