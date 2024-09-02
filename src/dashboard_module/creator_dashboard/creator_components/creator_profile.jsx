@@ -86,7 +86,7 @@ const Creator_profile = () => {
                                     <div className="relative inline-block shrink-0 rounded-2xl">
                                         {user.profilePicture != null ? (
                                             <img
-                                                className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
+                                                className="inline-block object-cover shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
                                                 src={user.profilePicture}
                                                 alt="Preview"
                                             />
