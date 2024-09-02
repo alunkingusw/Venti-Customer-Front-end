@@ -7,14 +7,15 @@ import { MdOutlineEventRepeat, MdEventAvailable, MdEvent, MdOutlineSummarize } f
 const Events_sidebar = () => {
     return (
         <div className=''>
-            <div className="sm:hidden p-2 border-b ">
-                <nav className="flex space-x-4">
-                    <Link to="/creator/creator-events" className="hover:text-rose-500 whitespace-nowrap">Events</Link>
-                    <Link to="/creator/creator-events/coming-events" className="hover:text-rose-500 whitespace-nowrap">Coming Events</Link>
-                    <Link to="#" className="hover:text-rose-500 whitespace-nowrap">Booked Events</Link>
-                    <Link to="/creator/creator-events/summary" className="hover:text-rose-500 whitespace-nowrap" aria-current="page">Summary</Link>
-                </nav>
-            </div>
+            <div className="p-2 border-b">
+    <nav className="flex sm:flex-nowrap space-x-4">
+        <Link to="/creator/creator-events" className="hover:text-rose-500 whitespace-nowrap">Events</Link>
+        <Link to="/creator/creator-events/coming-events" className="hover:text-rose-500 whitespace-nowrap">Coming Events</Link>
+        <Link to="#" className="hover:text-rose-500 whitespace-nowrap">Booked Events</Link>
+        <Link to="/creator/creator-events/summary" className="hover:text-rose-500 whitespace-nowrap" aria-current="page">Summary</Link>
+    </nav>
+</div>
+
 
             <div className="hidden sm:block col-span-2 py-4 relative items-start">
                 <nav className="space-y-1 px-2 w-fit">
