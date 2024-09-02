@@ -30,7 +30,7 @@ const EndPoints = {
     },
     events:{
         fetch_all_events:()=>get('/event/all-events'),
-        create_event:(data)=>Post('event', data),
+        create_event:(data)=>Post('/event/create', data),
         fetch_by_id:(id)=>get(`/event/eventById/${id}`),
     },
 }

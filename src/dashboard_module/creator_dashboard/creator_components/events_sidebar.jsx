@@ -23,7 +23,7 @@ const Events_sidebar = () => {
                         <MdEvent className='h-6 w-6'/>
                         Events
                     </Link>
-                    <Link to="/creator/creator-events"
+                    <Link to="/creator/creator-events/create-events"
                         className="focus:bg-gray-100 items-center justify-center  mt-5 cursor-pointer py-2 px-4 rounded-md transition flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700  focus:outline-none">
                         <MdOutlineCreateNewFolder className='h-6 w-6'/>
                         Create
