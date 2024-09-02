@@ -2,7 +2,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { CalendarSearch } from 'lucide-react';
-import { MdOutlineEventRepeat, MdEventAvailable, MdEvent, MdOutlineSummarize } from "react-icons/md"
+import { MdOutlineEventRepeat, MdEventAvailable, MdEvent, MdOutlineSummarize,MdOutlineCreateNewFolder } from "react-icons/md"
 
 const Events_sidebar = () => {
     return (
@@ -16,27 +16,32 @@ const Events_sidebar = () => {
                 </nav>
             </div>
 
-            <div className="hidden sm:block col-span-2 py-4 relative items-start">
-                <nav className="space-y-1 px-2 w-fit">
+            <div className="hidden col-span-2 min-w-fit h-screen sm:block mt-10 px-4 relative">
+                <nav className="space-y-4  ">
                     <Link to="/creator/creator-events"
-                        className="focus:bg-gray-100 mt-5 cursor-pointer py-2 font-semibold transition flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 rounded-md focus:outline-none">
+                        className="focus:bg-gray-100 items-center justify-center mt-5 px-4 py-2 rounded-md cursor-pointer flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 focus:outline-none">
                         <MdEvent className='h-6 w-6'/>
                         Events
                     </Link>
-                    <Link to="/creator/creator-events/coming-events"
-                        className="focus:bg-gray-100 mt-5 cursor-pointer py-2 font-semibold transition flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 rounded-md focus:outline-none">
-                        <MdOutlineEventRepeat className='h-6 w-6'/>
-                        Comming Events
+                    <Link to="/creator/creator-events"
+                        className="focus:bg-gray-100 items-center justify-center  mt-5 cursor-pointer py-2 px-4 rounded-md transition flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700  focus:outline-none">
+                        <MdOutlineCreateNewFolder className='h-6 w-6'/>
+                        Create
                     </Link>
-                    <Link className="focus:bg-gray-100 mt-5 cursor-pointer py-2 font-semibold transition flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 rounded-md focus:outline-none">
+                    <Link to="/creator/creator-events/coming-events"
+                        className="focus:bg-gray-100 items-center justify-center mt-5 px-4 py-2 rounded-md cursor-pointer flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 focus:outline-none">
+                        <MdOutlineEventRepeat className='h-6 w-6'/>
+                        Coming
+                    </Link>
+                    <Link className="focus:bg-gray-100 items-center justify-center mt-5 px-4 py-2 rounded-md cursor-pointer flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 focus:outline-none">
                         <MdEventAvailable className='h-6 w-6' />
-                        Booked Events
+                        Booked
                     </Link>
                     <Link
                         to="/creator/creator-events/summary"
-                        className="focus:bg-gray-100 mt-5 cursor-pointer font-semibold transition flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 rounded-md py-4 focus:outline-none">
+                        className="focus:bg-gray-100 items-center justify-center mt-5 px-4 py-2 rounded-md cursor-pointer flex dark:focus:bg-gray-200 hover:bg-gray-100 dark:hover:bg-gray-200 dark:focus:text-black dark:hover:text-gray-700 focus:outline-none">
                         <MdOutlineSummarize className='h-6 w-6' />
-                        Summary
+                        Report
                     </Link>
                 </nav>
             </div>

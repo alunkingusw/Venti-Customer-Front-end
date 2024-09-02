@@ -37,7 +37,7 @@ const All_creator_events = () => {
     }
 
     return (
-        <div className='sm:border-l'>
+        <div className='sm:border-l min-h-full'>
             <div className="pt-4 pl-2 overflow-y-auto">
                 <h1 className="py-2 text-2xl font-semibold">Join Our Events</h1>
                 <p>Explore the most recent and exciting events happening around you. Stay informed and engaged with our curated list of activities.</p>

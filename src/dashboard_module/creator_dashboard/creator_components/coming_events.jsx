@@ -3,7 +3,7 @@ import React from 'react'
 
 const Coming_events = () => {
   return (
-    <div className='sm:border-l'>
+    <div className='sm:border-l min-h-full'>
       <div className="pt-4 pl-2">
         <h1 className="py-2 text-2xl font-semibold">Up-Coming Events</h1>
         <p>Explore up and Coming events you&apos;re supposed to attend.</p>
