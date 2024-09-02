@@ -9,10 +9,10 @@ const Events_sidebar = () => {
         <div className=''>
             <div className="sm:hidden p-2 border-b text-lg font-medium text-center border-gray-200 dark:text-gray-400 dark:border-gray-700">
                 <nav className="flex space-x-4">
-                    <Link to="/creator/creator-events" className="hover:text-rose-500 whitespace-nowrap">Events</Link>
-                    <Link to="/creator/creator-events/coming-events" className="hover:text-rose-500 whitespace-nowrap">Coming Events</Link>
-                    <Link to="#" className="hover:text-rose-500 whitespace-nowrap">Booked</Link>
-                    <Link to="/creator/creator-events/summary" className="hover:text-rose-500 whitespace-nowrap" aria-current="page">Summary</Link>
+                    <Link to="/creator/creator-events" className="border-b-2 border-transparent hover:text-rose-500 bg-transparent hover:border-rose-500 whitespace-nowrap">Events</Link>
+                    <Link to="/creator/creator-events/coming-events" className="border-b-2 border-transparent hover:text-rose-500 bg-transparent hover:border-rose-500 whitespace-nowrap">Coming Events</Link>
+                    <Link to="#" className="border-b-2 border-transparent hover:text-rose-500 bg-transparent hover:border-rose-500 whitespace-nowrap">Booked</Link>
+                    <Link to="/creator/creator-events/summary" className="border-b-2 border-transparent hover:text-rose-500 bg-transparent hover:border-rose-500 whitespace-nowrap" aria-current="page">Summary</Link>
                 </nav>
             </div>
 
