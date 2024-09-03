@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import EndPoints from '../../../Api/baseUrl/endPoints';
 import { Success, Error } from '../../../components/toasts';
+import { useNavigate } from 'react-router-dom';
 
 const Create_events = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [imagePreview, setImagePreview] = useState(null);
+    const navigate = useNavigate()
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -29,10 +31,16 @@ const Create_events = () => {
                     formData.append(key, values[key]);
                 }
             });
-            console.log(formData)
             const { data } = await EndPoints.events.create_event(formData)
+            if (data.status ==200) {
+                Success(data.message)
+                reset()
+                navigate("/creator/creator-events");
+            } else {
+                throw new Error(data.message || "An Error Occurred")
+            }
         } catch (error) {
-            console.log(error)
+            Error(error.response.data.error || "Something happened")
         }
     }
     return (
@@ -140,7 +148,6 @@ const Create_events = () => {
                 </div>
                 <button type="submit" className="text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
             </form>
-
         </div>
     )
 }

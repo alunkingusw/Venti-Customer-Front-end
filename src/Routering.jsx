@@ -19,6 +19,7 @@ import All_creator_events from "./dashboard_module/creator_dashboard/creator_com
 import Coming_events from "./dashboard_module/creator_dashboard/creator_components/coming_events";
 import Create_events from "./dashboard_module/creator_dashboard/creator_components/create_events";
 import Summary from "./dashboard_module/creator_dashboard/creator_components/summary";
+import Edit_event from "./dashboard_module/creator_dashboard/creator_components/edit_event";
 import Creator_settings from "./dashboard_module/creator_dashboard/creator_components/creator_settings";
 
 import Settings_bar from "./dashboard_module/common/mobile_settings/settings_bar";
@@ -77,6 +78,7 @@ const Routing = () => {
             <Route index element={<All_creator_events />} />
             <Route path="create-events" element={<Create_events/>}/>
             <Route path="coming-events" element={<Coming_events/>} />
+            <Route path="edit-event/:id" element={<Edit_event/>} />
             <Route path="summary" element={<Summary/>} />
           </Route>
 

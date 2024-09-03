@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import EndPoints from '../../../Api/baseUrl/endPoints';
 import { Error } from '../../../components/toasts';
-import { Calendar, MapPin, Clock } from 'lucide-react';
+import { Calendar, MapPin, Clock, Plus } from 'lucide-react';
 
 const All_creator_events = () => {
     const [events, setEvents] = useState([])
@@ -39,7 +39,14 @@ const All_creator_events = () => {
     return (
         <div className='sm:border-l min-h-full'>
             <div className="pt-4 pl-2 overflow-y-auto">
-                <h1 className="py-2 text-2xl font-semibold">Join Our Events</h1>
+                <div className='space-x-5 flex w-full'>
+                    <span className="  py-2 text-2xl font-semibold">Join Our Events</span>
+                    <Link to="/creator/creator-events/create-events"
+                     className='text-lg flex items-center text-bold text-white right-0 bg-rose-500 p-2 rounded-md sm:hidden'>
+                        <Plus />
+                        <span className=''>Create Event</span>
+                    </Link>
+                </div>
                 <p>Explore the most recent and exciting events happening around you. Stay informed and engaged with our curated list of activities.</p>
             </div>
             <hr className="mt-4 mb-8" />
@@ -52,7 +59,7 @@ const All_creator_events = () => {
                                 src={event.poster}
                                 loading="lazy"
                                 alt={event.eventName}
-                                className=" w-full transform object-cover object-center transition duration-500 ease-in-out group-hover:scale-105 md:h-36 lg:h-48"
+                                className=" w-full object-cover object-center duration-500 ease-in-out group-hover:scale-105 md:h-36 lg:h-48"
                             />
                             {event.price_Early_bird > 0 ? (
                                 <span className="absolute top-0 left-0 m-2 rounded-full bg-black dark:bg-gray-50 dark:text-gray-800 px-2 text-center text-sm font-medium text-white">ksh: {event.price_Early_bird} Early Bird</span>
