@@ -38,7 +38,7 @@ const Coming_events = () => {
   }, [])
 
   return (
-    <div className='sm:border-l min-h-full'>
+    <div className='sm:border-l'>
       <div className="pt-4 pl-2">
         <h1 className="py-2 text-2xl font-semibold">Up-Coming Events</h1>
         <p>Explore up and Coming events you&apos;re supposed to attend.</p>
@@ -101,11 +101,11 @@ const Coming_events = () => {
 
       {/* on Large screen */}
       <div className="hidden sm:block mx-auto mt-8">
-        <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-screen px-4 sm:px-6 lg:px-8">
           <div className="mt-8">
-            <ul className="space-y-6">
-              {events.map((event, index) => (
-                <li key={index} className="flex items-center  p-2 gap-4">
+          {events.map((event, index) => (
+            <ul key={index} className="space-y-6">
+                <li className="flex items-center  p-2 gap-4">
                   <img
                     src={event.poster}
                     alt=""
@@ -158,8 +158,8 @@ const Coming_events = () => {
                     </Tooltip>
                   </div>
                 </li>
-              ))}
             </ul>
+            ))}
           </div>
         </div>
       </div>

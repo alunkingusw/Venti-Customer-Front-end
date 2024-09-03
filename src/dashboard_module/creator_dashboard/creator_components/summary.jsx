@@ -72,7 +72,7 @@ const Summary = () => {
                         </dl>
                     </div>
                 </div>
-                <div className="mt-6 overflow-hidden rounded-xl px-6 lg:px-4">
+                <div className="mt-6 overflow-auto rounded-xl px-6 lg:px-4">
                     <Line options={options} data={data} />
                 </div>
 

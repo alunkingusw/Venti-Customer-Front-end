@@ -36,5 +36,8 @@ const EndPoints = {
         update_event: (id, data) => Put(`/event/update/${id}`, data),
         delete_event: (id) => Delete(`/event/delete/${id}`),
     },
+    tickects:{
+        purchase:(data)=>Post('/ticket/purchase-ticket', data),
+    },
 }
 export default EndPoints;

@@ -19,6 +19,7 @@ const Edit_event = () => {
             const { data } = await EndPoints.events.fetch_by_id(event_id)
             if (data.status == 200) {
                 setEvent(data.event)
+                reset(data.event);
             } else {
                 throw new Error(data.message || "An Error Occurred!")
             }
@@ -64,10 +65,13 @@ const Edit_event = () => {
         fetch_id(id)
     }, [id])
 
+    if (!event) {
+        return <div className='justify-center'>Loading...</div>;
+    }
 
     return (
         <div className='sm:border-l min-h-full'>
-            <button onClick={()=>window.history.back()} className='flex mt-6 sm:hidden'>
+            <button onClick={() => window.history.back()} className='flex mt-6 sm:hidden'>
                 <ArrowLeft /> Back
             </button>
             <div className="pt-4 pl-2">
@@ -198,7 +202,10 @@ const Edit_event = () => {
                         {...register("description", { required: "Event description is required" })} />
                     {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
                 </div>
+                <div className='space-x-4 flex'>
                 <button type="submit" className="text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+                <button onClick={()=>window.history.back()} className="hidden sm:block border font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center">Back</button>
+                </div>
             </form>
         </div>
     )

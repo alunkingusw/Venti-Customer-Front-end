@@ -70,7 +70,7 @@ const All_creator_events = () => {
 
                         <div className="flex flex-col gap-2 p-4">
                             <h2 className="text-xl font-bold ">
-                                <Link to={`/event/${event._id}`} className="transition duration-100 hover:text-rose-500 active:text-rose-600">{event.eventName}</Link>
+                                <Link to={`/creator/creator-book-event/${event._id}`} className="transition duration-100 hover:text-rose-500 active:text-rose-600">{event.eventName}</Link>
                             </h2>
 
                             <p className="text-gray-500 dark:text-gray-200">{event.description}</p>
@@ -88,7 +88,7 @@ const All_creator_events = () => {
                             </div>
 
                             <div>
-                                <Link to={`/event/${event._id}`} className="font-semibold text-rose-500 transition duration-100 hover:text-rose-600 active:text-rose-700">Book Event</Link>
+                                <Link to={`/creator/creator-book-event/${event._id}`} className="font-semibold text-rose-500 transition duration-100 hover:text-rose-600 active:text-rose-700">Book Event</Link>
                             </div>
                         </div>
                     </article>
