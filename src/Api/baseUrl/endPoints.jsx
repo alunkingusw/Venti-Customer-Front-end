@@ -12,6 +12,7 @@ const EndPoints = {
         resend_otp: (data) => Post('auth/resend-otp', data),
         forgot_password: (data) => Post('/auth/reset-pwd-otp', data),
         reset_password: (data) => Post('/auth/update-forgot-pwd', data),
+        delete_users:() => Delete('/auth/delete-user'),
     },
     Settings: {
         update_password: (data) => Put('/auth/update-password', data),

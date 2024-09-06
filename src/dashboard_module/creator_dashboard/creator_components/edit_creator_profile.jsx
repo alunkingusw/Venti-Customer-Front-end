@@ -2,12 +2,15 @@
 import React, { useState, useEffect } from 'react'
 import { IoIosArrowBack } from "react-icons/io";
 import { FaRegEye, FaRegEyeSlash, FaArrowLeft } from "react-icons/fa6";
-// import { FaArrowLeft } from "react-icons/fa6";
+import { RiAlertLine, RiAlertFill } from "react-icons/ri";
+import { X, AlertCircle } from 'lucide-react';
 import { IoPencil } from "react-icons/io5";
 import { ImCancelCircle } from "react-icons/im";
 import { Success, Error } from '../../../components/toasts';
 import EndPoints from '../../../Api/baseUrl/endPoints';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../providers/AuthProvider';
 
 const Edit_creator_profile = () => {
     const { register, handleSubmit, watch, formState: { touchedFields, isDirty, isValid, dirtyFields, isSubmitted, errors } } = useForm();
@@ -16,12 +19,15 @@ const Edit_creator_profile = () => {
     const [changeName, setChangeName] = useState(false);
     const [changePhone, setChangePhone] = useState(false);
     const [changeBio, setChangeBio] = useState(false)
+    const [deleteModal, setDeleteModal] = useState(false)
+    const navigate = useNavigate()
+    const {setUser} = useAuth()
 
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
 
-    const [user, setUser] = useState([]);
+    const [userData, setUserData] = useState([]);
     const [error, setError] = useState('');
 
     const fetch_user_data = async () => {
@@ -30,7 +36,7 @@ const Edit_creator_profile = () => {
             if (data.status != 200) {
                 throw new Error('An Error Occurred! Login to Again')
             }
-            setUser(data)
+            setUserData(data)
         } catch (error) {
             setError(error.response.data.error)
         }
@@ -86,9 +92,8 @@ const Edit_creator_profile = () => {
     const update_bio = async (values) => {
         try {
             const { data } = await EndPoints.profile.update_profile({
-                Bio: values.bio,
+                bio: values.bio,
             })
-
             if (data.status != 200) { throw Error('An Error occured! Logout and login again') }
             else {
                 Success(data.message)
@@ -148,6 +153,17 @@ const Edit_creator_profile = () => {
             Error(error.response.data.message)
         }
     }
+
+    const delete_account = async () => {
+        try {
+            const { data } = await EndPoints.Auth.delete_users()
+            Success(data.message)
+            setUser(null)
+            navigate('/')
+        } catch (error) {
+            Error(error.response.data.error)
+        }
+    }
     return (
         <div>
             <button
@@ -167,7 +183,7 @@ const Edit_creator_profile = () => {
                         <p className="py-2 text-xl font-semibold">Name</p>
                         {!changeName ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className=""><strong>{user.username}</strong></p>
+                                <p className=""><strong>{userData.username}</strong></p>
                                 <button
                                     onClick={edit_name}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -183,7 +199,7 @@ const Edit_creator_profile = () => {
                                                 id="name"
                                                 type="text"
                                                 className="w-full rounded-lg dark:bg-transparent dark:text-white text-black border border-gray-700 p-2 pe-12 text-sm shadow-sm"
-                                                defaultValue={user.username}
+                                                defaultValue={userData.username}
                                                 {...register("name", {
                                                     required: "Profile name is required",
                                                 })}
@@ -210,7 +226,7 @@ const Edit_creator_profile = () => {
                         <p className="py-2 text-xl font-semibold">Bio</p>
                         {!changeBio ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className=""><strong>{user.bio || ''}</strong></p>
+                                <p className=""><strong>{userData.bio || ''}</strong></p>
                                 <button
                                     onClick={() => setChangeBio(true)}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -226,7 +242,7 @@ const Edit_creator_profile = () => {
                                                 id="bio"
                                                 type="text"
                                                 className="w-full rounded-lg dark:bg-transparent dark:text-white text-black border border-gray-700 p-2 pe-12 text-sm shadow-sm"
-                                                defaultValue={user.bio || ''}
+                                                defaultValue={userData.bio || ''}
                                                 {...register("bio", {
                                                     required: "Profile Bio is required",
                                                 })}
@@ -253,7 +269,7 @@ const Edit_creator_profile = () => {
                         <p className="py-2 text-xl font-semibold">Email Address</p>
                         {!changeEmail ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className=""><strong>{user.email}</strong></p>
+                                <p className=""><strong>{userData.email}</strong></p>
                                 <button
                                     onClick={edit_email}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -268,7 +284,7 @@ const Edit_creator_profile = () => {
                                         <input
                                             type="email"
                                             className="w-full rounded-lg border dark:bg-transparent dark:text-white text-black border-gray-700 p-2 pe-12 text-sm shadow-sm"
-                                            defaultValue={user.email}
+                                            defaultValue={userData.email}
                                             {...register("new_email", {
                                                 required: "Profile Email is required",
                                             })}
@@ -294,7 +310,7 @@ const Edit_creator_profile = () => {
                         <p className="py-2 text-xl font-semibold">Phone Number</p>
                         {!changePhone ? (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                <p className=""><strong>{user.phoneNumber}</strong></p>
+                                <p className=""><strong>{userData.phoneNumber}</strong></p>
                                 <button
                                     onClick={edit_phone}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
@@ -308,7 +324,7 @@ const Edit_creator_profile = () => {
                                         <input
                                             type="tel"
                                             className="w-full rounded-lg border dark:bg-transparent dark:text-white text-black font-medium border-gray-700 p-2 pe-12 text-sm shadow-sm"
-                                            defaultValue={user.phoneNumber}
+                                            defaultValue={userData.phoneNumber}
                                             {...register("phone", {
                                                 required: "Profile phone number is required",
                                             })}
@@ -444,14 +460,49 @@ const Edit_creator_profile = () => {
                         <div className="mb-10">
                             <p className="py-2 text-xl font-semibold">Delete Account</p>
                             <p className="inline-flex items-center rounded-full bg-rose-100 px-4 py-1 text-rose-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" />
-                                </svg>
+                                <RiAlertLine className="mr-2 h-5 w-5" />
                                 Proceed with caution
                             </p>
                             <p className="mt-2">Make sure you have taken backup of your account in case you ever need to get access to your data. We will completely wipe your data. There is no way to access your account after this action.</p>
-                            <button className="ml-auto text-sm font-semibold text-rose-600 underline decoration-2">Continue with deletion</button>
+                            <button onClick={() => setDeleteModal(true)} className="ml-auto text-sm font-semibold text-rose-600 underline decoration-2">Continue with deletion</button>
                         </div>
+                        {deleteModal && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                                <div className="w-full max-w-md p-6 mx-4 bg-white rounded-lg shadow-xl dark:bg-gray-800">
+                                    <div className="flex justify-end">
+                                        <button
+                                            onClick={() => setDeleteModal(false)}
+                                            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
+                                        >
+                                            <X size={24} />
+                                        </button>
+                                    </div>
+                                    <div className="mt-4 text-center">
+                                        <AlertCircle size={48} className="mx-auto text-red-500 dark:text-red-400" />
+                                        <h2 className="mt-4 text-xl font-semibold text-gray-800 dark:text-gray-100">
+                                            Confirm Deletion
+                                        </h2>
+                                        <p className="mt-2 text-gray-600 dark:text-gray-300">
+                                            Are you sure you want to delete this account? This action cannot be undone.
+                                        </p>
+                                    </div>
+                                    <div className="mt-6 flex justify-center space-x-4">
+                                        <button
+                                            onClick={delete_account}
+                                            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-colors duration-200"
+                                        >
+                                            Yes, delete it
+                                        </button>
+                                        <button
+                                            onClick={() => setDeleteModal(false)}
+                                            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 transition-colors duration-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

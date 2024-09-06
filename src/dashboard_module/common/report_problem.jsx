@@ -3,19 +3,25 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { MdArrowBackIosNew } from "react-icons/md";
 import { GoArrowLeft } from "react-icons/go";
+import { useForm } from 'react-hook-form';
 
 const Report_problem = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     const openForm = () => {
         setIsFormOpen(true);
     }
+    const onSubmit = async (values) => {
+        console.log(values)
+    }
+
     return (
         <div className='dark:bg-black min-h-screen dark:text-white'>
             <div className="relative mx-auto w-full px-5 py-16 sm:px-20 md:max-w-screen-lg lg:py-24">
-                <Link onClick={()=>window.history.back()}
-                className='flex m-5 items-center text-xl '>
-                    <GoArrowLeft className='h-6 w-6 '/>
+                <Link onClick={() => window.history.back()}
+                    className='flex m-5 items-center text-xl '>
+                    <GoArrowLeft className='h-6 w-6 ' />
                     <span><strong>Back</strong></span>
                 </Link>
                 <h2 className="mb-5 text-4xl text-center font-serif  sm:text-5xl">Have Questions? Checkout these FAQs</h2>
@@ -83,19 +89,40 @@ const Report_problem = () => {
                 {isFormOpen && (
                     <div className=" mx-auto overflow-hidden rounded-2xl">
                         <div className="space-y-4 px-8 py-10">
-                            <label className="block" htmlFor="name">
-                                <p className="text-gray-600">Name</p>
-                                <input className="w-full rounded-md border dark:bg-transparent bg-white px-2 py-2 outline-none ring-blue-600 focus:ring-1" type="text" placeholder="Enter your name" />
-                            </label>
-                            <label className="block" htmlFor="name">
-                                <p className="text-gray-600">Email Address</p>
-                                <input className="w-full rounded-md border dark:bg-transparent px-2 py-2 outline-none ring-blue-600 focus:ring-1" type="email" placeholder="Enter your email" />
-                            </label>
-                            <label className="block" htmlFor="name">
-                                <p className="text-gray-600">Message</p>
-                                <textarea className="h-32 w-full rounded-md border dark:bg-transparent bg-white px-2 py-2 outline-none ring-blue-600 focus:ring-1" type="text" placeholder="Write something."></textarea>
-                            </label>
-                            <button className="button mt-4 rounded-full font-semibold text-white">Submit</button>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <label className="block" htmlFor="email">
+                                    <p className="text-gray-600">Email Address</p>
+                                    <input
+                                        className="w-full rounded-md border dark:bg-transparent bg-white px-2 py-2 outline-none ring-blue-600 focus:ring-1"
+                                        {...register("email", { required: "Email is required" })}
+                                        type="email"
+                                        id="email"
+                                        placeholder="Enter your email"
+                                    />
+                                    {errors.email && <span className='text-red-500'>{errors.email.message}</span>}
+                                </label>
+
+                                <label className="block" htmlFor="Subject">
+                                    <p className="text-gray-600">Subject</p>
+                                    <input className="w-full rounded-md border dark:bg-transparent px-2 py-2 outline-none ring-blue-600 focus:ring-1"
+                                        {...register("subject", { required: "Subject is required" })}
+                                        type="text"
+                                        id='Subject'
+                                        placeholder="Enter Subject" />
+                                    {errors.subject && <span className='text-red-500'>{errors.subject.message}</span>}
+                                </label>
+
+                                <label className="block" htmlFor="Message">
+                                    <p className="text-gray-600">Message</p>
+                                    <textarea className="h-32 w-full rounded-md border dark:bg-transparent bg-white px-2 py-2 outline-none ring-blue-600 focus:ring-1"
+                                      {...register("message", { required: "Message is required" })}
+                                    type="text" 
+                                    id='Message' 
+                                    placeholder="Write something."></textarea>
+                                    {errors.message && <span className='text-red-500'>{errors.message.message}</span>}
+                                </label>
+                                <button className="button mt-4 rounded-full font-semibold text-white">Submit</button>
+                            </form>
                         </div>
                     </div>
                 )}
