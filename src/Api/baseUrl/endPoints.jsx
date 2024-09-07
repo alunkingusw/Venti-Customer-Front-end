@@ -28,6 +28,8 @@ const EndPoints = {
         fetch_all_posts: () => get('/post/'),
         like_post: (id) => Post(`/post/${id}/like`),
         comment_post: (id, data) => Post(`/post/${id}/comment`, data),
+        fetch_users_posts:()=>get('/post/userposts'),
+        delete:(id)=>Delete(`/post/${id}`),
     },
     events: {
         fetch_all_events: () => get('/event/all-events'),

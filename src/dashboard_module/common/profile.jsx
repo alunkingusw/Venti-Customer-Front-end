@@ -7,14 +7,18 @@ import { IoPencil } from "react-icons/io5";
 import { RiMailFill } from "react-icons/ri";
 import EndPoints from '../../Api/baseUrl/endPoints';
 import { Success, Error } from '../../components/toasts';
+import { Heart, MessageCircle, Trash2 } from 'lucide-react';
+
 
 const Profile = () => {
+    
     const [previewImage, setPreviewImage] = useState(null);
     const [currentDiv, setCurrentDiv] = useState('posts');
     const [divs, setDivs] = useState('profile');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState([]);
+    const [userposts, setUserPosts] = useState([])
 
     const fetch_user = async () => {
         try {
@@ -28,8 +32,22 @@ const Profile = () => {
         }
     }
 
+    const fetch_user_posts = async () => {
+        try {
+            const { data } = await EndPoints.posts.fetch_users_posts()
+            if (data.status == 200) {
+                setUserPosts(data.posts)
+            } else {
+                throw new Error
+            }
+        } catch (error) {
+            Error(error.response.data.error)
+        }
+    }
+
     useEffect(() => {
         fetch_user()
+        fetch_user_posts()
     }, [])
 
     const handleFileInputChange = async (event) => {
@@ -75,18 +93,32 @@ const Profile = () => {
     const handleClick = () => {
         document.getElementById('fileInput').click();
     };
+    const delete_post = async (id) => {
+        try {
+            const { data } = await EndPoints.posts.delete(id)
+            if (data.status == 200) {
+                Success(data.message)
+                fetch_user_posts()
+            } else {
+                throw new Error
+            }
+        } catch (error) {
+            Error(error.response.data.error)
+        }
+    }
+
     return (
         <>
-            <main className="h-[calc(100vh-10rem)] px-4 flex flex-col items-center">
+            <main className="h-full px-4 flex flex-col items-center">
                 {divs === 'profile' && (
                     <div className="relative flex flex-col w-full min-w-0 mb-6 break-words bg-clip-border rounded-2xl bg-light/30 draggable ">
                         <div className="px-9 pt-9 flex-auto min-h-[70px] pb-0 bg-transparent">
                             <div className="flex flex-wrap mb-6 xl:flex-nowrap items-center">
                                 <div className="mb-5 mr-5">
                                     <div className="relative inline-block shrink-0 rounded-2xl">
-                                        {user.profilePicture !=null ? (
+                                        {user.profilePicture != null ? (
                                             <img
-                                                className="inline-block shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
+                                                className="inline-block object-cover shrink-0 rounded-full w-[80px] h-[80px] lg:w-[160px] lg:h-[160px]"
                                                 src={user.profilePicture}
                                                 alt="Preview"
                                             />
@@ -148,14 +180,14 @@ const Profile = () => {
                                 </div>
                             </div>
                             <div className="pt-6 mx-6 mt-6 text-center border-t border-gray-200 dark:border-gray-700/50">
-                                    <div>
-                                        <div className="w-full px-6">
-                                            <p className="mb-4 font-light leading-relaxed text-gray-600 dark:text-gray-400">
-                                                {user.bio || ''}
-                                            </p>
-                                        </div>
+                                <div>
+                                    <div className="w-full px-6">
+                                        <p className="mb-4 font-light leading-relaxed text-gray-600 dark:text-gray-400">
+                                            {user.bio || ''}
+                                        </p>
                                     </div>
                                 </div>
+                            </div>
 
                             <hr className="w-full h-px border-neutral-200" />
                             <div className="hidden sm:flex group flex-wrap items-center justify-center text-[1.15rem] font-semibold list-none border-b-2 border-transparent border-solid">
@@ -167,16 +199,6 @@ const Profile = () => {
                                         className="py-5 mr-10 sm:mr-3 lg:mr-10 transition-colors duration-200 ease-in-out border-b-2 border-transparent group-[.active-summary]:border-primary group-[.active-summary]:text-primary text-muted hover:border-primary"
                                     >
                                         Posts
-                                    </span>
-                                </Link>
-                                <Link onClick={() => setCurrentDiv('saved')}
-                                    className="flex items-center mt-2 -mb-[2px]">
-                                    <FaWindowRestore className='mr-2' />
-                                    <span
-                                        aria-controls="assignments"
-                                        className="py-5 mr-1 sm:mr-3 lg:mr-10 transition-colors duration-200 ease-in-out border-b-2 border-transparent group-[.active-assignments]:border-primary group-[.active-assignments]:text-primary text-muted hover:border-primary"
-                                    >
-                                        Saved
                                     </span>
                                 </Link>
                             </div>
@@ -191,96 +213,47 @@ const Profile = () => {
                                         Posts
                                     </span>
                                 </Link>
-
-                                <Link onClick={() => setCurrentDiv('saved')}
-                                    className="flex items-center mt-2 -mb-[2px]">
-                                    <FaWindowRestore className='mr-2' />
-                                    <span aria-controls="assignments"
-                                        className="py-5 mr-1 sm:mr-3 lg:mr-10 transition-colors duration-200 ease-in-out border-b-2 border-transparent group-[.active-assignments]:border-primary group-[.active-assignments]:text-primary text-muted hover:border-primary">
-                                        Saved
-                                    </span>
-                                </Link>
                             </div>
                             <div>
-                                <hr className="w-full h-px border-neutral-200" />
+                                <hr className="w-full h-px border-neutral-200 mb-2" />
                                 {currentDiv === 'posts' && (
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                )}
-                                {currentDiv === 'saved' && (
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg" alt="" />
-                                        </div>
+                                        {userposts.map((post, index) => (
+                                            <div key={index} className="group relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105">
+                                                <img
+                                                    className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                                    src={post.imageUrl}
+                                                    alt={`Post ${index + 1}`}
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-0 transition-opacity duration-300 group-hover:opacity-70" />
+                                                <div className="absolute inset-0 flex flex-col justify-between p-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                                                    <div className="self-end">
+                                                        <button
+                                                            onClick={() => delete_post(post._id)}
+                                                            className="p-2 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors duration-300"
+                                                            aria-label="Delete post"
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
+                                                    <div>
+                                                        <div className="flex items-center space-x-4 text-white mb-2">
+                                                            <p className="flex items-center space-x-1">
+                                                                <Heart className="w-4 h-4" />
+                                                                <span>{post.likes.length}</span>
+                                                            </p>
+                                                            <p className="flex items-center space-x-1">
+                                                                <MessageCircle className="w-4 h-4" />
+                                                                <span>{post.comments.length}</span>
+                                                            </p>
+                                                        </div>
+                                                        <p className="text-sm text-white font-medium line-clamp-2">
+                                                            {post.caption}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 )}
                             </div>
