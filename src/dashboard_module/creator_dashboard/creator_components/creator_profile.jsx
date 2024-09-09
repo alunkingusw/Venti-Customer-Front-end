@@ -7,7 +7,7 @@ import { IoPencil } from "react-icons/io5";
 import { RiMailFill } from "react-icons/ri";
 import EndPoints from '../../../Api/baseUrl/endPoints';
 import { Success, Error } from '../../../components/toasts';
-import { Heart, MessageCircle, Trash2 } from 'lucide-react';
+import { Heart, MessageCircle, Trash2, Search } from 'lucide-react';
 
 const Creator_profile = () => {
     const [previewImage, setPreviewImage] = useState(null);
@@ -94,10 +94,10 @@ const Creator_profile = () => {
     const delete_post = async (id) => {
         try {
             const { data } = await EndPoints.posts.delete(id)
-            if(data.status == 200){
+            if (data.status == 200) {
                 Success(data.message)
                 fetch_user_posts()
-            }else{
+            } else {
                 throw new Error
             }
         } catch (error) {
@@ -224,60 +224,64 @@ const Creator_profile = () => {
                             <div>
                                 <hr className="w-full h-px border-neutral-200 mb-4" />
                                 {currentDiv === 'posts' && (
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                        {userposts.map((post, index) => (
-                                            <div key={index} className="group relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105">
-                                                <img
-                                                    className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                                                    src={post.imageUrl}
-                                                    alt={`Post ${index + 1}`}
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-0 transition-opacity duration-300 group-hover:opacity-70" />
-                                                <div className="absolute inset-0 flex flex-col justify-between p-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                                                    <div className="self-end">
-                                                        <button
-                                                        onClick={()=>delete_post(post._id)}
-                                                            className="p-2 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors duration-300"
-                                                            aria-label="Delete post"
-                                                        >
-                                                            <Trash2 className="w-4 h-4" />
-                                                        </button>
-                                                    </div>
-                                                    <div>
-                                                        <div className="flex items-center space-x-4 text-white mb-2">
-                                                            <p className="flex items-center space-x-1">
-                                                                <Heart className="w-4 h-4" />
-                                                                <span>{post.likes.length}</span>
-                                                            </p>
-                                                            <p className="flex items-center space-x-1">
-                                                                <MessageCircle className="w-4 h-4" />
-                                                                <span>{post.comments.length}</span>
-                                                            </p>
+                                    <>
+                                        {userposts.length === 0 ? (
+                                            <div className="w-full grid grid-cols-1 md:grid-cols-1 ">
+                                                <div className="flex items-center justify-center h-full my-12">
+                                                    <div className="flex flex-col items-center max-w-sm px-4 mx-auto text-center">
+                                                        <div className="p-4 mx-auto text-blue-500 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
+                                                            <Search className="w-8 h-8" />
                                                         </div>
-                                                        <p className="text-sm text-white font-medium line-clamp-2">
-                                                            {post.caption}
-                                                        </p>
+                                                        <h3 className="mt-6 text-2xl font-medium text-gray-800 dark:text-gray-200">No Posts Found</h3>
                                                     </div>
                                                 </div>
                                             </div>
-                                        ))}
-                                    </div>
+                                        ) : (
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                                {userposts.map((post, index) => (
+                                                    <div key={index} className="group relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105">
+                                                        <img
+                                                            className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                                            src={post.imageUrl}
+                                                            alt={`Post ${index + 1}`}
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-0 transition-opacity duration-300 group-hover:opacity-70" />
+                                                        <div className="absolute inset-0 flex flex-col justify-between p-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                                                            <div className="self-end">
+                                                                <button
+                                                                    onClick={() => delete_post(post._id)}
+                                                                    className="p-2 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors duration-300"
+                                                                    aria-label="Delete post"
+                                                                >
+                                                                    <Trash2 className="w-4 h-4" />
+                                                                </button>
+                                                            </div>
+                                                            <div>
+                                                                <div className="flex items-center space-x-4 text-white mb-2">
+                                                                    <p className="flex items-center space-x-1">
+                                                                        <Heart className="w-4 h-4" />
+                                                                        <span>{post.likes.length}</span>
+                                                                    </p>
+                                                                    <p className="flex items-center space-x-1">
+                                                                        <MessageCircle className="w-4 h-4" />
+                                                                        <span>{post.comments.length}</span>
+                                                                    </p>
+                                                                </div>
+                                                                <p className="text-sm text-white font-medium line-clamp-2">
+                                                                    {post.caption}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </>
                                 )}
                             </div>
                         </div>
                     </div>
                 )}
-                {/* {divs === 'edit_profile' && (
-            <div>
-                <button
-                    onClick={() => setDivs('profile')}
-                    className='flex items-center ml-0'>
-                    <IoIosArrowBack className='h-6 w-6' />
-                    <p className='font-bold hover:underline '>Back</p>
-                </button>
-                <Edit_profile />
-            </div>
-        )} */}
             </main>
         </>
     )
