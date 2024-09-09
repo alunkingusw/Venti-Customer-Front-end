@@ -30,6 +30,7 @@ const EndPoints = {
         comment_post: (id, data) => Post(`/post/${id}/comment`, data),
         fetch_users_posts:()=>get('/post/userposts'),
         delete:(id)=>Delete(`/post/${id}`),
+        fetch_post:(id)=>get(`/post/specific-post/${id}`),
     },
     events: {
         fetch_all_events: () => get('/event/all-events'),
