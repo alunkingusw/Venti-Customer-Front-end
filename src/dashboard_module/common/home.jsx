@@ -6,7 +6,7 @@ import { GoHeartFill } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { Error } from '../../components/toasts';
 import InputEmoji from 'react-input-emoji';
-import { CircleX, Heart, MessageCircle, ChevronLeft, Bookmark, Smile } from 'lucide-react';
+import { CircleX, Heart, MessageCircle, ChevronLeft, Bookmark, Smile, Link } from 'lucide-react';
 
 const Home = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -15,6 +15,7 @@ const Home = () => {
   const [comments, setComments] = useState([])
   const [posties, setPosties] = useState([])
   const [postUser, setPostUser] = useState([])
+  const [postLikes, setPostLikes] = useState([])
 
   const fetchPosts = useCallback(async () => {
     try {
@@ -75,6 +76,7 @@ const Home = () => {
         setComments(data.posts.comments)
         setPosties(data.posts)
         setPostUser(data.posts.user)
+        setPostLikes(data.posts.likes)
       }
     } catch (error) {
       Error(error.response.data.error)
@@ -102,7 +104,7 @@ const Home = () => {
                 <div className="flex space-x-4">
                   <button onClick={() => handleLike(post._id)}>
                     {isLiked(post)
-                      ? <FaHeart className="text-2xl cursor-pointer text-red-500" />
+                      ? <FaHeart GoHeartFill className="text-2xl cursor-pointer text-red-500" />
                       : <GoHeartFill className="text-2xl cursor-pointer text-red-500 hover:text-red-500" />
                     }
                   </button>
@@ -118,16 +120,13 @@ const Home = () => {
                 <span className="font-semibold mr-2">{post.user?.username || "Username"}</span>
                 {post.caption}
               </p>
-              <p className="text-gray-500 text-xs mb-2">View all {post.comments?.length || 0} comments</p>
+              <button onClick={() => view_comments(post._id)} className="text-gray-800 text-xs mb-2">View all {post.comments?.length || 0} comments</button>
               <p className="text-gray-400 text-xs uppercase">{formatDate(post.createdAt)}</p>
             </div>
             <div className="border-t border-gray-200 p-4 relative">
               <div className="flex items-center">
                 <InputEmoji
                   background='transparent'
-                  color={
-                    '#fff'
-                  }
                   theme="auto"
                   className="input-emoji dark:bg-transparent"
                   value={textAreaContent}
@@ -143,7 +142,7 @@ const Home = () => {
 
       {commentModal && (
         <div className="fixed inset-0 z-[1055] flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none bg-black/50">
-          <div className="relative w-full max-w-6xl max-h-[90vh] mx-4">
+          <div className="relative w-full max-w-6xl max-h-[94vh] mx-4">
             <div className="relative rounded-lg bg-white shadow-lg dark:bg-gray-800">
               <button type="button" onClick={() => setCommentModal(false)} className="absolute top-4 right-4  hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none">
                 <CircleX className="w-6 h-6 font-bold" />
@@ -156,23 +155,33 @@ const Home = () => {
                   </div>
                   <div className="w-1/2 flex flex-col">
                     <div className="flex items-center p-4 border-b border-gray-200 dark:border-gray-700">
-                      <img src={postUser.profilePicture} alt="" className="w-10 h-10 rounded-full mr-3" />
+                      <img src={postUser.profilePicture} alt="" className="w-10 h-10 object-cover rounded-full mr-3" />
                       <span className="font-medium text-gray-800 dark:text-gray-200">{postUser.username}</span>
                     </div>
-                    <div className="flex pl-4">
-                      <img src={postUser.profilePicture} className="w-10 h-10 rounded-full mr-3" />
-                      <div>
-                        <span className="font-medium text-gray-800 dark:text-gray-200">{postUser.username}</span>
-                        <p className="text-gray-600 dark:text-gray-400">{posties.caption}</p>
+                    <div className="flex-shrink-0">
+                      <div className="flex pl-4 py-4">
+                        <img src={postUser.profilePicture} alt={`${postUser.username}'s profile`} className="w-10 h-10 object-cover rounded-full mr-3 flex-shrink-0" />
+                        <div className="flex-grow overflow-hidden">
+                          <span className="font-medium text-gray-800 dark:text-gray-200 block">{postUser.username}</span>
+                          <p className="text-gray-600 dark:text-gray-400 break-words">{posties.caption}</p>
+                        </div>
                       </div>
                     </div>
                     <div className="flex-1 overflow-y-auto p-4 space-y-4">
                       {comments.map((comment, index) => (
                         <div key={index} className="flex">
-                          <img src={comment.user.profilePicture} alt="" className="w-10 h-10 rounded-full mr-3" />
-                          <div>
-                            <span className="font-medium text-gray-800 dark:text-gray-200">{comment.user.username}</span>
-                            <p className="text-gray-600 dark:text-gray-400">{comment.text}</p>
+                          <img
+                            src={comment.user.profilePicture}
+                            alt={`${comment.user.username}'s profile`}
+                            className="w-10 h-10 object-cover rounded-full mr-3 flex-shrink-0"
+                          />
+                          <div className="flex-grow overflow-hidden">
+                            <span className="font-medium text-gray-800 dark:text-gray-200 block">
+                              {comment.user.username}
+                            </span>
+                            <p className="text-gray-600 dark:text-gray-400 break-words">
+                              {comment.text}
+                            </p>
                           </div>
                         </div>
                       ))}
@@ -180,7 +189,7 @@ const Home = () => {
                     <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex justify-between mb-4">
                         <div className="flex space-x-4">
-                          <button className="text-gray-800 dark:text-white hover:text-red-500">
+                          <button onClick={() => handleLike(posties._id)} className="text-gray-800 dark:text-white focus:text-red-500 hover:text-red-500">
                             <Heart size={24} />
                           </button>
                           <button className="text-gray-800 dark:text-white">
@@ -188,22 +197,22 @@ const Home = () => {
                           </button>
                         </div>
                       </div>
-                      <p className="font-semibold text-sm text-gray-900 dark:text-white mb-2">1200 likes</p>
+                      <p className="font-semibold text-sm text-gray-900 dark:text-white mb-2">{postLikes.length} likes</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 uppercase mb-4">{new Date(posties.createdAt).toDateString()}</p>
                     </div>
 
                     <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex items-center space-x-3">
-                        {/* <Smile size={24} className="text-gray-400" /> */}
-                        <input
-                          type="text"
+                        <InputEmoji
+                          background='transparent'
+                          border="none"
+                          theme="auto"
+                          className="input-emoji"
+                          value={textAreaContent}
+                          onChange={setTextAreaContent}
                           placeholder="Add a comment..."
-                          className="flex-1 bg-transparent text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none"
                         />
-                        <button
-                          className={`font-semibold text-blue-500 hover:text-blue-600`}>
-                          Post
-                        </button>
+                        <button type="button" onClick={() => handleComments(posties._id)} className="text-blue-500 font-semibold text-sm ml-2">Post</button>
                       </div>
                     </div>
 
@@ -214,7 +223,7 @@ const Home = () => {
               <div className="sm:hidden">
                 <div className="fixed inset-0 bg-white dark:bg-black flex flex-col">
                   <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700 flex items-center">
-                    <button onClick={()=>setCommentModal(false)} className="text-gray-600 dark:text-gray-400">
+                    <button onClick={() => setCommentModal(false)} className="text-gray-600 dark:text-gray-400">
                       <ChevronLeft size={24} />
                     </button>
                     <span className="font-bold text-gray-800 dark:text-gray-200 flex-grow text-center">
@@ -222,7 +231,7 @@ const Home = () => {
                     </span>
                   </div>
                   <div className='flex p-4'>
-                    <img src={postUser.profilePicture} className="w-10 h-10 rounded-full mr-3" />
+                    <img src={postUser.profilePicture} className="w-10 h-10 rounded-full mr-3 object-cover flex-shrink-0" />
                     <div className="flex-grow">
                       <span className="font-medium text-gray-800 dark:text-gray-200">{postUser.username}</span>
                       <p className="text-gray-600 dark:text-gray-400 break-words">{posties.caption}</p>
@@ -232,7 +241,7 @@ const Home = () => {
                   <div className="flex-grow overflow-y-auto p-4 space-y-4">
                     {comments.map((comment, index) => (
                       <div key={index} className="flex items-start">
-                        <img src={comment.user.profilePicture} alt="" className="w-10 h-10 rounded-full mr-3 flex-shrink-0" />
+                        <img src={comment.user.profilePicture} alt="" className="w-10 h-10 rounded-full mr-3 object-cover flex-shrink-0" />
                         <div className="flex-grow">
                           <span className="font-medium text-gray-800 dark:text-gray-200">{comment.user.username}</span>
                           <p className="text-gray-600 dark:text-gray-400 break-words">{comment.text}</p>
@@ -245,7 +254,7 @@ const Home = () => {
                     <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex justify-between mb-4">
                         <div className="flex space-x-4">
-                          <button className="text-gray-800 dark:text-white hover:text-red-500">
+                          <button onClick={() => handleLike(posties._id)} className="text-gray-800 dark:text-white focus:text-red-500 dark:focus:text-red-500 hover:text-red-500 dark:hover:text-red-500">
                             <Heart size={24} />
                           </button>
                           <button className="text-gray-800 dark:text-white">
@@ -253,20 +262,22 @@ const Home = () => {
                           </button>
                         </div>
                       </div>
-                      <p className="font-semibold text-sm mb-2">1,234 likes</p>
-                      <p className="text-xs uppercase mb-4">2 days ago</p>
+                      <p className="font-semibold text-sm mb-2">{postLikes.length} likes</p>
+                      <p className="text-xs text-gray-500 uppercase mb-4">{new Date(posties.createdAt).toDateString()}</p>
                     </div>
 
                     <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex items-center space-x-3">
-                        <input
-                          type="text"
+                        <InputEmoji
+                          background='transparent'
+                          border="none"
+                          theme="auto"
+                          className="input-emoji"
+                          value={textAreaContent}
+                          onChange={setTextAreaContent}
                           placeholder="Add a comment..."
-                          className="flex-1 bg-transparent text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none"
                         />
-                        <button className="font-semibold text-blue-500 hover:text-blue-600">
-                          Post
-                        </button>
+                        <button type="button" onClick={() => handleComments(posties._id)} className="text-blue-500 font-semibold text-sm ml-2">Post</button>
                       </div>
                     </div>
                   </div>
