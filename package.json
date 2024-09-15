@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@blackbox-vision/use-torch-light": "^0.0.2",
     "@headlessui/react": "^0.2.0-95c8cc7",
     "@remixicon/react": "^4.2.0",
     "chart.js": "^4.4.4",
