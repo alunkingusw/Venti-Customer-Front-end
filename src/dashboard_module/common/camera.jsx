@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Webcam from "react-webcam";
 import React, { useCallback, useRef, useState } from "react";
-import { Check, X, Aperture, RotateCcw, RefreshCcw, Phone, Pencil, CircleUserRound, Grid2X2 } from 'lucide-react';
+import { Check, X, Aperture, RotateCcw, RefreshCcw } from 'lucide-react';
 
 const Camera = ({ closeCamera }) => {
     const webcamRef = useRef(null);
