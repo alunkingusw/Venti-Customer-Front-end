@@ -2,7 +2,7 @@
 import Webcam from "react-webcam";
 import React, { useCallback, useRef, useState } from "react";
 import { FaCamera, FaUndo, FaSync } from 'react-icons/fa';
-import { Check, X, Trash2, Search, Mail, Phone, Pencil, CircleUserRound, Grid2X2 } from 'lucide-react';
+import { Check, X, Aperture, RotateCcw, RefreshCcw, Phone, Pencil, CircleUserRound, Grid2X2 } from 'lucide-react';
 
 const Camera = ({ closeCamera }) => {
     const webcamRef = useRef(null);
@@ -10,6 +10,8 @@ const Camera = ({ closeCamera }) => {
     const [mirrored, setMirrored] = useState(true);
     const [currentDiv, setCurrentDiv] = useState('takeImage');
     const [facingMode, setFacingMode] = useState("user");
+    const streamRef = useRef(null);
+    const [torchOn, setTorchOn] = useState(false);
 
     const videoConstraints = {
         aspectRatio: 4 / 3,
@@ -28,6 +30,27 @@ const Camera = ({ closeCamera }) => {
     const switchCamera = () => {
         setFacingMode(prevMode => prevMode === "user" ? "environment" : "user");
         setMirrored(prevMirrored => !prevMirrored);
+    };
+
+    const toggleTorch = async () => {
+        if (!streamRef.current) return;
+
+        const track = streamRef.current.getVideoTracks()[0];
+        const capabilities = track.getCapabilities();
+
+        if (!capabilities.torch) {
+            console.log('Torch not supported on this device');
+            return;
+        }
+
+        try {
+            await track.applyConstraints({
+                advanced: [{ torch: !torchOn }]
+            });
+            setTorchOn(!torchOn);
+        } catch (error) {
+            console.error('Error toggling torch:', error);
+        }
     };
 
 
@@ -65,7 +88,7 @@ const Camera = ({ closeCamera }) => {
                                     <button
                                         onClick={retake}
                                         className="p-4 text-black rounded-full border border-red-600 bg-gray-100 transition duration-300 flex items-center text-lg">
-                                        <FaUndo className="w-8 h-8" />
+                                        <RotateCcw className="w-8 h-8" />
                                     </button>
                                     <button className="p-4 text-white rounded-full border bg-rose-500 transition duration-300 flex items-center text-lg">
                                         <Check className="w-6 h-6" />
@@ -73,15 +96,18 @@ const Camera = ({ closeCamera }) => {
                                 </div>
                             ) : (
                                 <>
+                                    <button onClick={toggleTorch}>
+                                        {torchOn ? 'Turn Off Torch' : 'Turn On Torch'}
+                                    </button>
                                     <button
                                         onClick={capture}
                                         className="p-4 text-gray-800 border border-black bg-gray-100 rounded-full transition duration-300 flex items-center text-lg">
-                                        <FaCamera className="w-8 h-8" />
+                                        <Aperture className="w-8 h-8" />
                                     </button>
                                     <button
                                         onClick={switchCamera}
                                         className="text-white rounded-full transition duration-300 flex items-center text-lg">
-                                        <FaSync className="w-6 h-6" />
+                                        <RefreshCcw className="w-6 h-6" />
                                     </button>
                                 </>
                             )}
