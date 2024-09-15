@@ -4,7 +4,7 @@ import EndPoints from '../../../Api/baseUrl/endPoints';
 import { Success, Error } from '../../../components/toasts';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../../providers/AuthProvider';
-import { ArrowLeft, CloudUpload } from 'lucide-react';
+import { ArrowLeft, CloudUpload, X } from 'lucide-react';
 
 const Creator_uploads = () => {
     const { user } = useAuth();
@@ -184,7 +184,7 @@ const Creator_uploads = () => {
                                 </form>
                             </div>
 
-                            <div className="p-4 hidden sm:block w-1/4">
+                            <div className="p-4 hidden sm:block w-1/4 items-center">
                                 <ul className='list-disc'>
                                     <li className=" text-lg">
                                         Provide All the required data.
@@ -193,21 +193,43 @@ const Creator_uploads = () => {
                                         Images should be clear and all data can be seen.
                                     </li>
                                 </ul>
+
                                 {idFrontImagePreview &&
-                                    <div className="mt-8 p-2 h-40 w-40">
-                                        <img src={idFrontImagePreview} alt="ID Front Preview" />
+                                    <div className="mt-8 p-2 ">
+                                        <div className='relative'>
+                                            <img src={idFrontImagePreview} className='object-cover h-40 w-40' alt="ID Front Preview" />
+                                            <button
+                                            onClick={()=>setIdFrontImagePreview(null)}
+                                                className="absolute top-3 right-3 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">
+                                                <X className="w-6 h-6" />
+                                            </button>
+                                        </div>
                                         <div className="not-italic">ID/Passport Front</div>
                                     </div>
                                 }
                                 {idBackImagePreview &&
-                                    <div className="mt-8 p-2 h-40 w-40">
-                                        <img src={idBackImagePreview} alt="ID Back Preview" />
+                                    <div className="mt-8 p-2">
+                                        <div className='relative'>
+                                            <img src={idBackImagePreview} className='object-cover h-40 w-40' alt="ID Back Preview" />
+                                            <button
+                                            onClick={()=>setIdBackImagePreview(null)}
+                                                className="absolute top-3 right-3 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">
+                                                <X className="w-6 h-6" />
+                                            </button>
+                                        </div>
                                         <div className="not-italic">ID/Passport Back</div>
                                     </div>
                                 }
                                 {profileImagePreview &&
                                     <div className="mt-8 p-2 h-40 w-40">
-                                        <img src={profileImagePreview} alt="Face Image Preview" />
+                                        <div className='relative'>
+                                            <img src={profileImagePreview} className='object-cover h-40 w-40' alt="Face Image Preview" />
+                                            <button
+                                                onClick={()=>setProfileImagePreview(null)}
+                                                className="absolute top-3 right-3 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">
+                                                <X className="w-6 h-6" />
+                                            </button>
+                                        </div>
                                         <div className="not-italic">Face Image</div>
                                     </div>
                                 }
