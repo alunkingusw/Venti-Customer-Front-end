@@ -176,7 +176,7 @@ const Edit_profile = () => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-8 bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+                <div className="mt-8 bg-white dark:bg-gray-950 shadow-xl rounded-lg overflow-hidden">
                     <div className="px-4 py-5 sm:p-6">
                         <h2 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">Profile Settings</h2>
                         <hr className="mt-4 mb-8" />
