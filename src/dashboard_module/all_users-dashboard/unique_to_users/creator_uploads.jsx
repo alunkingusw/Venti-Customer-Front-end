@@ -1,13 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { IoCloudUploadOutline, IoArrowBack } from "react-icons/io5";
 import EndPoints from '../../../Api/baseUrl/endPoints';
 import { Success, Error } from '../../../components/toasts';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../../providers/AuthProvider';
-import { GoArrowLeft } from "react-icons/go";
-import { Grid2X2 } from 'lucide-react';
+import { ArrowLeft, CloudUpload } from 'lucide-react';
 
 const Creator_uploads = () => {
     const { user } = useAuth();
@@ -69,7 +66,7 @@ const Creator_uploads = () => {
                         <button
                             onClick={() => window.history.back()}
                             className="absolute left-0 flex space-x-2 text-white hover:text-blue-200 transition duration-300 ease-in-out">
-                            <GoArrowLeft className="h-5 w-5" />
+                            <ArrowLeft className="h-5 w-5" />
                             <span className="font-medium">Back</span>
                         </button>
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
@@ -126,7 +123,7 @@ const Creator_uploads = () => {
 
                                     <div className="flex items-center font-sans">
                                         <label className="cursor-pointer flex w-full max-w-lg flex-col items-center rounded-xl border-2 border-dashed p-6 text-center">
-                                            <IoCloudUploadOutline className="h-10 w-10 " />
+                                            <CloudUpload className="h-10 w-10 " />
                                             <h2 className="mt-4 text-xl font-medium text-gray-700 tracking-wide">ID/Passport Front Image</h2>
                                             <p className="mt-2 text-gray-500 tracking-wide">Upload or drag & drop your file PNG, JPG. </p>
                                             <input
@@ -146,7 +143,7 @@ const Creator_uploads = () => {
 
                                     <div className="flex items-center font-sans">
                                         <label className="cursor-pointer flex w-full max-w-lg flex-col items-center rounded-xl border-2 border-dashed p-6 text-center">
-                                            <IoCloudUploadOutline className="h-10 w-10 " />
+                                            <CloudUpload className="h-10 w-10 " />
                                             <h2 className="mt-4 text-xl font-medium text-gray-700 tracking-wide">ID/Passport Back Image</h2>
                                             <p className="mt-2 text-gray-500 tracking-wide">Upload or drag & drop your file PNG, JPG. </p>
                                             <input
@@ -164,7 +161,7 @@ const Creator_uploads = () => {
 
                                     <div className="flex items-center font-sans">
                                         <label className="cursor-pointer flex w-full max-w-lg flex-col items-center rounded-xl border-2 border-dashed p-6 text-center">
-                                            <IoCloudUploadOutline className="h-10 w-10 " />
+                                            <CloudUpload className="h-10 w-10 " />
                                             <h2 className="mt-4 text-xl font-medium text-gray-700 tracking-wide">Face Image</h2>
                                             <p className="mt-2 text-gray-500 tracking-wide">Upload or drag & drop your file PNG, JPG. </p>
                                             <input
