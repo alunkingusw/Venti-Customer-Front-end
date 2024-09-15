@@ -35,15 +35,17 @@ import Event_readmore from "./dashboard_module/all_users-dashboard/event/event_r
 import Events_layout from "./dashboard_module/all_users-dashboard/event/events_layout";
 import My_events from "./dashboard_module/all_users-dashboard/event/my_events";
 import Creator_uploads from "./dashboard_module/all_users-dashboard/unique_to_users/creator_uploads";
-
 import Edit_profile from "./dashboard_module/common/edit_profile";
 
 const USER_TYPE_USER = 0;
 
 const Routing = () => {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const type = user?.userType;
-  // console.log(type)
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Routes>
@@ -91,7 +93,8 @@ const Routing = () => {
       ) : (
         <Route path="/signin" element={<SigninForm />} />
       )}
-      <Route path="*" element={user ? <Navigate to="/" replace /> : <SigninForm />} />
+       <Route path="*" element={<SigninForm />} />
+      {/* <Route path="*" element={user ? <Navigate to="/" replace /> : <SigninForm />} /> */}
     </Routes>
   );
 };
