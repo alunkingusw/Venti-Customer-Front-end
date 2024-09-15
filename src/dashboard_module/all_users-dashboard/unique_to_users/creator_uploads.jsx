@@ -82,8 +82,8 @@ const Creator_uploads = () => {
             <div>
                 <div className="block p-4 shadow-lg dark:shadow-slate-800 rounded-lg items-center justify-center">
                     <div className="">
-                        <div className="flex w-3/4 sm:w-full">
-                            <div className="rounded-lg ">
+                        <div className="flex sm:w-3/4">
+                            <div className="rounded-lg p-8 ">
                                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                     <div>
                                         <label htmlFor="fullName">Full Name</label>
