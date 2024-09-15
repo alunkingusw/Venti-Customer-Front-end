@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import { X, AlertCircle, TriangleAlert, Pencil, CircleX, Eye, EyeOff, MoveLeft } from 'lucide-react';
+import { X, AlertCircle, TriangleAlert, Pencil, CircleX, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { Success, Error } from '../../components/toasts';
 import EndPoints from '../../Api/baseUrl/endPoints';
 import { useForm } from 'react-hook-form';
@@ -16,7 +16,7 @@ const Edit_profile = () => {
     const [changeBio, setChangeBio] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const navigate = useNavigate()
-    const {setUser} = useAuth()
+    const { setUser } = useAuth()
 
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -160,19 +160,25 @@ const Edit_profile = () => {
     }
     return (
         <div>
-            <button
-                onClick={() => window.history.back()}
-                className='flex items-center ml-3'>
-                <MoveLeft className='font-bold h-5 w-5' />
-                <p className='font-bold hover:underline '>Back</p>
-            </button>
             <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-4 xl:mx-auto">
-                <h1 className="border-b py-6 px-6 text-4xl font-semibold">Edit Profile</h1>
-                <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">
-                    <div className="col-span-8 overflow-hidden rounded-xl sm:px-8 ">
-                        <div className="pt-4">
-                            <h1 className="py-2 text-2xl font-semibold">Profile settings</h1>
+                <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
+                    <div className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+                        <div className="relative flex items-center justify-center">
+                            <button
+                                onClick={() => window.history.back()}
+                                className="absolute left-0 flex space-x-2 text-white hover:text-blue-200 transition duration-300 ease-in-out">
+                                <ArrowLeft className="h-5 w-5" />
+                                <span className="font-medium">Back</span>
+                            </button>
+                            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
+                                Edit Profile
+                            </h1>
                         </div>
+                    </div>
+                </div>
+                <div className="mt-8 bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden">
+                    <div className="px-4 py-5 sm:p-6">
+                        <h2 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">Profile Settings</h2>
                         <hr className="mt-4 mb-8" />
                         <p className="py-2 text-xl font-semibold">Name</p>
                         {!changeName ? (
@@ -181,7 +187,7 @@ const Edit_profile = () => {
                                 <button
                                     onClick={edit_name}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
-                                    <span><Pencil className='h-4 w-4'/></span>Edit</button>
+                                    <span><Pencil className='h-4 w-4' /></span>Edit</button>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit(update_name)}>
@@ -458,7 +464,7 @@ const Edit_profile = () => {
                                 Proceed with caution
                             </p>
                             <p className="mt-2">Make sure you have taken backup of your account in case you ever need to get access to your data. We will completely wipe your data. There is no way to access your account after this action.</p>
-                            <Link onClick={()=>setDeleteModal(true)} className="ml-auto cursor-pointer text-sm font-semibold text-rose-600 underline decoration-2">Continue with deletion</Link>
+                            <Link onClick={() => setDeleteModal(true)} className="ml-auto cursor-pointer text-sm font-semibold text-rose-600 underline decoration-2">Continue with deletion</Link>
                         </div>
                         {deleteModal && (
                             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
