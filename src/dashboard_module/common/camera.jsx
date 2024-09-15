@@ -1,18 +1,15 @@
 /* eslint-disable no-unused-vars */
 import Webcam from "react-webcam";
-import { useTorchLight } from '@blackbox-vision/use-torch-light';
 import React, { useCallback, useRef, useState } from "react";
 import { FaCamera, FaUndo, FaSync } from 'react-icons/fa';
 import { Check, X, Trash2, Search, Mail, Phone, Pencil, CircleUserRound, Grid2X2 } from 'lucide-react';
 
 const Camera = ({ closeCamera }) => {
     const webcamRef = useRef(null);
-    const streamRef = useRef(null);
     const [imgSrc, setImgSrc] = useState(null);
     const [mirrored, setMirrored] = useState(true);
     const [currentDiv, setCurrentDiv] = useState('takeImage');
     const [facingMode, setFacingMode] = useState("user");
-    const [on, toggle] = useTorchLight(streamRef.current);
 
     const videoConstraints = {
         aspectRatio: 4 / 3,
@@ -33,9 +30,6 @@ const Camera = ({ closeCamera }) => {
         setMirrored(prevMirrored => !prevMirrored);
     };
 
-    const setRef = ({ stream }) => {
-        streamRef.current = stream;
-      };
 
     return (
         <>
@@ -79,7 +73,6 @@ const Camera = ({ closeCamera }) => {
                                 </div>
                             ) : (
                                 <>
-                                 <button onClick={toggle}>{on ? 'Disable Torch' : 'Enable Torch'}</button>
                                     <button
                                         onClick={capture}
                                         className="p-4 text-gray-800 border border-black bg-gray-100 rounded-full transition duration-300 flex items-center text-lg">
