@@ -1,14 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import { IoIosArrowBack } from "react-icons/io";
-import { FaRegEye, FaRegEyeSlash, FaArrowLeftLong } from "react-icons/fa6";
-import { X, AlertCircle } from 'lucide-react';
-import { IoPencil } from "react-icons/io5";
-import { ImCancelCircle } from "react-icons/im";
+import { X, AlertCircle, TriangleAlert, Pencil, CircleX, Eye, EyeOff, MoveLeft } from 'lucide-react';
 import { Success, Error } from '../../components/toasts';
 import EndPoints from '../../Api/baseUrl/endPoints';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../providers/AuthProvider';
 
 const Edit_profile = () => {
@@ -167,7 +163,7 @@ const Edit_profile = () => {
             <button
                 onClick={() => window.history.back()}
                 className='flex items-center ml-3'>
-                <FaArrowLeftLong className='h-6 w-6' />
+                <MoveLeft className='font-bold h-5 w-5' />
                 <p className='font-bold hover:underline '>Back</p>
             </button>
             <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-4 xl:mx-auto">
@@ -185,7 +181,7 @@ const Edit_profile = () => {
                                 <button
                                     onClick={edit_name}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
-                                    <span><IoPencil /></span>Edit</button>
+                                    <span><Pencil className='h-4 w-4'/></span>Edit</button>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit(update_name)}>
@@ -212,7 +208,7 @@ const Edit_profile = () => {
                                         <button
                                             onClick={() => setChangeName(false)}
                                             className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
-                                            <ImCancelCircle className='mr-2' />
+                                            <CircleX className='mr-2' />
                                             Cancel
                                         </button>
                                     </div>
@@ -228,7 +224,7 @@ const Edit_profile = () => {
                                 <button
                                     onClick={() => setChangeBio(true)}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
-                                    <span><IoPencil /></span>Edit</button>
+                                    <span><Pencil className='h-4 w-4' /></span>Edit</button>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit(update_bio)}>
@@ -255,7 +251,7 @@ const Edit_profile = () => {
                                         <button
                                             onClick={() => setChangeBio(false)}
                                             className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
-                                            <ImCancelCircle className='mr-2' />
+                                            <CircleX className='mr-2' />
                                             Cancel
                                         </button>
                                     </div>
@@ -271,7 +267,7 @@ const Edit_profile = () => {
                                 <button
                                     onClick={edit_email}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
-                                    <span><IoPencil /></span>Edit</button>
+                                    <span><Pencil className='h-4 w-4' /></span>Edit</button>
                             </div>
                         ) : (
                             // <form onSubmit={handleSubmit(update_email)}>
@@ -297,7 +293,7 @@ const Edit_profile = () => {
                                     <button
                                         onClick={() => setChangeEmail(false)}
                                         className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
-                                        <ImCancelCircle className='mr-2' />
+                                        <CircleX className='mr-2' />
                                         Cancel
                                     </button>
                                 </div>
@@ -312,7 +308,7 @@ const Edit_profile = () => {
                                 <button
                                     onClick={edit_phone}
                                     className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
-                                    <span><IoPencil /></span>Edit</button>
+                                    <span><Pencil className='w-4 h-4' /></span>Edit</button>
                             </div>
                         ) : (
                             <div className="items-center space-y-3 ">
@@ -336,7 +332,7 @@ const Edit_profile = () => {
                                     <button
                                         onClick={() => setChangePhone(false)}
                                         className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
-                                        <ImCancelCircle className='mr-2' />
+                                        <CircleX className='mr-2' />
                                         Cancel
                                     </button>
                                 </div>
@@ -352,7 +348,7 @@ const Edit_profile = () => {
                                     <button
                                         onClick={edit_password}
                                         className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">
-                                        <span className=''><IoPencil /></span>Edit</button>
+                                        <span className=''><Pencil className='w-4 h-4' /></span>Edit</button>
                                 </div>
                             </>
                         ) : (
@@ -375,9 +371,9 @@ const Edit_profile = () => {
                                                     className="absolute inset-y-0 end-0 grid place-content-center px-4"
                                                 >
                                                     {showOldPassword ? (
-                                                        <FaRegEye className="text-gray-600" />
+                                                        <Eye className="text-gray-600 h-4 w-4" />
                                                     ) : (
-                                                        <FaRegEyeSlash className="text-gray-600" />
+                                                        <EyeOff className="text-gray-600 h-4 w-4" />
                                                     )}
                                                 </button>
                                             </div>
@@ -403,9 +399,9 @@ const Edit_profile = () => {
                                                     className="absolute inset-y-0 end-0 grid place-content-center px-4"
                                                 >
                                                     {showNewPassword ? (
-                                                        <FaRegEye className="text-gray-600" />
+                                                        <Eye className="text-gray-600 h-4 w-4" />
                                                     ) : (
-                                                        <FaRegEyeSlash className="text-gray-600" />
+                                                        <EyeOff className="text-gray-600 h-4 w-4" />
                                                     )}
                                                 </button>
                                             </div>
@@ -429,9 +425,9 @@ const Edit_profile = () => {
                                                     className="absolute inset-y-0 end-0 grid place-content-center px-4"
                                                 >
                                                     {showConfirmPassword ? (
-                                                        <FaRegEye className="text-gray-600" />
+                                                        <Eye className="text-gray-600 h-4 w-4" />
                                                     ) : (
-                                                        <FaRegEyeSlash className="text-gray-600" />
+                                                        <EyeOff className="text-gray-600 h-4 w-4" />
                                                     )}
                                                 </button>
                                             </div>
@@ -444,7 +440,7 @@ const Edit_profile = () => {
                                         <button
                                             onClick={() => close_edit_password()}
                                             className="border flex items-center text-red-500 space-x-2 px-2 rounded-lg dark:hover:bg-red-100 hover:bg-red-100">
-                                            <ImCancelCircle className='mr-2' />
+                                            <CircleX className='mr-2' />
                                             Cancel
                                         </button>
                                     </div>
@@ -458,13 +454,11 @@ const Edit_profile = () => {
                         <div className="mb-10">
                             <p className="py-2 text-xl font-semibold">Delete Account</p>
                             <p className="inline-flex items-center rounded-full bg-rose-100 px-4 py-1 text-rose-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" />
-                                </svg>
+                                <TriangleAlert className="mr-2 h-5 w-5" />
                                 Proceed with caution
                             </p>
                             <p className="mt-2">Make sure you have taken backup of your account in case you ever need to get access to your data. We will completely wipe your data. There is no way to access your account after this action.</p>
-                            <button onClick={()=>setDeleteModal(true)} className="ml-auto text-sm font-semibold text-rose-600 underline decoration-2">Continue with deletion</button>
+                            <Link onClick={()=>setDeleteModal(true)} className="ml-auto cursor-pointer text-sm font-semibold text-rose-600 underline decoration-2">Continue with deletion</Link>
                         </div>
                         {deleteModal && (
                             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
