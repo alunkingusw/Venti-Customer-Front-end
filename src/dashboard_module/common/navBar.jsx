@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../providers/AuthProvider';
 import { toggleDarkMode, loadTheme } from '../../utils/themeChanger';
-import { EllipsisVertical, Search, CircleUserRound, Mail, Bell, LogOut, BadgeAlert, Moon, Sun, SunMoon } from 'lucide-react';
+import { EllipsisVertical, Search, CircleUserRound, Mail, Settings, LogOut, BadgeAlert, Moon, Sun, SunMoon } from 'lucide-react';
 
 const NavBar = () => {
     const { user, setUser } = useAuth();
@@ -43,26 +43,26 @@ const NavBar = () => {
                                 <label htmlFor="dark" className="sm:hidden relative inline-flex ml-2 cursor-pointer items-center">
                                     <Search />
                                 </label>
-                                <Link
+                                <button
                                     onClick={() => setIsOpen((prev) => !prev)}
-                                    className='sm:hidden text-gray-500 dark:text-gray-100 hover:text-blue-500 ml-6' ref={dropdownRef}>
+                                    className='sm:hidden text-gray-500 dark:text-gray-100 hover:text-blue-500 ml-6' >
                                     <EllipsisVertical className='h-6 w-6 font-extrabold text-lg' />
-                                </Link>
+                                </button>
                             </div>
-                            
+
                             {isOpen && (
-                                <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50">
+                                <div className="absolute right-5 mt-10 w-fit rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50" ref={dropdownRef}>
                                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                         <Link
-                                            to="#"
+                                            to="/settings-page"
                                             className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                                             role="menuitem"
                                         >
-                                            <Bell className="mr-3 h-5 w-5" />
+                                            <Settings className="mr-3 h-5 w-5" />
                                             Settings
                                         </Link>
                                         <Link
-                                            onClick={handleChange()}
+                                            onClick={handleChange}
                                             className="flex cursor-pointer w-full items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                                             role="menuitem"
                                         >
@@ -70,7 +70,7 @@ const NavBar = () => {
                                             Display  Mode
                                         </Link>
                                         <Link
-                                            to="#"
+                                            to="/report-a-problem"
                                             className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                                             role="menuitem"
                                         >
