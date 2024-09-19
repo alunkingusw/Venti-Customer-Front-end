@@ -203,7 +203,7 @@ const Home = () => {
                     <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex items-center space-x-3">
                         <InputEmoji
-                          // background='transparent'
+                          // background='gray'
                           border="none"
                           theme="auto"
                           className="input-emoji"
