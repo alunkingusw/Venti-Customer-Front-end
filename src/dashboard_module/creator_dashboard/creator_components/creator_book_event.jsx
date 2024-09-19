@@ -142,7 +142,7 @@ const Creator_book_event = () => {
                 <div className=" mb-8 lg:order-1 lg:mb-0 lg:w-1/4">
                     <img
                         loading='lazy'
-                        className="border-blue-600/10 border shadow-md max-w-[500px] h-auto"
+                        className="border-blue-600/10 border shadow-md max-w-[300px] h-auto"
                         src={event.poster}
                         alt={event.eventName}
                     />
