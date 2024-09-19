@@ -163,12 +163,11 @@ const Edit_profile = () => {
             <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-4 xl:mx-auto">
                 <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
                     <div className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-                        <div className="relative flex items-center justify-center">
+                        <div className="relative flex space-x-7 items-center justify-center">
                             <button
                                 onClick={() => window.history.back()}
                                 className="absolute left-0 flex space-x-2 text-white hover:text-blue-200 transition duration-300 ease-in-out">
-                                <ArrowLeft className="h-5 w-5" />
-                                <span className="font-medium">Back</span>
+                                <ArrowLeft className="h-8 w-8" />
                             </button>
                             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
                                 Edit Profile

@@ -66,7 +66,7 @@ const Creator_uploads = () => {
                         <button
                             onClick={() => window.history.back()}
                             className="relative left-0 flex space-x-2 text-white hover:text-blue-200 transition duration-300 ease-in-out">
-                            <ArrowLeft className="h-5 w-5" />
+                            <ArrowLeft className="h-8 w-8" />
                         </button>
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
                             Verify your account
