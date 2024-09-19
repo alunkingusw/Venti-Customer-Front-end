@@ -66,7 +66,7 @@ const SigninForm = () => {
               <div className="relative">
                 <input
                   type="text"
-                  className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  className="w-full rounded-lg border border-gray-200 bg-gray-100 p-4 pe-12 text-md shadow-sm"
                   placeholder="Enter email or phone number"
                   {...register("emailOrPhone", {
                     required: true
@@ -88,7 +88,7 @@ const SigninForm = () => {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  className="w-full rounded-lg border border-gray-200 bg-gray-100 p-4 pe-12 text-md shadow-sm"
                   placeholder="Enter password"
                   {...register("password", {
                     required: true,
