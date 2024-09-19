@@ -20,12 +20,6 @@ const Report_problem = () => {
         <div className='dark:bg-black min-h-screen dark:text-white'>
             <div className="relative mx-auto w-full px-5 py-16 sm:px-20 md:max-w-screen-lg lg:py-24">
                 <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
-                    {/* <button
-                        onClick={() => window.history.back()}
-                        className="sm:hidden left-0 flex space-x-2 text-white hover:text-blue-200 transition duration-300 ease-in-out">
-                        <GoArrowLeft className="h-5 w-5" />
-                        <span className="font-medium">Back</span>
-                    </button> */}
                     <div className="max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
 
                         <div className="relative flex space-x-7 items-center justify-center">
