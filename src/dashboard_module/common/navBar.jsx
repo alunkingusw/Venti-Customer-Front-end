@@ -33,8 +33,8 @@ const NavBar = () => {
         <div>
             <header className="relative flex flex-col items-center bg-red-20 px-4 py-4 sm:flex-row md:h-20">
                 <div className="flex w-full flex-col justify-between overflow-hidden transition-all sm:max-h-full sm:flex-row sm:items-center">
-                    {user !== null ? (
-                        <>
+                    {/* {user !== null ? ( */}
+                        {/* <> */}
                             <div className="relative ml-0 flex items-center justify-between rounded-md sm:ml-auto">
                                 <span className="sm:hidden h-10 w-full rounded-md dark:bg-transparent pr-4 outline-none focus:border-blue-500">
                                     <span className=" inline-flex text-white h-8 w-8 items-center justify-center rounded-full bg-red-600 align-bottom text-2xl font-bold">V</span>
@@ -101,10 +101,10 @@ const NavBar = () => {
                                     </button>
                                 </li>
                             </ul>
-                        </>
+                        {/* </>
                     ) : (
-                        <>
-                            <div className="relative ml-0 flex items-center justify-between rounded-md sm:ml-auto">
+                        <> */}
+                            {/* <div className="relative ml-0 flex items-center justify-between rounded-md sm:ml-auto">
                                 <span className="sm:hidden h-10 w-full rounded-md dark:bg-transparent pr-4 outline-none focus:border-blue-500">
                                     <span className=" inline-flex text-white h-8 w-8 items-center justify-center rounded-full bg-red-600 align-bottom text-2xl font-bold">V</span>
                                     <span className="text-xl">entie</span>
@@ -128,7 +128,7 @@ const NavBar = () => {
                                 </ul>
                             </div>
                         </>
-                    )}
+                    )} */}
                 </div>
             </header>
         </div>
